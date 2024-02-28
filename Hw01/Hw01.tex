@@ -4,6 +4,7 @@
 \usepackage{extramarks}
 \usepackage{amsmath}
 \usepackage{amsthm}
+\newtheorem{lemma}{Lemma}
 \usepackage{amsfonts}
 \usepackage{tikz}
 \usepackage[plain]{algorithm}
@@ -206,4 +207,93 @@
     \qedhere
 \end{proof}
 \end{homeworkProblem}
+\begin{homeworkProblem}
+    Let $\mathcal{M}$ be an infinite 
+    $\sigma$-algebra
+    \begin{enumerate}
+        \item $\mathcal{M}$ contains an infinite sequence 
+        of disjoint sets.
+        \item $\text{card}(\mathcal{M})\ge\aleph$.
+    \end{enumerate}
+\end{homeworkProblem}
+\begin{proof}
+    $(1)$. $\mathcal{M}$ be an infinite $\sigma$-algebra 
+    means that there exists at least $\aleph_{0}$ 
+    distinct non-empty sets 
+    $\{\mathcal{S}_{i}\}_{i=1}^{\infty}\subset\mathcal{M}$.
+    Unfortunately, $\{\mathcal{S}_{i}\}_{i=1}^{\infty}$ 
+    isn't a sequence of disjoint sets in general.
+    
+    So, we should check the following lemma:
+    \begin{lemma}
+        $\forall n\in\mathbb{N}$, 
+        if $\{\mathcal{S}_{i}\}_{i=1}^{n}\subset\mathcal{M}$ 
+        are distinct non-empty sets,
+        there exists a sequence of disjoint non-empty sets 
+        $\{\mathcal{T}_{i}\}_{i=1}^{n}$ 
+        such that $\mathcal{T}_{i}\in\mathcal{M}$, and 
+        $\cup_{i=1}^{n}\mathcal{T}_{i}=\cup_{i=1}^{n}\mathcal{S}_{i}$.
+    \end{lemma}
+    \begin{proof}
+        For $n=1$, 
+        just set $\mathcal{T}_{1}=\mathcal{S}_{1}$.
+        Assume the lemma holds for $n=k$, 
+        consider $\{\mathcal{S}_{i}\}_{i=1}^{k+1}$. 
+        By the assumption, 
+        there exists a sequence of disjoint non-empty sets 
+        $\{\tilde{\mathcal{S}}_{i}\}_{i=1}^{k}\subset\mathcal{M}$ 
+        such that $\cup_{i=1}^{k}\mathcal{S}_{i}
+        =\cup_{i=1}^{k}\tilde{\mathcal{S}}_{i}$. 
+        For $\mathcal{S}_{k+1}$, there are three distinct cases:
+        \begin{itemize}
+            \item $\exists i\le k$, 
+            $\mathcal{S}_{k+1}\subset\tilde{\mathcal{S}}_{i}$.
+            \item $\forall i\le k$, 
+            $\mathcal{S}_{k+1}\cap\tilde{\mathcal{S}}_{i}=\emptyset$.
+            \item Other cases.
+        \end{itemize}
+        For case 1, we choose 
+        $\mathcal{T}_{j}=\tilde{\mathcal{S}}_{j}$ 
+        for $j\le k$ and $j\neq i$, 
+        $\mathcal{T}_{i}=\tilde{\mathcal{S}}_{i}
+        \setminus\mathcal{S}_{k+1}$, 
+        $\mathcal{T}_{k+1}=\mathcal{S}_{k+1}$. 
+        For case 2, we choose 
+        $\mathcal{T}_{i}=\tilde{\mathcal{S}}_{i}$ for $i\le k$, 
+        $\mathcal{T}_{k+1}=\mathcal{S}_{k+1}$. 
+        For case 3, we choose 
+        $\mathcal{T}_{i}=\tilde{\mathcal{S}}_{i}$ for $i\le k$, 
+        $\mathcal{T}_{k+1}=\mathcal{S}_{k+1}\setminus
+        \left(\cup_{i=1}^{n}\tilde{\mathcal{S}}_{i}\right)$.
+        Then the sequence $\{\mathcal{T}\}_{i=1}^{n}$ 
+        satisfies the condition in Lemma1. 
+        By induction, we complete the proof.\qedhere
+    \end{proof}
+    The lemma means that $\forall n$, 
+    $\exists$ a sequence of distinct non-empty disjoint sets 
+    $\{\mathcal{T}_{i}\}_{i=1}^{n}$ 
+    such that $\mathcal{T}_{i}\in\mathcal{M}$. 
+    Then, $\{\mathcal{T}_{i}\}_{i=1}^{\infty}$ is just 
+    the sequence of disjoint sets.
+
+    (2) Choose the sequence 
+    $\{\mathcal{T}_{i}\}_{i=1}^{\infty}$ in (1), 
+    as $\{\mathcal{T}_{i}\}$ are non-empty disjoint sets, 
+    $\forall \mathcal{S}_{1},\mathcal{S}_{2}\subset\mathbb{N}$ 
+    and $\mathcal{S}_{1}\neq\mathcal{S}_{2}$, 
+    \begin{displaymath}
+        \left(\cup_{i\in\mathcal{S}_{1}}\mathcal{T}_{i}\right)
+        \neq
+        \left(\cup_{j\in\mathcal{S}_{2}}\mathcal{T}_{j}\right).
+    \end{displaymath}
+    And by the definition of $\sigma$-algebra, 
+    $\forall\mathcal{S}\subset\mathbb{N}$, 
+    $\cup_{i\in\mathcal{S}}\mathcal{T}_{i}\in\mathcal{M}$.
+    It means that:
+    \begin{displaymath}
+        \text{card}(\mathcal{M})\ge\text{card}
+        \left(2^{\mathbb{N}}\right)
+        =\aleph.
+    \end{displaymath}
+\end{proof}
 \end{document}
