@@ -328,55 +328,67 @@
     countable subsets of $\mathcal{E}$.
 \end{homeworkProblem}
 \begin{proof}
-    We complete this proof by two steps. Mark
+    We complete this proof by three steps. Mark
     \begin{displaymath}
         \tilde{\mathcal{M}}:=     
         \cup_{\mathcal{F}\subset\mathcal{E},|\mathcal{F}|=\aleph_{0}}
         \mathcal{M}(\mathcal{F}).
     \end{displaymath}
 
-    First, we show that 
-    \begin{equation}
-        \label{eq:Left}
-        \mathcal{M}\subset\tilde{\mathcal{M}}.
-    \end{equation}
-    If $\mathcal{S}\in\mathcal{M}$, 
-    i.e. $\exists\{\mathcal{S}_{i}\}_{i=1}^{\infty}\subset\mathcal{E}$ 
-    s.t. $\mathcal{S}=\cup_{i=1}^{\infty}\mathcal{S}_{i}$, 
-    choose $\mathcal{F}=\{\mathcal{S}_{i}\}_{i=1}^{\infty}$, 
-    we can see $\mathcal{S}\in\mathcal{M}(\mathcal{F})$.
-    So \eqref{eq:Left} is true.
-
-    Second, we show $\tilde{\mathcal{M}}$ 
+    First, we show $\tilde{\mathcal{M}}$ 
     is a $\sigma$-algebra. 
-    If so, as $\forall\mathcal{F}\subset\mathcal{E}$, 
-    $\mathcal{M}(\mathcal{F})\subset\mathcal{M}$, 
-    \begin{displaymath}
-        \tilde{\mathcal{M}}\subset\mathcal{M}.        
-    \end{displaymath}
     For the countable unions, 
     we choose 
-    $\{\mathcal{S}_{i}\}_{i=1}^{\infty}\subset\tilde{\mathcal{M}}$, 
-    i.e. $\exists$ countable sets $\mathcal{F}_{i}\subset\mathcal{E}$  
-    and $\{\tilde{\mathcal{S}}_{ij}\}_{j=1}^{\infty}
-    \subset\mathcal{F}_{i}$ such that 
-    $\mathcal{S}_{i}=\cup_{j=1}^{\infty}\tilde{\mathcal{S}}_{ij}$.
-    It means 
+    $\{\mathcal{S}_{i}\}_{i=1}^{\infty}\subset\tilde{\mathcal{M}}$. 
+    WLOG, assume $\mathcal{S}_{i}\in\mathcal{M}(\mathcal{F}_{i})$, 
+    where $\mathcal{F}_{i}\subset\mathcal{E}$ 
+    and $\text{card}(\mathcal{F}_{i})=\aleph_{0}$. 
+    Mark $\tilde{\mathcal{F}}=\cup_{j=1}^{\infty}\mathcal{F}_{j}$, 
+    as $\mathcal{F}_{i}\subset\tilde{\mathcal{F}}$, 
+    $\mathcal{S}_{i}\in\mathcal{M}(\mathcal{F}_{i})
+    \subset\mathcal{M}(\tilde{\mathcal{F}})$, 
+    i.e.
     \begin{displaymath}
-        \cup_{i=1}^{\infty}\mathcal{S}_{i}
-        =\cup_{i=1}^{\infty}\cup_{j=1}^{\infty}
-        \tilde{\mathcal{S}}_{ij}.
+        \cup_{i=1}^{\infty}\mathcal{S}_{i}\in\mathcal{M}
+        (\tilde{\mathcal{F}}).
     \end{displaymath}
-    As $\tilde{\mathcal{S}}_{ij}\in\mathcal{E}$, 
-    $\cup_{i=1}^{\infty}\mathcal{S}_{i}$ 
-    is a countable union of elements in $\mathcal{E}$. 
-    So $\cup_{i=1}^{\infty}\mathcal{S}_{i}\in\tilde{\mathcal{M}}$.
+    $\text{card}(\mathcal{F}_{i})=\aleph_{0}$ means 
+    $\text{card}(\tilde{\mathcal{F}})=\aleph_{0}$, 
+    i.e. $\mathcal{M}(\tilde{\mathcal{F}})\subset\tilde{\mathcal{M}}$, 
+    so $\cup_{i=1}^{n}\mathcal{S}_{i}\subset\tilde{\mathcal{M}}$.
 
     On the other hand, 
     $\tilde{\mathcal{M}}$ is closed under complement 
     as $\forall\mathcal{F}\subset\mathcal{E}$, 
     $\mathcal{M}(\mathcal{F})$ is closed under complement.
-    So $\mathcal{M}=\tilde{\mathcal{M}}$.\qedhere
+    So $\tilde{\mathcal{M}}$ is a $\sigma$-algebra.
+
+    Second, we show that $\tilde{\mathcal{M}}\subset\mathcal{M}$. 
+    As $\forall\mathcal{F}\subset\mathcal{E}$, 
+    $\mathcal{M}(\mathcal{F})\subset\mathcal{M}$, 
+    it's clear that 
+    \begin{displaymath}
+        \tilde{\mathcal{M}}=
+        \cup_{\mathcal{F}\subset\mathcal{E},|\mathcal{F}|=\aleph_{0}}
+        \mathcal{M}(\mathcal{F})\subset\mathcal{M}.
+    \end{displaymath}
+
+    Finally, we show $\mathcal{M}\subset\tilde{\mathcal{M}}$. 
+    As $\tilde{\mathcal{M}}$ be a $\sigma$-algebra, 
+    if $\mathcal{E}\subset\tilde{\mathcal{M}}$, 
+    we can see $\mathcal{M}=\mathcal{M}(\mathcal{E})
+    \subset\tilde{\mathcal{M}}$.
+
+    $\forall \mathcal{S}\in\mathcal{E}$, 
+    $\exists\mathcal{F}\subset\mathcal{E}, |\mathcal{F}|=\aleph_{0}$, 
+    s.t. $\mathcal{S}\in\mathcal{F}$, 
+    i.e.
+    \begin{displaymath} 
+    \mathcal{S}\in\mathcal{F}\subset
+    \mathcal{M}(\mathcal{F})\subset\tilde{\mathcal{M}}.
+    \end{displaymath}
+    So $\mathcal{E}\subset\tilde{\mathcal{M}}$, 
+    it means $\mathcal{M}\subset\tilde{\mathcal{M}}$.
 \end{proof}
 \begin{homeworkProblem}
     If $\mu_{1},\ldots,\mu_{n}$ are measures on $(X,\mathcal{M})$ 
