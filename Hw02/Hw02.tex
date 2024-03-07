@@ -1,0 +1,624 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\newtheorem{lemma}{Lemma}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass\ (\hmwkClassInstructor\ \hmwkClassTime): \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#2}
+\newcommand{\hmwkDueDate}{Mar 12, 2024}
+\newcommand{\hmwkClass}{Real Analysis}
+\newcommand{\hmwkClassTime}{Tuesday}
+\newcommand{\hmwkClassInstructor}{Professor Yakun Xi}
+\newcommand{\hmwkAuthorName}{\textbf{Shuang Hu}}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 10:00am}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor\ \hmwkClassTime}}
+    \vspace{3in}
+}
+
+\author{\hmwkAuthorName}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Alias for the Solution section header
+\newcommand{\solution}{\textbf{\large Solution}}
+\newcommand{\norm}[1]{\|#1\|}
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\newcommand{\supp}{\text{supp}}
+\newcommand{\Rn}{\mathbb{R}^{n}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\avg}[1]{\left\langle #1 \right\rangle}
+\newcommand{\difFrac}[2]{\frac{\dif #1}{\dif #2}}
+\newcommand{\pdfFrac}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\OFL}{\mathrm{OFL}}
+\newcommand{\UFL}{\mathrm{UFL}}
+\newcommand{\fl}{\mathrm{fl}}
+\newcommand{\Eabs}{E_{\mathrm{abs}}}
+\newcommand{\Erel}{E_{\mathrm{rel}}}
+\newcommand{\DR}{\mathcal{D}_{\widetilde{LN}}^{n}}
+\newcommand{\add}[2]{\sum_{#1=1}^{#2}}
+\newcommand{\innerprod}[2]{\left<#1,#2\right>}
+\newcommand{\Sc}{\mathcal{S}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\E}{\mathcal{E}}
+\newcommand{\cp}[1]{\cup_{#1=1}^{\infty}}
+\newcommand{\sm}[1]{\sum_{#1=1}^{\infty}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand\tbbint{{-\mkern -16mu\int}}
+\newcommand\tbint{{\mathchar '26\mkern -14mu\int}}
+\newcommand\dbbint{{-\mkern -19mu\int}}
+\newcommand\dbint{{\mathchar '26\mkern -18mu\int}}
+\newcommand\bint{
+{\mathchoice{\dbint}{\tbint}{\tbint}{\tbint}}
+}
+\newcommand\bbint{
+{\mathchoice{\dbbint}{\tbbint}{\tbbint}{\tbbint}}
+}
+\begin{document}
+\maketitle
+\pagebreak
+\begin{homeworkProblem}
+    Complete the proof of Theorem 1.9.
+\end{homeworkProblem}
+\begin{proof}
+    First, we show that $\bar{\mu}$ be a complete measure on 
+    $\bar{\mathcal{M}}$. We divide this proof in 
+    the following three steps.
+
+    First, $\forall\mathcal{S}\in\bar{\mathcal{M}}$, 
+    $\mathcal{S}$ can be divided to 
+    $\mathcal{S}=\mathcal{E}\cup\mathcal{F}$, 
+    where $\mathcal{E}\in\mathcal{M}$, $\mathcal{F}\subset N$
+    for $\mu(N)=0$.
+    By the definition of $\bar{\mu}$, 
+    $\bar{\mu}(\mathcal{S})=\mu(\mathcal{E})\ge 0$. 
+    So $\bar{\mu}:\bar{\mathcal{M}}\rightarrow [0,\infty]$.
+
+    Second, we show the additive. 
+    Choose $\{\mathcal{S}_{i}\}_{i=1}^{\infty}\subset\bar{\mathcal{M}}$ 
+    with disjoint sets $\mathcal{S}_{i}$, i.e. 
+    $\mathcal{S}_{i}=\mathcal{E}_{i}\cup\mathcal{F}_{i}$
+    and $\E_{i}\cap\F_{i}=\emptyset$, $\{\E_{i}\}$ disjoint, 
+    $\F_{i}\subset N_{i}$ with $\mu(N_{i})=0$. 
+    Then: 
+    \begin{displaymath}
+        \bar{\mu}\left(\cup_{i=1}^{\infty}\Sc_{i}\right)
+        =\bar{\mu}\left(\left(\cup_{i=1}^{\infty}\E_{i}\right)
+        \cup\left(\cup_{i=1}^{\infty}\F_{i}\right)\right).
+    \end{displaymath}
+    As $\F_{i}\subset N_{i}$ with $\mu(N_{i})=0$, 
+    $\cup_{i=1}^{\infty}\F_{i}\subset\cup_{i=1}^{\infty}N_{i}$
+    with $\mu(\cup_{i=1}^{\infty}N_{i})=0$.
+    So:
+    \begin{displaymath}
+        \bar{\mu}(\cup_{i=1}^{\infty}\Sc_{i})=\mu(\cp{i}\E_{i})
+        =\sum_{i=1}^{\infty}\mu(\E_{i})=\sm{i}\bar{\mu}(\E_{i}\cup\F_{i})
+        =\sm{i}\bar{\mu}(\Sc_{i}).
+    \end{displaymath}
+
+    Third, by the definition, $\bar{\mu}(\emptyset)=\mu(\emptyset)=0$. 
+    So $\bar{\mu}$ is a measure. And for $N$ s.t. $\bar{\mu}(N)=0$, 
+    i.e. $\exists \tilde{N}$ s.t. $N\subset\tilde{N}$, 
+    $\mu(\tilde{N})=0$, we have: $\forall \F\subset N$, 
+    $\F\subset\tilde{N}$, i.e. 
+    $\bar{\mu}(\F)=\bar{\mu}(\emptyset\cup\F)=0$. 
+    So $\bar{\mu}$ is complete.
+
+    Then we show the uniqueness. Assume $\tilde{\mu}$ is a complete 
+    measure on $\bar{\mathcal{M}}$, then:
+    \begin{displaymath}
+        \tilde{\mu}(\E)\le\tilde{\mu}(\E\cup\F)\le
+        \tilde{\mu}(\E)+\tilde{\mu}(\F).
+    \end{displaymath}
+    As $\forall\F\subset N$ s.t. $\mu(N)=0$, $\tilde{\mu}(\F)=0$, 
+    we can see $\tilde{\mu}(\E\cup\F)=\tilde{\mu}(\E)$, it means 
+    $\tilde{\mu}=\bar{\mu}$.\qedhere
+\end{proof}
+\begin{homeworkProblem}
+    A finitely additive measure $\mu$ is a measure iff it is 
+    continuous from below. If $\mu(X)<\infty$, $\mu$ is a measure 
+    iff it is continuous from above.
+\end{homeworkProblem}
+\begin{proof}
+    If $\mu$ is a measure, Theorem 1.8 shows the continuity from 
+    below, and the continuity from above in the case $\mu(X)<\infty$.
+    So it suffices to show the opposite direction.
+
+    If $\mu$ be finitely additive and continuous from below, 
+    choose disjoint sets $\{\E_{i}\}_{i=1}^{\infty}$, 
+    mark $\F_{i}:=\cup_{j=1}^{i}\E_{j}$, then 
+    \begin{displaymath}
+        \F_{1}\subset\F_{2}\subset\cdots\subset\F_{n}
+        \subset\cdots.
+    \end{displaymath}
+    $\mu$ is continuous from below, i.e. 
+    \begin{displaymath}
+        \mu(\cp{i}\E_{i})=\mu(\cp{i}\F_{i})
+        =\lim_{n\rightarrow\infty}\mu(\F_{n}).
+    \end{displaymath}
+    By the finitely additivity,
+    \begin{displaymath}
+        \lim_{n\rightarrow\infty}\mu(\F_{n})=\lim_{n\rightarrow\infty}
+        \sum_{i=1}^{n}\mu(\E_{i})
+        =\sm{i}\mu(\E_{i}).
+    \end{displaymath}
+    It means $\mu$ is additive.
+
+    If $\mu$ be finitely additive and continuous from above, 
+    $\mu(X)<\infty$, 
+    choose disjoint sets $\{\E_{i}\}_{i=1}^{\infty}$, 
+    $\F_{i}:=\cup_{j=1}^{i}\E_{i}$, then:
+    \begin{displaymath}
+        \F_{1}^{c}\supset\F_{2}^{c}\supset\cdots
+        \supset\F_{n}^{c}\supset\cdots,
+    \end{displaymath}
+    and $\mu(\F_{1}^{c})\le\mu(X)<\infty$. Then:
+    \begin{displaymath}
+        \mu(\cap_{i=1}^{\infty}\E_{i}^{c})
+        =\mu(\cap_{i=1}^{\infty}\F_{i}^{c})
+        =\lim_{n\rightarrow\infty}\mu(\F_{n}^{c})
+        =\mu(X)-\lim_{n\rightarrow\infty}\mu(\F_{n})=\mu(X)-\sm{n}\mu(\E_{n}).
+    \end{displaymath}
+    The second step is derived by the continuity from above, 
+    and the final step from the finitely additivity.
+
+    So:
+    \begin{displaymath}
+        \sm{n}\mu(\E_{n})=\mu(X)-\mu(\cap_{i=1}^{\infty}\F_{i}^{c})
+        =\mu((\cap_{i=1}^{\infty}\F_{i}^{c})^{c})
+        =\mu(\cp{i}\F_{i})=\mu(\cp{i}\E_{i}).
+    \end{displaymath}
+    It means $\mu$ is additive.
+\end{proof}
+\begin{homeworkProblem}
+    Every $\sigma$-finite measure is semifinite.
+\end{homeworkProblem}
+\begin{proof}
+    $\forall\E\subset\M$ and $\mu(\E)=\infty$, we should construct 
+    $\F\subset\E$ s.t. $0<\mu(\F)<\infty$.
+
+    As $\mu$ be $\sigma$-finite, 
+    $\exists\{\E_i\}_{i=1}^{\infty}\subset\M$ s.t. 
+    $\cp{i}\E_{i}=X$, $\mu(\E_{i})<\infty$, 
+    then $\E=\cp{i}(\E_{i}\cap\E)$.
+
+    Mark $\F_{i}:=\E_{i}\cap\E$, as $\mu(\E_{i})<\infty$, 
+    $\forall i$, $\mu(\F_{i})<\infty$. 
+    If $\forall i$, $\mu(\F_{i})=0$, as $\E=\cp{i}\F_{i}$, 
+    $\mu(\E)=0$, contradict!
+
+    So $\exists j\in\mathbb{N}$ s.t. $\mu(\F_{j})>0$, 
+    $\F_{j}\subset\E$ and $0<\mu(\F_{j})<\infty$.
+\end{proof}
+\begin{homeworkProblem}
+    If $\mu$ is a semifinite measure and $\mu(E)=\infty$, 
+    for any $C>0$ there exists $F\subset E$ 
+    with $C<\mu(F)<\infty$.
+\end{homeworkProblem}
+\begin{proof}
+    Proof by contradiction. 
+    Assume $\exists C_{0}>0$ s.t. $\forall F\subset E$ 
+    with $\mu(F)<\infty$, $\mu(F)<C_{0}$.
+    Mark 
+    \begin{displaymath}
+        \mathcal{F}:=\{F|F\subset E, \mu(F)<C_{0}\},
+    \end{displaymath}
+    $\F$ is an ordered set with relation $\subset$. 
+    By Zorn's Lemma, 
+    there exists a maximum element $\bar{F}$ in $\mathcal{F}$, 
+    and $\mu(\bar{F})<C_{0}$.
+    
+    As $\mu(E)=\infty$ and $\mu(\bar{F})<C_{0}$, 
+    $\mu(E\setminus\bar{F})=\infty$. 
+    $\mu$ be semifinite means 
+    $\exists \mathcal{S}\subset E\setminus\bar{F}$, 
+    $\mu(\mathcal{S})<\infty$.
+    So $\mu(\bar{F}\cup\mathcal{S})<C_{0}+\mu(\mathcal{S})<\infty$.
+
+    On the other hand, by assumption, 
+    $\mu(\bar{F}\cup\mathcal{S})<\infty$ means 
+    $\mu(\bar{F}\cup\mathcal{S})<C_{0}$, 
+    i.e. $\bar{F}\cup\mathcal{S}\in\F$. 
+    However, $\bar{F}$ is the maximum element in $\F$, 
+    this leads to a contradiction, Q.E.D.\qedhere
+\end{proof}
+\begin{homeworkProblem}
+    If $\mu^{*}$ is an outer measure on $X$ and 
+    $\{A_{j}\}_{1}^{\infty}$ is a sequence of 
+    disjoint $\mu^{*}$-measurable sets, then 
+    $\mu^{*}(E\cap(\cp{j}A_{j}))=\sm{j}\mu^{*}(E\cap A_{j})$ 
+    for any $E\subset X$.
+\end{homeworkProblem}
+\begin{proof}
+    By Caratheodory Theorem, $\mu^{*}$-measurable sets 
+    form a $\sigma$-algebra. 
+    Mark $B_{n}:=\cup_{j=1}^{n}A_{j}$, 
+    it suffices to show:
+    \begin{equation}
+        \label{eq:OuterMeasure}
+        \forall n\in\mathbb{N},
+        \;\mu^{*}(E\cap B_{n})
+        =\sum_{j=1}^{n}\mu^{*}(E\cap A_{j}).
+    \end{equation}
+    Proof by induction. For $n=1$, $B_{1}=A_{1}$, 
+    so \eqref{eq:OuterMeasure} holds. 
+    Assume \eqref{eq:OuterMeasure} holds for $n=k$, consider $n=k+1$. 
+
+    By the definition of $\mu^{*}$-measurable, 
+    \begin{equation}
+        \label{eq:Caratheodory}
+        \begin{aligned}
+            \mu^{*}(E)&=\mu^{*}(E\cap B_{n+1})
+            +\mu^{*}(E\cap B_{n+1}^{c})\\
+            &=\mu^{*}(E\cap B_{n+1})
+            +\mu^{*}(E\cap B_{n}^{c}\cap A_{n+1}^{c})\\
+            &=\mu^{*}(E\cap B_{n+1})+\mu^{*}(E\cap B_{n}^{c})
+            -\mu^{*}(E\cap B_{n}^{c}\cap A_{n+1})\\
+            &=\mu^{*}(E\cap B_{n+1})+\mu^{*}(E\cap B_{n}^{c})
+            -\mu^{*}(E\cap A_{n+1}),
+        \end{aligned}
+    \end{equation}
+    the final step from the fact that $\{A_{i}\}$ disjoint. 
+    By \eqref{eq:Caratheodory} and the assumption,
+    \begin{equation}
+        \label{eq:Caratheodory2}
+        \begin{aligned}
+            \mu^{*}(E\cap B_{n+1})
+            &=\mu^{*}(E)-\mu^{*}(E\cap B_{n}^{c})
+            +\mu^{*}(E\cap A_{n+1})\\
+            &=\mu^{*}(E\cap B_{n})+\mu^{*}(E\cap A_{n+1})\\
+            &=\sum_{j=1}^{n+1}\mu^{*}(E\cap A_{j}).
+        \end{aligned}
+    \end{equation}
+    So, by induction, \eqref{eq:OuterMeasure} 
+    holds for all $n\in\mathbb{N}$.
+
+    If $\forall n\in\mathbb{N}$, $\mu^{*}(E\cap B_{n})<\infty$, 
+    the proof is completed 
+    just by setting $n\rightarrow\infty$ in \eqref{eq:OuterMeasure}.
+    If $\exists$ $N_{0}\in\mathbb{N}$ s.t. 
+    $\mu^{*}(E\cap B_{N_{0}})=\infty$, 
+    as $B_{N_{0}}\subset\cp{i}A_{i}$, 
+    $\mu^{*}(E\cap(\cp{i}A_{i}))\ge\mu^{*}(E\cap B_{N_{0}})=\infty$, 
+    and $\sm{j}\mu^{*}(E\cap A_{j})\ge\sum_{j=1}^{N_{0}}(E\cap A_{j})
+    =\infty$. Now we complete the proof.\qedhere
+\end{proof}
+\begin{homeworkProblem}
+    Let $\mathcal{A}\subset\mathcal{P}(X)$ be an algebra, 
+    $\mathcal{A}_{\sigma}$ the collection of countable unions 
+    of sets in $\mathcal{A}$, and $\mathcal{A}_{\sigma\delta}$ 
+    the collection of countable intersections of sets in 
+    $\mathcal{A}_{\sigma}$. Let $\mu_{0}$ be a 
+    premeasure on $\mathcal{A}$ and $\mu^{*}$ 
+    the induced outer measure.
+    \begin{enumerate}
+        \item For any $E\subset X$ and $\epsilon>0$ 
+        there exists $A\in\mathcal{A}_{\sigma}$ with $E\subset A$ 
+        and $\mu^{*}(A)\le\mu^{*}(E)+\epsilon$.
+        \item If $\mu^{*}(E)<\infty$, then $E$ is $\mu^{*}$-measurable 
+        iff there exists $B\in\mathcal{A}_{\sigma\delta}$ 
+        with $E\subset B$ and $\mu^{*}(B\setminus E)=0$.
+        \item If $\mu_0$ is $\sigma$-finite, 
+        the restriction $\mu^{*}(E)<\infty$ in $(b)$ is superfluous.
+    \end{enumerate}
+\end{homeworkProblem}
+\begin{proof}
+    (1) If $\mu^{*}(E)=\infty$, 
+    just set $A=\cup_{\mathcal{S}\in\mathcal{A}}\mathcal{S}$. 
+    So we only need  to check the case $\mu^{*}(E)<\infty$.
+    By the definition of outer measure derived by premeasure,
+    \begin{displaymath}
+        \mu^{*}(E)=\inf_{(\cp{i}A_{i})\supset E}\sum\mu_{0}(A_{i}),
+    \end{displaymath} 
+    where $\{A_{i}\}$ are disjoint. 
+    It means that $\forall\epsilon>0$, 
+    $\exists\{A_{i}\}\subset\mathcal{A}$, 
+    s.t. $E\subset\cup_{i=1}^{\infty}A_{i}$ 
+    and $\mu^{*}(E)+\epsilon\ge\sum_{i=1}^{\infty}\mu_{0}(A_{i})$.
+    Set $A:=\cp{i}A_{i}$, we can see $A\in\mathcal{A}_{\sigma}$, 
+    and $\mu^{*}(A)=\sum_{i=1}^{\infty}\mu_{0}(A_{i})$. 
+    It completes the proof.\qed
+
+    (2) Before the proof, we introduce 
+    the following three lemmas first. 
+    \begin{lemma}
+        \label{lem:AsigmadeltaFormSA}
+        $\mathcal{A}_{\sigma\delta}$ is a $\sigma$-algebra 
+        generated by elements in $\mathcal{A}$.
+    \end{lemma}
+    \begin{proof}
+        By the definition of $\mathcal{A}_{\sigma\delta}$, we can see $\mathcal{A}\subset\mathcal{A}_{\sigma\delta}$ 
+        and $\mathcal{A}_{\sigma\delta}$ 
+        be closed under countable union. 
+        For complements, choose $A\in\mathcal{A}_{\sigma\delta}$, 
+        $\exists\{A_{ij}\}\subset\mathcal{A}$, s.t. 
+        \begin{displaymath}
+            A=\cap_{i=1}^{\infty}\cup_{j=1}^{\infty}A_{ij}.
+        \end{displaymath}
+        Then 
+        \begin{displaymath}
+            A^{c}=\cup_{i=1}^{\infty}\cap_{j=1}^{\infty}A_{ij}^{c}
+            =\cap_{j=1}^{\infty}\cup_{i=1}^{\infty}A_{ij}^{c}
+            \in \mathcal{A}_{\sigma\delta}.
+        \end{displaymath}
+        So $\mathcal{A}_{\sigma\delta}$ is a $\sigma$-algebra.
+        On the other hand, for a $\sigma$-algebra 
+        $\tilde{\mathcal{A}}\supset\mathcal{A}$,
+        $\sigma$-algebra is closed 
+        under countable unions and intersections, 
+        so $\mathcal{A}_{\sigma\delta}\subset\tilde{\mathcal{A}}$, 
+        i.e. $\mathcal{A}_{\sigma\delta}=\mathcal{M}(\mathcal{A})$.
+    \end{proof}
+    \begin{lemma}
+        \label{lem:AsdMS}
+        $\forall\mathcal{S}\in\mathcal{A}_{\sigma\delta}$, 
+        $\mathcal{S}$ is a $\mu^*$-measurable set.
+    \end{lemma}
+    \begin{proof}
+        By Caratheodory's Theorem, the $\mu^*$-measurable sets 
+        form a $\sigma$-algebra. 
+        On the other hand, by Proposition 1.13, 
+        $\forall$ $A\in\mathcal{A}$, $A$ is $\mu^*$-measurable.
+        Choose $\mathcal{T}:=\{\mathcal{S}:\mathcal{S}\text{ is }
+        \mu^*\text{-measurable}\}$, 
+        by Lemma \ref{lem:AsigmadeltaFormSA}, 
+        $\mathcal{A}_{\sigma\delta}\subset\mathcal{T}$. Q.E.D.
+    \end{proof}
+    \begin{lemma}
+        \label{lem:ZeroMeasurable}
+        $\mu^{*}(A)=0$ means $A$ is $\mu^{*}$-measurable.
+    \end{lemma}
+    \begin{proof}
+        It suffices to show that $\forall\mathcal{S}\in\mathcal{P}(X)$, 
+        $\mu^{*}(\mathcal{S})=\mu^{*}(S\cap A^{c})$. 
+        $\forall$ disjoint sets $\{\mathcal{A}_{i}\}\subset\mathcal{A}$ 
+        satisfies $\cup_{i=1}^{\infty}
+        \mathcal{A}_{i}\supset\mathcal{S}$, 
+        choose $\tilde{\mathcal{A}}_{i}:=\mathcal{A}_{i}\setminus A$, 
+        it means that 
+        $\cp{i}\tilde{\mathcal{A}}_{i}\supset\mathcal{S}\cap A^c$, 
+        and $\sm{i}\mu_{0}(\mathcal{A}_{i})
+        =\sm{i}\mu_{0}(\tilde{\mathcal{A}}_{i})$. 
+        It completes the proof.
+    \end{proof}
+    Now we continue the proof.
+
+    $"\Rightarrow"$: 
+    As $\mu^{*}(E)<\infty$, 
+    by $(1)$, we can choose a sequence of sets 
+    $A_{n}\in\mathcal{A}_{\sigma}$, s.t. 
+    \begin{itemize}
+        \item $E\subset A_{n}$.
+        \item $\mu^*(A_{n})\le\mu^{*}(E)+\frac{1}{n}$.
+    \end{itemize}
+    Choose $B:=\cap_{n=1}^{\infty}A_{n}$, 
+    it's clear that $B\in\mathcal{A}_{\sigma\delta}$, $E\subset B$. 
+    WLOG, we assume the sequence $\{A_{n}\}$ is decreasing. 
+    Then:
+    \begin{displaymath}
+        0\le\mu^{*}(B\setminus E)=\mu^{*}
+        (\cap_{n=1}^{\infty}A_{n}\setminus E)
+        =\lim_{n\rightarrow\infty}\mu^{*}(A_{n}\setminus E)
+        \le\lim_{n\rightarrow\infty}\frac{1}{n}
+        =0.
+    \end{displaymath}
+    It completes the proof.
+
+    $"\Leftarrow"$: Choose $F\in\mathcal{P}(X)$. 
+    By the monotony of $\mu^{*}$, 
+    \begin{displaymath}
+        \mu^{*}(F\cap E)+\mu^{*}(F\cap E^{c})\le \mu^{*}(F\cap B)
+        +\mu^{*}(F\cap E^c).
+    \end{displaymath}
+    By Lemma \ref{lem:AsdMS}, $B$ is $\mu^*$-measurable, i.e. 
+    $\mu^{*}(F)=\mu^{*}(F\cap B)+\mu^{*}(F\cap B^{c})$. 
+    So it suffices to show 
+    $\mu^{*}(F\cap E^{c})=\mu^{*}(F\cap B^{c})$. 
+    We have:
+    \begin{displaymath}
+        \begin{aligned}
+        \mu^{*}(F\cap B^c)&=\mu^{*}(F\cap E^{c}\cap(B\setminus E)^{c})\\
+        &=\mu^{*}(F\cap E^{c})+\mu^{*}(F\cap E^{c}\cap(B\setminus E))\\
+        &=\mu^{*}(F\cap E^{c}).
+        \end{aligned}
+    \end{displaymath}
+    The first step is from $B=E\cup B\setminus E$, 
+    The second from the fact that $\mu^{*}(B\setminus E)=0$ 
+    and Lemma \ref{lem:ZeroMeasurable}, 
+    and the third from the monotony of $\mu^{*}$.
+
+    This completes the proof.\qed
+    
+    (3) $\mu_{0}$ be $\sigma$-finite means 
+    $\exists\{A_{i}\}\subset\mathcal{A}$ s.t. 
+    \begin{itemize}
+        \item $X=\cp{i}A_{i}$.
+        \item $\mu_{0}(A_{i})<\infty$.
+    \end{itemize}
+
+    $"\Rightarrow"$: $E$ is $\mu^*$-measurable means 
+    $A_{i}\cap E$ is $\mu^*$-measurable. 
+    By $(2)$, $\exists B_{i}\in \mathcal{A}_{\sigma\delta}$ 
+    with $X_{i}\cap E\subset B_{i}$ 
+    and $\mu^{*}(B_{i}\setminus(X_{i}\cap E))=0$. 
+    Mark $B:=\cp{i}B_{i}$, it's clear that $E\subset\cp{i}B_{i}=B$ and 
+    \begin{displaymath}
+        \mu^{*}(B\setminus E)\le
+        \sm{i}\mu^{*}(B_{i}\setminus(X_{i}\cap E))
+        =0.
+    \end{displaymath}
+
+    $"\Leftarrow"$: $E\subset B$ means 
+    $A_{i}\cap E\subset A_{i}\cap B$, then 
+    \begin{displaymath}
+        \mu^{*}((A_{i}\cap B)\setminus(A_{i}\cap E))
+        \le\mu^{*}(B\cap E)=0.
+    \end{displaymath}
+    On the other hand, for $B\in\mathcal{A}_{\sigma\delta}$, 
+    $A_{i}\cap B\in \mathcal{A}_{\sigma\delta}$. 
+    By $(2)$, $X_{i}\cap E$ is $\mu^{*}$-measurable.
+    By Caratheodory's Theorem, 
+    $\cp{i}(X_{i}\cap E)=E$ is $\mu^{*}$-measurable.
+\end{proof}
+\begin{homeworkProblem}
+    Let $\mu^*$ be an outer measure on $X$ induced from a 
+    finite premeasure $\mu_{0}$. 
+    If $E\subset X$, define the \textbf{inner measure} of $E$ 
+    to be $\mu_{*}(E)=\mu_{0}(X)-\mu^{*}(E^{c})$. 
+    Then $E$ is $\mu^{*}$-measurable iff $\mu^{*}(E)=\mu_{*}(E)$. 
+\end{homeworkProblem}
+\begin{proof}
+    $"\Rightarrow"$: If $E$ is $\mu^{*}$-measurable 
+    and $\mu_0$ be finite, 
+    by Problem 6$(3)$, $\exists B\in\mathcal{A}_{\sigma\delta}$ 
+    s.t. $\mu^{*}(B\setminus E)=0$.
+
+    By Lemma \ref{lem:AsdMS}, $B$ is $\mu^{*}$-measurable, i.e. 
+    $\mu_{0}(X)=\mu^{*}(B)+\mu^{*}(B^{c})$. 
+    On the other hand, we have:
+    \begin{itemize}
+        \item $\mu^{*}(E)\le\mu^{*}(B)=\mu^{*}(E\cup(B\setminus E))
+        \le\mu^{*}(E)+\mu^{*}(B\setminus E)=\mu^{*}(E)$.
+        \item $\mu^{*}(B^{c})=\mu^{*}(E^{c}\cap(B\setminus E)^{c})
+        =\mu^{*}(E^{c})-\mu^{*}(E^{c}\cap(B\setminus E))
+        =\mu^{*}(E^{c})$,
+        this equality is derived from Lemma \ref{lem:ZeroMeasurable}.
+    \end{itemize}
+    So $\mu_{0}(X)=\mu^{*}(E)+\mu^{*}(E^{c})=\mu^{*}(E)+\mu_{*}(E)$.\qed
+
+    $"\Leftarrow"$: Since $\mu^{*}$ be finite, $\mu^{*}(E)<\infty$. 
+    Then by Problem 6(1), 
+    $\exists$ $\{A_{n}\}\subset\mathcal{A}_{\sigma}$ s.t. 
+    \begin{itemize}
+        \item $E\subset A_{n}$.
+        \item $\mu^{*}(A_{n})\le\mu^{*}(E)+\frac{1}{n}$.
+    \end{itemize}
+    Mark $B:=\cap_{n=1}^{\infty}A_{n}\in\mathcal{A}_{\sigma\delta}$, 
+    by Lemma \ref{lem:AsdMS}, $B$ is $\mu^{*}$-measurable 
+    and $E^{c}\supset B^{c}$, so:
+    \begin{displaymath}
+        \mu^{*}(E^{c})=\mu^{*}(E^{c}\cap B)+\mu^{*}(B^{c}).
+    \end{displaymath}
+    It means:
+    \begin{displaymath}
+        \begin{aligned}
+            \mu^{*}(B\setminus E)&=\mu_{0}(X)-\mu^{*}(E)-\mu^{*}(B^{c})\\
+            &\le\frac{1}{n}+\mu_{0}(X)-\mu^{*}(A_{n})-\mu^{*}(B^{c})\\
+            &\le\frac{1}{n}+\mu_{0}(X)-\mu^{*}(A_{n}\cup B^{c})\\
+            &=\frac{1}{n}.
+        \end{aligned}
+    \end{displaymath}
+    Choose $n\rightarrow\infty$, $\mu^{*}(B\setminus E)=0$. 
+    By Problem 6(3), $E$ is $\mu^{*}$-measurable.
+\end{proof}
+\end{document}
