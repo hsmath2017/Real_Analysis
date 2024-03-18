@@ -303,25 +303,78 @@
 
     Finally, we show $\nu$ be a measure on $\M_{E}$. 
     For disjoint sets $\{\Sc_{i}\}\subset\M_{E}$, 
-    i.e. $\Sc_{i}=A_{i}\cap E$ with $\{A_i\}$ disjoint, 
+    i.e. $\Sc_{i}=A_{i}\cap E$. Unfortunately, 
+    $\{A_{i}\}$ may not disjoint.
+    
+    Mark $B_{i}=\cp{j}{i}A_{j}$, 
+    set $\tilde{A}_{1}:=A_{1}$ and 
+    $\forall n\in\mathbb{N}$, $\tilde{A}_{n}:=A_{n}\cap B_{n-1}^{c}$, 
+    $\{\tilde{A}_{i}\}$ satisfies:
+    \begin{itemize}
+        \item $\{\tilde{A}_{i}\}$ are disjoint sets in $\M$.
+        \item $\tilde{A}_{i}\cap E=A_{i}\cap E$.
+        \item $\cp{i}{\infty}A_{i}=\cp{i}{\infty}\tilde{A}_{i}$.
+    \end{itemize}
+    For the first property, if $m<n$, 
     \begin{displaymath}
-        \nu(\cp{i}{\infty}\Sc_i)=
-        \nu((\cp{i}{\infty}A_i)\cap E)
-        =\mu(\cp{i}{\infty}A_i)
-        =\sm{i}{\infty}\mu(A_i)
-        =\sm{i}{\infty}\nu(\Sc_i).
-    \end{displaymath}  
-    And $\nu(\emptyset)=\mu(\emptyset)=0$, 
-    $\nu(A\cap E)=\mu(A)\ge 0$. 
-    So $\nu$ is a measure on $\M_{E}$.
+        \tilde{A}_{m}\cap\tilde{A}_{n}
+        =A_{m}\cap A_{n}\cap B_{m-1}^{c}\cap B_{n-1}^{c}
+        \subset A_{m}\cap(\cap_{i=1}^{n-1}A_{i}^{c})
+        =\emptyset,
+    \end{displaymath}
+    for the second property, 
+    \begin{displaymath}
+        \begin{array}{rl}
+        \tilde{A}_{i}\cap E&=A_{i}\cap E\cap B_{i-1}^{c}\\
+        &=A_{i}\cap E\cap (\cap_{j=1}^{i-1}A_{j}^{c}\cap E)\\
+        &=\mathcal{S}_{i}\cap(\cap_{j=1}^{i-1}(E\setminus \mathcal{S}_{j}))\\
+        &=\mathcal{S}_{i}=A_{i}\cap E.
+        \end{array}
+    \end{displaymath}
+    The fourth equality follows from 
+    $\forall j\neq i$, $\mathcal{S}_{j}\cap\mathcal{S}_{i}=\emptyset$. 
+
+    For the third property, proof by induction. For $n=1$, $A_{1}=\tilde{A}_{1}$.
+    Assume for $n=k$, $\cp{i}{k}A_{i}=\cp{i}{k}\tilde{A}_{i}$, 
+    then for $n=k+1$, 
+    \begin{displaymath}
+        \cp{i}{k+1}\tilde{A}_{i}
+        =\tilde{A}_{k+1}\cup\cp{i}{k}\tilde{A}_{i}
+        =\tilde{A}_{k+1}\cup B_{k}
+        =(A_{k+1}\cap B_{k}^{c})\cup B_{k}
+        =\cp{i}{k+1}A_{i}.
+    \end{displaymath}
+    So $\forall n\in\mathbb{N}$, 
+    $\cp{i}{n}A_{i}=\cp{i}{n}\tilde{A}_{i}$. 
+    Choose $n\rightarrow\infty$, 
+    $\cp{i}{\infty}A_{i}=\cp{i}{\infty}\tilde{A}_{i}$. 
+
+    Then:
+    \begin{displaymath}
+        \begin{array}{rl}
+            \nu(\cp{i}{\infty}\mathcal{S}_{i})&=
+            \nu((\cp{i}{\infty}A_{i})\cap E)\\
+            &=\nu((\cp{i}{\infty}\tilde{A}_{i})\cap E)\\
+            &=\mu(\cp{i}{\infty}\tilde{A}_{i})\\
+            &=\sm{i}{\infty}\mu(\tilde{A}_{i})\\
+            &=\sm{i}{\infty}\mu(A_{i})\\
+            &=\sm{i}{\infty}\nu(A_{i}\cap E)
+            =\sm{i}{\infty}\nu(\Sc_{i}).
+        \end{array}
+    \end{displaymath}
+    The second equality follows from property 3, 
+    the forth from property 1 and 
+    the fifth from property 2 and $(1)$. 
+    It means $\nu$ is additivity, 
+    i.e. $\nu$ is a measure on $\M_{E}$.
 \end{proof}
 \begin{homeworkProblem}
     Complete the proof of Theorem 1.19.
 \end{homeworkProblem}
 \begin{proof}
     Consider the case $\mu(E)=\infty$. 
-    Set $E_{n}:=\{x:n-1<|x|<n\}\cap E$, it's clear that 
-    $E=(\mathbb{Z}\cap E)\cup(\cp{n}{\infty}E_{n})$ 
+    Set $E_{n}:=[-n,n]\cap E$, it's clear that 
+    $E=\cp{n}{\infty}E_{n}$ 
     and $\mu(E_{n})<\infty$.
 
     $(a)\Rightarrow(c)$: For each $E_{n}$, 
@@ -333,55 +386,102 @@
     Then:
     \begin{displaymath}
         E=(\cp{n}{\infty}K_{n})\cup
-        (\cp{n}{\infty}Q_{n})\cup(E\cap\mathbb{Z}).
+        (\cp{n}{\infty}Q_{n}).
     \end{displaymath}
     By the definition of $F_{\sigma}$ set, 
     $K:=\cp{n}{\infty}K_{n}$ is a $F_{\sigma}$ set. 
-    And $\mu(\cp{n}{\infty}Q_{n}\cup(E\cap\mathbb{Z}))\le
-    \mu(\cp{n}{\infty}Q_{n})+\mu(\mathbb{Z})=0$.
+    And $\mu(\cp{n}{\infty}Q_{n})=0$.
     It means $\exists$ $F_{\sigma}$-set $K$ and $\mu(\Sc)=0$ s.t. 
     $E=K\cup\Sc$.
 
-    $(a)\Rightarrow(b)$: For each $E_{n}$, $\exists$ $G_{\delta}$-sets 
-    $V_{n}$ satisfies:
+    $(a)\Rightarrow(b)$: Because of $E\in\mathcal{M}_{\mu}$, 
+    $E^{c}\in\mathcal{M}_{\mu}$. 
+    By $(c)$, $\exists$ a $F_{\sigma}$ set $K$ satisfies:
     \begin{itemize}
-        \item $E_{n}\subset V_{n}$.
-        \item $V_{n}\subset \{x:n-1<|x|<n\}$ 
-        (if not so, just choose $V:=V_{n}\cap\{x:n-1<|x|<n\}$) 
-        to satisfy this condition. 
-        \item $E_{n}=V_{n}\setminus P_{n}$ with $\mu(P_{n})=0$. 
+        \item $K\subset E^{c}$,
+        \item $E^{c}=K\cup \mathcal{S}$ with $\mu(\mathcal{S})=0$.
     \end{itemize}
-    Then 
-    \begin{displaymath}
-        E=(\cp{n}{\infty}V_{n})\setminus(\cp{n}{\infty}P_{n})
-        \cup(E\cap\mathbb{Z}).
-    \end{displaymath}
-    First, $\mu(\cp{n}{\infty}P_{n})=0$. 
-    Then, we show $\cp{n}{\infty}V_{n}$ is a $G_{\delta}$-set.
+    Then $E=K^{c}\setminus \mathcal{S}$. 
+    As $K$ be a $F_{\sigma}$-set, 
+    $\exists$ closed sets $\mathcal{C}_{i}$ such that 
+    $K=\cp{i}{\infty}\mathcal{C}_{i}$. 
+    So $K^{c}=\cap_{i=1}^{\infty}\mathcal{C}_{i}^{c}$, i.e. 
+    $K^{c}$ is a $G_{\delta}$ set. 
+    It means that $(b)$ holds.
+\end{proof}
+\begin{homeworkProblem}
+    Prove Proposition 1.20.
+\end{homeworkProblem}
+\begin{proof}
+    As $E\in\M_{\mu}$, there exists 
+    a sequence of open intervals $(a_{j},b_{j})$ s.t. 
+    \begin{itemize}
+        \item $\cp{i}{\infty}(a_i,b_i)\supset E$.
+        \item $\sm{i}{\infty}\mu((a_i,b_i))<\mu(E)+\frac{\epsilon}{2}$.
+    \end{itemize}
+    By Theorem 1.18, $\exists$ a compact set $K\subset E$ 
+    s.t. $\mu(K)\ge\mu(E)-\frac{\epsilon}{2}$. 
+    As $K$ is compact, there exists a finite covering 
+    $\cp{i}{N}(a_{i},b_i)\supset K$.
 
-    As $V_{n}$ are $G_{\delta}$-sets, 
-    $\exists$ open sets $G_{n,j}\subset\{x:n-1<|x|<n\}$ s.t. 
-    $V_{n}\subset G_{n,j}$ and 
-    $\cap_{j=1}^{\infty}G_{n,j}=V_{n}$. 
-    Now 
+    Just set $A=\cp{i}{N}(a_i,b_i)$, 
+    i.e. $A$ is a finite union of open intervals. 
+    On one hand: 
     \begin{displaymath}
-        \cp{n}{\infty}V_{n}=\cp{n}{\infty}\cap_{j=1}^{\infty}G_{n,j}
-        =\cap_{j=1}^{\infty}\cp{n}{\infty}G_{n,j}.
+        \mu(A\setminus E)\le\mu((\cp{i}{\infty}(a_i,b_i))\setminus E)
+        \le\frac{\epsilon}{2},
     \end{displaymath}
-    The second equation holds for the fact that $\forall n_{1}\neq n_{2}$, 
-    $j_{1},j_{2}\in\mathbb{N}$, 
-    $G_{n_{1},j_{1}}\cap G_{n_2,j_2}=\emptyset$.
-    As $\cp{n}{\infty}G_{n,j}$ is open, $\cp{n}{\infty}V_{n}$ is a 
-    $G_{\delta}$-set,
-    i.e. $\exists$ open sets $O_{i}$ 
-    s.t. $\cp{n}{\infty}V_{n}=\cap_{i=1}^{\infty}O_{i}$.
+    on the other hand:
+    \begin{displaymath}
+        \mu(E\setminus A)\le\mu(E\setminus K)<\frac{\epsilon}{2}.
+    \end{displaymath}
+    So, $\mu(A\triangle E)<\epsilon$.
+\end{proof}
+\begin{homeworkProblem}
+    Let $F$ be increasing and right continuous, 
+    and let $\mu_{F}$ be the associated measure. 
+    Then $\mu_{F}(\{a\})=F(a)-F(a-)$, 
+    $\mu_{F}([a,b))=F(b-)-F(a-)$, 
+    $\mu_{F}([a,b])=F(b)-F(a-)$, 
+    and $\mu_{F}((a,b))=F(b-)-F(a)$.
+\end{homeworkProblem}
+\begin{proof}
+    First we show that $\mu_{F}(\{a\})=F(a)-F(a-)$.
+    By the definition of $\mu_{F}$, $\forall n\in\mathbb{N}$, 
+    $$\mu_{F}\left(\left(a-\frac{1}{n},a\right]\right)
+    =F(a)-F(a-\frac{1}{n}).$$
+    As $F:\mathbb{R}\rightarrow\mathbb{R}$, 
+    $F(a)-F(a-1)<\infty$, 
+    i.e. $\mu_{F}((a-1,a])<\infty$, 
+    And $\forall n>m$, $(a-\frac{1}{n},a]\subset(a-\frac{1}{m},a]$.
 
-    Then, for $\mu(E\cap \mathbb{Z})=0$, 
-    $\exists$ a sequence of open sets $U_{n}$ s.t. 
-    $\mu(U_{n})\le\frac{1}{n}$ and $E\cap Z\subset U_{n}$, i.e. 
-    $\cp{n}{\infty}V_{n}\cup(E\cap \mathbb{Z})
-    =\cap_{i=1}^{\infty}(O_{i}\cap U_{i})$, it is a $G_{\delta}$ 
-    set. 
-    So the result holds.
+    By the continuity from below, 
+    \begin{displaymath}
+        \mu_{F}(\{a\})=
+        \mu_{F}\left(\cap_{n=1}^{\infty}
+        \left(a-\frac{1}{n},a\right]\right)
+        =\lim_{n\rightarrow\infty}
+        \mu_{F}\left(\left(a-\frac{1}{n},a\right]\right)
+        =F(a)-\lim_{n\rightarrow\infty}F(a-\frac{1}{n})
+        =F(a)-F(a-).
+    \end{displaymath}
+    By the additivity of measure $\mu_{F}$, 
+    \begin{displaymath}
+        \begin{array}{rl}
+        &\mu_{F}([a,b))\\
+        =&\mu_{F}((a,b]\cup\{a\}\setminus\{b\})\\
+        =&\mu_{F}((a,b])+\mu_{F}(\{a\})-\mu_{F}(\{b\})\\
+        =&F(b)-F(a)+F(a)-F(a-)-F(b)+F(b-)=F(b-)-F(a-).
+        \end{array}
+    \end{displaymath} 
+    \begin{displaymath}
+        \mu_{F}([a,b])=\mu_{F}(\{a\})+\mu_{F}(a,b]=F(b)-F(a)+F(a)-F(a-)
+        =F(b)-F(a-).
+    \end{displaymath}
+    \begin{displaymath}
+        \mu_{F}((a,b))=\mu_{F}((a,b]\setminus\{b\})
+        =\mu_{F}((a,b])-\mu_{F}(\{b\})
+        =F(b)-F(a)-F(b)+F(b-)=F(b-)-F(a).
+    \end{displaymath}
 \end{proof}
 \end{document}
