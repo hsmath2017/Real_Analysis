@@ -1,0 +1,501 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\newtheorem{lemma}{Lemma}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass\ (\hmwkClassInstructor\ \hmwkClassTime): \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#4}
+\newcommand{\hmwkDueDate}{Mar 26, 2024}
+\newcommand{\hmwkClass}{Real Analysis}
+\newcommand{\hmwkClassTime}{Tuesday}
+\newcommand{\hmwkClassInstructor}{Professor Yakun Xi}
+\newcommand{\hmwkAuthorName}{\textbf{Shuang Hu}}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 10:00am}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor\ \hmwkClassTime}}
+    \vspace{3in}
+}
+
+\author{\hmwkAuthorName}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Alias for the Solution section header
+\newcommand{\solution}{\textbf{\large Solution}}
+\newcommand{\norm}[1]{\|#1\|}
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\newcommand{\supp}{\text{supp}}
+\newcommand{\Rn}{\mathbb{R}^{n}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\avg}[1]{\left\langle #1 \right\rangle}
+\newcommand{\difFrac}[2]{\frac{\dif #1}{\dif #2}}
+\newcommand{\pdfFrac}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\OFL}{\mathrm{OFL}}
+\newcommand{\UFL}{\mathrm{UFL}}
+\newcommand{\fl}{\mathrm{fl}}
+\newcommand{\Eabs}{E_{\mathrm{abs}}}
+\newcommand{\Erel}{E_{\mathrm{rel}}}
+\newcommand{\DR}{\mathcal{D}_{\widetilde{LN}}^{n}}
+\newcommand{\add}[2]{\sum_{#1=1}^{#2}}
+\newcommand{\innerprod}[2]{\left<#1,#2\right>}
+\newcommand{\Sc}{\mathcal{S}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\E}{\mathcal{E}}
+\newcommand{\A}{\mathcal{A}}
+\newcommand{\cp}[2]{\cup_{#1=1}^{#2}}
+\newcommand{\sm}[2]{\sum_{#1=1}^{#2}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\Lc}{\mathcal{L}}
+\newcommand\tbbint{{-\mkern -16mu\int}}
+\newcommand\tbint{{\mathchar '26\mkern -14mu\int}}
+\newcommand\dbbint{{-\mkern -19mu\int}}
+\newcommand\dbint{{\mathchar '26\mkern -18mu\int}}
+\newcommand\bint{
+{\mathchoice{\dbint}{\tbint}{\tbint}{\tbint}}
+}
+\newcommand\bbint{
+{\mathchoice{\dbbint}{\tbbint}{\tbbint}{\tbbint}}
+}
+\begin{document}
+\maketitle
+\pagebreak
+\begin{homeworkProblem}
+    If $E\in\Lc$ and $m(E)>0$, for any $\alpha<1$ 
+    there is an open interval $I$ such that $m(E\cap I)>\alpha m(I)$.
+\end{homeworkProblem}
+\begin{proof}
+    If $m(E)<\infty$, by Proposition 1.20, 
+    $\forall\epsilon>0$, $\exists$ finite disjoint 
+    open intervals $\{I_{j}\}_{j=1}^{n}$, set $U:=\cp{j}{n}I_{j}$, 
+    it satisfies $m(E\triangle U)<\epsilon$.
+
+    If $\exists 0<\alpha_{0}<1$, $\forall I_{j}$, 
+    \begin{displaymath}
+        m(E\cap I_{j})\le\alpha_{0}m(I_{j}),
+    \end{displaymath}
+    then:
+    \begin{itemize}
+        \item $m(E\cap U)\le\alpha_{0} m(U)$,
+        \item $m(E\setminus U)\le m(E\triangle U)<\epsilon$.
+    \end{itemize}
+    Since $U$ be measurable:
+    \begin{displaymath}
+        m(E)=m(E\cap U)+m(E\setminus U)\le\alpha_{0} m(U)+\epsilon,
+    \end{displaymath}
+    and $m(E\triangle)U<\epsilon$ means $m(U)\le m(E)+\epsilon$. 
+    It shows:
+    \begin{displaymath}
+        \forall\epsilon>0,\;m(E)\le\frac{\alpha_{0}+1}{1-\alpha_0}\epsilon.
+    \end{displaymath}
+    i.e. $m(E)=0$, contradicts!
+
+    If $m(E)=\infty$, consider $E_{n}:=E\cap[-n,n]$, 
+    as $\cp{n}{\infty}E_{n}=E$, $\exists N_{0}\in\mathbb{N}$ s.t. 
+    $E_{N_0}\neq\emptyset$. Since $m(E_{N_0})<\infty$, $\forall\alpha<1$, 
+    $\exists$ open interval $I$ s.t. 
+    \begin{displaymath}
+        m(E\cap I)\ge m(E_{N_0}\cap I)>\alpha m(I).
+    \end{displaymath}
+    Now we complete the proof.
+\end{proof}
+\begin{homeworkProblem}
+    If $E\in\L$ and $m(E)>0$, the set $E-E:=\{x-y:x,y\in E\}$ 
+    contains an interval centered at 0.
+\end{homeworkProblem}
+\begin{proof}
+    By Problem 1, $\exists$ open interval $I$ s.t. 
+    \begin{displaymath}
+        m(E\cap I)>\frac{3}{4}m(I).
+    \end{displaymath}
+    If $|x|<\frac{m(I)}{2}$, we claim:
+    \begin{equation}
+        \label{eq:capeqphi}
+        (E+x)\cap E=\emptyset.
+    \end{equation}
+    If $\exists$ $|x|<\frac{m(I)}{2}$ s.t. $(E+x)\cap E=\emptyset$, 
+    assume $F=E\cap I$, it means $(F+x)\cap F=\emptyset$, i.e. 
+    \begin{displaymath}
+        2m(F)=m(F+x)+m(F)=m((F+x)\cup F).
+    \end{displaymath} 
+    Since $F\subset I$ and $|x|\le\frac{m(I)}{2}$, 
+    $m((F+x)\cup F)\le\frac{3m(I)}{2}$, i.e. $m(F)\le \frac{3m(I)}{4}$, 
+    contradict!
+    
+    So $\forall |x|<\frac{m(I)}{2}$, $(E+x)\cap E=\emptyset$, i.e. 
+    $(-\frac{m(I)}{2},\frac{m(I)}{2})\subset E-E$.
+\end{proof}
+\begin{homeworkProblem}
+    Suppose $\{\alpha_{j}\}_{1}^{\infty}\subset(0,1)$. 
+    \begin{enumerate}
+        \item $\prod_{1}^{\infty}(1-\alpha_j)>0$ iff 
+        $\sm{j}{\infty}\alpha_{j}<\infty$.
+        \item Given $\beta\in(0,1)$, exhibit a sequence $\{\alpha_j\}$ 
+        s.t. $\prod_{1}^{\infty}(1-\alpha_{j})=\beta$.
+    \end{enumerate}
+\end{homeworkProblem}
+\begin{proof}
+    $(1)$ As $\alpha_{j}\in(0,1)$, $\prod_{1}^{\infty}(1-\alpha_{j})>0$ 
+    means $\sm{j}{\infty}\log(1-\alpha_{j})$ converges. 
+    
+    On one hand, 
+    if $\sm{j}{\infty}\log(1-\alpha_{j})$ converges to $c\in\mathbb{R}$, 
+    since $\forall j$, $\log(1-\alpha_{j})<0$, it means: 
+    $\forall N\in\mathbb{N}$
+    \begin{displaymath}
+        \sum_{i=1}^{N}\log(1-\alpha_{i})>c.
+    \end{displaymath}
+    As $\log(1-\alpha_{i})<-\alpha_{i}$, the equation above means 
+    $\forall N\in\mathbb{N}$, $0<\sm{i}{N}\alpha_{i}<-c$. 
+    For $\alpha_{i}>0$ is always true, 
+    $\sm{i}{\infty}\alpha_{i}$ converges.
+
+    On the other hand, if $\sm{j}{\infty}\alpha_{j}$ converges, 
+    by Cauchy principle of convergence, $\forall\epsilon>0$, 
+    $\exists N\in\mathbb{N}$ s.t. 
+    \begin{displaymath}
+        0<\sum_{i=N}^{\infty}\alpha_{i}<\epsilon_{0},
+    \end{displaymath}
+    where $\epsilon_{0}=\min\{\epsilon,\frac{1}{2}\}$. 
+    Then:
+    \begin{displaymath}
+        \begin{array}{rl}
+        |\sum_{i=N}^{\infty}\log(1-\alpha_{i})|&=
+        -\sum_{i=N}^{\infty}\log(1-\alpha_{i})\\
+        &=\sum_{i=N}^{\infty}\sum_{k=1}^{\infty}\frac{\alpha_{i}^{k}}{k}\\
+        &=\sum_{k=1}^{\infty}\sum_{i=N}^{\infty}\frac{\alpha_{i}^{k}}{k}\\
+        &\le\sm{k}{\infty}\frac{\epsilon_{0}^{k}}{k}
+        <2\epsilon_{0}.
+        \end{array}
+    \end{displaymath}
+    The second step follows from Taylor expansion, 
+    the third from Tonelli's theorem, 
+    the fourth step from 
+    $\sum_{i=N}^{\infty}\alpha_{i}^{k}\le
+    (\sum_{i=N}^{\infty}\alpha_{i})^{k}$.
+
+    By Cauchy principle of convergence, 
+    $\sum_{i=1}^{\infty}\log(1-\alpha_{i})$ converges. 
+    So $\prod_{1}^{\infty}(1-\alpha_{j})>0$.
+
+    $(2)$ It suffices to construct $\{\alpha_{i}\}$ s.t. 
+    \begin{displaymath}
+        \sm{i}{\infty}\log(1-\alpha_{i})=\log\beta.
+    \end{displaymath}
+    Choose $\log(1-\alpha_{i})=\frac{\beta}{2^{i}}$, i.e. 
+    \begin{displaymath}
+        \alpha_{i}=1-\exp(\frac{\beta}{2^{i}}),
+    \end{displaymath}
+    the equation is true.
+\end{proof}
+\begin{homeworkProblem}
+    There exists a Borel set $A\subset[0,1]$ s.t. 
+    $0<m(A\cap I)<m(I)$ for every 
+    subinterval 
+    $I$ of $[0,1]$.
+\end{homeworkProblem}
+\begin{proof}
+    Construct the set $A$ as following steps:
+    \begin{enumerate}
+        \item Construct a Cantor-type set of measure $\beta$, 
+        marked as $\mathcal{C}_{1}$.
+        \item For each open intervals $I_{i}$ 
+        eliminated on the construction process of first step, 
+        construct Cantor-type sets $\mathcal{C}_{2i}$ of 
+        measure $\beta m(I_{i})$ 
+        satisfies $\mathcal{C}_{2i}\subset I_{i}$, 
+        choose $\mathcal{C}_{2}:=\cp{i}{\infty}C_{2i}.$
+        \item For the open intervals eliminated on the last step, 
+        construct the Cantor-type sets as step2. 
+        Then get a sequence of sets $\mathcal{C}_{i}$.
+        \item $A:=\cp{i}{\infty}\mathcal{C}_{i}$.
+    \end{enumerate}
+    Each Cantor-type set is a Borel set, 
+    so $A$ is a Borel set in $[0,1]$.
+    $\forall I=(a,b)\subset[0,1]$, 
+    $\exists I_{ij}\subset I$ which is the 
+    eleminated open interval in the construction step $i$. 
+    On one hand, 
+    \begin{displaymath}
+        m(A\cap I)>m(A\cap I_{ij})>0.    
+    \end{displaymath}
+    On the other hand, 
+    \begin{displaymath}
+        m(A\cap I)\le m(A)-m(I_{ij}\setminus(A\cap I_{ij}))
+        \le m(A)-(1-\beta)m(I_{ij})<m(A).
+    \end{displaymath}
+    So $A$ is just the Borel set we need.
+\end{proof}
+\begin{homeworkProblem}
+    If $f:X\rightarrow\overline{\mathbb{R}}$ and 
+    $f^{-1}((r,\infty])\in\M$ for each $r\in\mathbb{Q}$, then 
+    $f$ is measurable.
+\end{homeworkProblem}
+\begin{proof}
+    By Proposition 2.1, it suffices to show:
+    \begin{displaymath}
+        \forall r\in\mathbb{R},\; 
+        f^{-1}((r,\infty])\in\M.
+    \end{displaymath}
+    Since $\mathbb{Q}$ is dense in $\mathbb{R}$, 
+    $\exists\{r_{n}\}\subset\mathbb{Q}$ satisfies:
+    \begin{itemize}
+        \item $\{r_{n}\}$ is decreasing.
+        \item $\lim_{n\rightarrow\infty}r_{n}=r$.
+    \end{itemize}
+    Then:
+    \begin{displaymath}
+        \cp{n}{\infty}f^{-1}((r_{n},\infty])
+        =f^{-1}(\cp{n}{\infty}(r_n,\infty])
+        =f^{-1}((r,\infty]).
+    \end{displaymath}
+    Since $f^{-1}((r_n,\infty])\in\M$, 
+    by the definition of $\sigma$-algebra, 
+    $\cp{n}{\infty}f^{-1}((r_n,\infty])\in\M$. 
+    i.e. $f^{-1}((r,\infty])\in\M$. 
+\end{proof}
+\begin{homeworkProblem}
+    The supremum of an uncountable family of measurable 
+    $\overline{\mathbb{R}}$-valued functions on $X$ can 
+    fail to be measurable.
+\end{homeworkProblem}
+\begin{proof}
+    Choose an unmeasurable set $\Sc\subset[0,1]$, 
+    $\Sc$ must be an uncountable set (otherwise $m(\Sc)=0$).
+    $\forall x\in\Sc$, we can construct 
+    the characteristic function $\chi_{\{x\}}$, 
+    it's clear that $\chi_{\{x\}}$ is measurable.
+
+    Then construct the family 
+    \begin{displaymath}
+        \F:=\{\chi_{\{a\}}:a\in\Sc\},
+    \end{displaymath}
+    $\sup\F=\chi_{\Sc}$ isn't a measurable function, 
+    for $\chi_{\Sc}^{-1}([0,1])=\Sc$ isn't measurable.
+\end{proof}
+\begin{homeworkProblem}
+    If $f:\mathbb{R}\rightarrow\mathbb{R}$ is monotone, then $f$ 
+    is Borel measurable.
+\end{homeworkProblem}
+\begin{proof}
+    WLOG, assume $f$ is increasing. 
+    It suffices to show: for a Borel set $\mathcal{B}$, 
+    $f^{-1}(\mathcal{B})$ is also Borel. 
+
+    By Proposition 2.1, we just need to show that 
+    \begin{displaymath}
+        \forall I=(-\infty,b)\subset\mathbb{R}, 
+        f^{-1}(I)\in\mathcal{B}_{\mathbb{R}}.
+    \end{displaymath}
+    If $\{x:f(x)<b\}=\emptyset$, 
+    $f^{-1}(I)=\emptyset\in\mathcal{B}_{\mathbb{R}}$.
+
+    Otherwise, 
+    set $\tau=\sup\{x:f(x)<b\}$, 
+    as $f$ be increasing, 
+    $\forall y<\tau$, $f(y)<b$. 
+
+    If $\tau=\infty$, i.e. $f^{-1}(I)=\mathbb{R}$, it's a Borel set. 
+    If $\tau<\infty$, $f^{-1}(I)=(-\infty,\tau)$, which is also a Borel set.
+\end{proof}
+\begin{homeworkProblem}
+    Let $f:[0,1]\rightarrow[0,1]$ be the Cantor function, 
+    and let $g(x)=f(x)+x$.
+    \begin{enumerate}
+        \item $g$ is a bijection from $[0,1]$ to $[0,2]$, 
+        and $h=g^{-1}$ is continuous from $[0,2]$ to $[0,1]$.
+        \item If $C$ is a Cantor set, $m(g(C))=1$.
+        \item $g(C)$ contains a Lebesgue nonmeasurable set $A$. 
+        Let $B=g^{-1}(A)$, $B$ is Lebesgue measurable but not Borel.
+        \item There exist a Lebesgue measurable function $F$ and a 
+        continuous function $G$ on $\mathbb{R}$ such that 
+        $F\circ G$ is not Lebesgue measurable.
+    \end{enumerate}
+    \begin{proof}
+        $(1)$ As $g(x)\ge f(x)\ge 0$, 
+        $g(x)=f(x)+x\le 1+1=2$, 
+        $g:[0,1]\rightarrow[0,2]$.
+
+        By the definition of Cantor function, 
+        $f(x)$ is increasing. 
+        Since $\varphi(x)=x$ is strictly increasing, 
+        $g(x)=f(x)+\varphi(x)$ is strictly increasing, 
+        so $g(x)$ must be injective. 
+        As $g(0)=0$ and $g(1)=2$, 
+        $g(x)$ must be surjective.
+        So $g$ is a bijection.
+
+        Now we show $g^{-1}$ is left continuous, 
+        the property of right continuous is in the same way. 
+        
+        Choose an increasing sequence $y_{n}$ 
+        converges to $y$, and 
+        $g(x_{n})=y_{n}$, $g(x)=y$, 
+        it suffices to show $x_{n}\rightarrow x$.
+
+        As $g$ be strictly increasing, 
+        $x_{n}$ is strictly increasing and $x_{n}\le 1$. 
+        So $x_{n}$ converges to $\tilde{x}\in[0,1]$. 
+        By the continuity of $g$, 
+        $$g(\tilde{x})=g(\lim_{n\rightarrow\infty}x_{n})
+        =\lim_{n\rightarrow\infty}g(x_{n})=y.$$
+    And $g$ is a bijection, it means that $\tilde{x}=x$.\qed 
+
+    $(2)$ 
+    On each subintervals $I$ in $[0,1]\setminus C$, 
+    $f$ is a constant function, 
+    and $f$ gets different constants on 
+    different connective components in $[0,1]\setminus C$. 
+    As $g(x)=x+f(x)$, 
+    \begin{displaymath}
+        m(g([0,1]\setminus C))
+        =m([0,1]\setminus C)
+        =1.
+    \end{displaymath}
+    As $g$ be a bijection, 
+    \begin{displaymath}
+        m(g(C)\cup g([0,1]\setminus C))
+        =m(g(C))+m(g([0,1]\setminus C))
+        =m(g[0,1])=2.
+    \end{displaymath}
+    So $m(g(C))=1$.\qed
+
+    $(3)$ $A\subset g(C)$ means 
+    $g^{-1}(A)\subset C$. 
+    By the definition, $m(C)=0$. 
+    As $B\subset C$ and $m$ be a complete measure, 
+    $B$ is Lebesgue measurable with $m(B)=0$.
+
+    As $g$ be a continuous map, if $B$ is a Borel set, 
+    $f(B)=A$ is also a Borel set. 
+    But $A$ isn't measurable, contradict! 
+    So $B$ can't be a Borel set.\qed 
+
+    $(4)$ Set $F:[0,1]\rightarrow [0,1]$ satisfies:
+    \begin{itemize}
+        \item $\forall x\in B$, $F(x)=1$.
+        \item $\forall x\notin B$, $F(x)=0$. 
+    \end{itemize}
+    As $m(B)=0$, $F$ is Lebesgue measurable. 
+    Set $G=g^{-1}$ which is continuous from $[0,2]$ to $[0,1]$, 
+    then $F\circ G$ is a function from $[0,2]$ to $[0,1]$ 
+    with $F$ Lebesgue measurable and $G$ continuous.
+
+    However, $$
+    (F\circ G)^{-1}([0,1])
+    =G^{-1}(B)=g(B)=A
+    $$
+    and $A$ isn't measurable. 
+    So $F\circ G$ isn't a Lebesgue measurable function.
+    \end{proof}
+\end{homeworkProblem}
+\end{document}
