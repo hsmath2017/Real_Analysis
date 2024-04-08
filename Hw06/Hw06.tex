@@ -1,0 +1,377 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\newtheorem{lemma}{Lemma}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass\ (\hmwkClassInstructor\ \hmwkClassTime): \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#5}
+\newcommand{\hmwkDueDate}{Apr 2, 2024}
+\newcommand{\hmwkClass}{Real Analysis}
+\newcommand{\hmwkClassTime}{Tuesday}
+\newcommand{\hmwkClassInstructor}{Professor Yakun Xi}
+\newcommand{\hmwkAuthorName}{\textbf{Shuang Hu}}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 10:00am}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor\ \hmwkClassTime}}
+    \vspace{3in}
+}
+
+\author{\hmwkAuthorName}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Alias for the Solution section header
+\newcommand{\solution}{\textbf{\large Solution}}
+\newcommand{\norm}[1]{\|#1\|}
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\newcommand{\supp}{\text{supp}}
+\newcommand{\Rn}{\mathbb{R}^{n}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\avg}[1]{\left\langle #1 \right\rangle}
+\newcommand{\difFrac}[2]{\frac{\dif #1}{\dif #2}}
+\newcommand{\pdfFrac}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\OFL}{\mathrm{OFL}}
+\newcommand{\UFL}{\mathrm{UFL}}
+\newcommand{\fl}{\mathrm{fl}}
+\newcommand{\Eabs}{E_{\mathrm{abs}}}
+\newcommand{\Erel}{E_{\mathrm{rel}}}
+\newcommand{\DR}{\mathcal{D}_{\widetilde{LN}}^{n}}
+\newcommand{\add}[2]{\sum_{#1=1}^{#2}}
+\newcommand{\innerprod}[2]{\left<#1,#2\right>}
+\newcommand{\Sc}{\mathcal{S}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\E}{\mathcal{E}}
+\newcommand{\A}{\mathcal{A}}
+\newcommand{\cp}[2]{\cup_{#1=1}^{#2}}
+\newcommand{\sm}[2]{\sum_{#1=1}^{#2}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\Lc}{\mathcal{L}}
+\newcommand\tbbint{{-\mkern -16mu\int}}
+\newcommand\tbint{{\mathchar '26\mkern -14mu\int}}
+\newcommand\dbbint{{-\mkern -19mu\int}}
+\newcommand\dbint{{\mathchar '26\mkern -18mu\int}}
+\newcommand\bint{
+{\mathchoice{\dbint}{\tbint}{\tbint}{\tbint}}
+}
+\newcommand\bbint{
+{\mathchoice{\dbbint}{\tbbint}{\tbbint}{\tbbint}}
+}
+\begin{document}
+\maketitle
+\pagebreak
+\begin{homeworkProblem}
+    Prove Proposition 2.11.
+\end{homeworkProblem}
+\begin{proof}
+    WLOG, assume $f:X\rightarrow\mathbb{C}$.
+
+    $(a)$ $"\Rightarrow"$:
+    $f$ measurable means 
+    $\forall$ Borel set $B\subset\mathbb{C}$, 
+    $f^{-1}(B)$ is measurable. 
+    Assume $E=\{x:f(x)\neq g(x)\}$, as $f=g$ a.e., $\mu(E)=0$. 
+    Choose $h:=f-g$, then $\forall$ Borel set $B$, 
+    $h^{-1}(B)\subset E$.
+
+    As $\mu$ is complete, $\mu(h^{-1}(B))=0$. 
+    So $h$ is measurable. It means that 
+    $g=f-h$ is measurable.
+
+    $"\Leftarrow"$: Choose $E$ with $\mu(E)=0$, 
+    and set $\Sc\subset E$, it suffices to show $\mu(\Sc)=0$. 
+    Set $f=\chi_{E}$, $g=2\chi_{\Sc}$, since $\{f\neq g\}=E$ and 
+    $\mu(E)=0$, we can see $f=g$ a.e. 
+    Then $g$ is measurable, so $\mu(\Sc)=0$. 
+    Now we can see $\mu$ is complete.
+
+    $(b)$ $"\Rightarrow":$ 
+    Choose Borel set $B$, assume $f_{n}\rightarrow f$ on 
+    $\M\setminus E$ with $\mu(E)=0$, since $\mu$ is complete, 
+    $\mu(E\cap f^{-1}(B))=0$. What's more:
+    \begin{displaymath}
+        E^{c}\cap f^{-1}(B)=(\cap_{n=1}^{\infty}\cup_{k=n}^{\infty}
+        f_{k}^{-1}(B))\cap E^{c}
+        =\cap_{n=1}^{\infty}\cup_{k=n}^{\infty}
+        (f_{k}^{-1}(B)\cap E)
+    \end{displaymath} 
+    is measurable. 
+    So $f^{-1}(B)=(f^{-1}(B)\cap E)\cup(f^{-1}(B)\cap E^{c})$ 
+    is measurable.
+
+    $"\Leftarrow":$ Set $\mu(E)=0$, $N\subset E$. 
+    Choose $f(x)=\chi_{N}$, $f_{n}(x)=2\chi_{E}$, 
+    it's clear that $f_{n}\rightarrow f$ $\mu$ a.e. 
+    So $f$ is measurable, which means $N$ is measurable.
+\end{proof}
+\begin{homeworkProblem}
+    Prove Proposition 2.20.
+\end{homeworkProblem}
+\begin{proof}
+    Choose $f_{n}(x):=\min\{n,f(x)\}$, 
+    then $f_{n}(x)$ is measurable, and 
+    \begin{displaymath}
+        \int f\ge\int f_{n}\ge n\mu(\{x:f(x)\ge n\}).
+    \end{displaymath}
+    Since $\int f<\infty$, 
+    \begin{displaymath}
+        \limsup_{n\rightarrow\infty}n\mu(\{x:f(x)\ge n\})
+        \le\int f<\infty
+        \Rightarrow \lim_{n\rightarrow\infty}\mu(\{x:f(x)\ge n\})=0
+        \Rightarrow \mu(\{x:f(x)=\infty\})=0.
+    \end{displaymath}
+    Set $E_{n}:=\{x:n<f(x)\le n+1\}$, 
+    $F_{n}:=\{x:\frac{1}{n+1}<f(x)\le\frac{1}{n}\}$, 
+    since $f\in L^{+}$, $E_{n},F_{n}$ are measurable, and 
+    \begin{displaymath}
+        \{x:f(x)>0\}=\cup_{n=1}^{\infty}(E_{n}\cup F_n).
+    \end{displaymath}
+    It suffices to show $\mu(E_n)<\infty$, $\mu(F_n)<\infty$.
+    On one hand:
+    \begin{displaymath}
+        n\mu(E_{n})<\int_{E_n}f\le\int f<\infty
+        \Rightarrow \mu(E_n)<\frac{\int f}{n}<\infty,
+    \end{displaymath}
+    on the other hand:
+    \begin{displaymath}
+        \frac{1}{n+1}\mu(F_n)<\int_{F_n} f
+        \le\int f<\infty\Rightarrow \mu(F_{n})<(n+1)\int f<\infty. 
+    \end{displaymath}
+    So $\{x:f(x)>0\}$ is $\sigma$-finite.
+\end{proof}
+\begin{homeworkProblem}
+    Suppose $\{f_{n}\}\subset L^{+}$, 
+    $f_{n}\rightarrow f$ pointwise, and 
+    $\int f=\lim\int f_{n}<\infty.$ Then, 
+    $\int_{E}f=\lim\int_{E}f_{n}$ for all 
+    $E\in\M$. However this need not be true if 
+    $\int f=\lim\int f_n=\infty$.
+\end{homeworkProblem}
+\begin{proof}
+    Since $f_{n}\rightarrow f$ pointwise, by Fatou's Lemma:
+    \begin{equation}
+        \label{eq:Fatou1}
+        \int_{E}f=\int_{E}\liminf_{n\rightarrow\infty}f_{n}
+        \le\liminf_{n\rightarrow\infty}\int_{E}f_n,
+    \end{equation}
+    since $\int f<\infty$, by Fatou's Lemma:
+    \begin{equation}
+        \label{eq:Fatou2}
+        \int_{E^{c}}f=\int_{E^c}\liminf_{n\rightarrow\infty}f_n
+        \le\liminf_{n\rightarrow\infty}\int_{E^c}f_n
+        \Rightarrow \int f-\int_{E}f\le\liminf_{n\rightarrow\infty}
+        \int_{E^c}f_n.
+    \end{equation}
+    By \eqref{eq:Fatou1}, \eqref{eq:Fatou2} 
+    and $\int f=\lim\int f_{n}$, 
+    \begin{displaymath}
+        \begin{array}{rl}
+            \int f-\int_{E}f&\le\liminf_{n\rightarrow\infty}
+            (\int f_{n}-\int_{E}f_{n})\\
+            &=\int f-\limsup_{n\rightarrow\infty}\int_{E}f_{n}\\
+            &\Rightarrow \limsup_{n\rightarrow\infty}\int_{E}f_{n}
+            \le\int_{E}f\le\liminf_{n\rightarrow\infty}\int_{E}f_{n}.
+        \end{array}
+    \end{displaymath}
+    So $\lim_{n\rightarrow\infty}\int_{E}f_{n}=\int_{E}f$.
+
+    If $\int f=\infty$, choose 
+    $f_{n}(x)=\chi_{(-\infty,0)}+(n-n^{2}x)\chi_{[0,\frac{1}{n})}$,
+    then $f_{n}(x)\rightarrow f:=\chi_{(\infty,0)}+\infty\chi_{\{0\}}$ 
+    pointwise, and $\lim_{n\rightarrow\infty}\int f_{n}(x)=\infty$.
+
+    But if we choose $E=[0,1]$, $\int_{E}f_{n}(x)\rightarrow 0.5$ 
+    while $\int_{E}f=0$, contradict.
+\end{proof}
+\begin{homeworkProblem}
+    If $f\in L^{+}$, let $\lambda(E)=\int_{E}f\dif \mu$ 
+    for $E\in\M$. Then $\lambda$ is a measure on $\M$, 
+    and for any $g\in L^{+}$, $\int g\dif \lambda=\int fg\dif\mu$.
+\end{homeworkProblem}
+\begin{proof}
+    Choose disjoint sets $\{E_{i}\}_{i=1}^{\infty}\subset\M$, 
+    mark $E:=\cp{n}{\infty}E_{n}$, $f_{n}:=f\chi_{E_{n}}$, 
+    $f_{0}:=f\chi_{E}$, then $f_{0}=\sm{n}{\infty}f_{n}$.
+    By Theorem 2.15, 
+    \begin{displaymath}
+        \lambda(E)=\int_{E}f=\int \sm{n}{\infty}f_n
+        =\sm{n}{\infty}\int f_n=\sm{n}{\infty}\lambda(E_n).
+    \end{displaymath}
+    It means that $\lambda$ is a measure. 
+    For a simple function $g=\sum a_i\chi_{F_i}$, 
+    \begin{displaymath}
+        \begin{array}{l}
+            \int g\dif\lambda=\sum a_i\lambda(F_i)=\sum a_i\int_{F_i}f\dif \mu\\
+            \int fg\dif\mu=\sum_{i}\int_{F_i}a_i f\dif\mu=\sum a_{i}\int_{F_{i}}f\dif\mu.
+        \end{array}
+    \end{displaymath}
+    So $\int g\dif\lambda=\int fg\dif\mu$ holds for any simple functions $g$.
+    If $g\in L^{+}$, 
+    $\exists$ a sequence of simple functions $\{\phi_{n}\}$ satisfies:
+    \begin{itemize}
+        \item $\phi_{n}\le g$,
+        \item $\lim_{n\rightarrow\infty}\int\phi_{n}\dif\lambda=\int g\dif\lambda$.
+    \end{itemize}
+    It means
+    \begin{displaymath} 
+    \int g\dif\lambda=\lim_{n\rightarrow\infty}\int \phi_{n}\dif\lambda
+    =\lim_{n\rightarrow\infty}\int f\phi_{n}\dif\mu.
+    \end{displaymath}
+    By MCT:
+    \begin{displaymath}
+        \lim_{n\rightarrow\infty}\int f\phi_{n}\dif\mu
+        =\int\lim_{n\rightarrow\infty}f\phi_{n}\dif\mu
+        =\int fg\dif\mu.
+    \end{displaymath}
+    So $\int g\dif\lambda=\int fg\dif\mu$.
+\end{proof}
+\begin{homeworkProblem}
+    If $f\in L^{+}$ and $\int f<\infty$, for every $\epsilon>0$ 
+    there exists $E\in\M$ such that $\mu(E)<\infty$ and $\int_{E}f>(\int f)-\epsilon$.
+\end{homeworkProblem}
+\begin{proof}
+    Choose $E_{n}:=\{x:f(x)\ge\frac{1}{n}\}$, since $\int f<\infty$, 
+    it means 
+    $\forall n$, $\frac{1}{n}\mu(E_{n})<\infty$, 
+    so $\forall n\in\mathbb{N}$, $\mu(E_{n})<\infty$.
+    
+    What's more, $f_{n}:=\chi_{E_{n}}$ satisfies:
+    \begin{itemize}
+        \item $f_{n}$ increasing with $n$,
+        \item $\lim_{n\rightarrow\infty}f_{n}=f$.
+    \end{itemize}
+    Then by MCT, $\lim_{n\rightarrow\infty}\int_{E_n}f=\int f$. 
+    It means: 
+    \begin{displaymath}
+        \forall\epsilon>0,\;\exists N,\;\forall n>N\quad\int_{E_n}f>(\int f) -\epsilon.   
+    \end{displaymath}
+    Just choose $n_{0}>N$, $E_{n_{0}}\in\M$ is the set.
+\end{proof}
+\begin{homeworkProblem}
+    Assume Fatou's Lemma and deduce the MCT from it.
+\end{homeworkProblem}
+\begin{proof}
+    Assume $\{f_{n}\}$ is increasing and converges to $f$ pointwise, 
+    then $\forall n\in\mathbb{N}$, $\int f_{n}\le\int f$. 
+    Moreover, by Fatou's Lemma:
+    \begin{displaymath}
+        \int f=\int\liminf_{n\rightarrow\infty}f_n
+        \le\liminf_{n\rightarrow\infty}\int f_{n}
+        =\lim_{n\rightarrow\infty}\int f_{n},
+    \end{displaymath}
+    the final step holds because $f_{n}$ increasing, 
+    via $\int f_{n}$ increasing, so $\int f_{n}$ converges.
+
+    From the above two inequalities, $\int f=\lim_{n\rightarrow\infty}\int f_n$. 
+    So MCT holds.
+\end{proof}
+\end{document}
