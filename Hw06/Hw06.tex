@@ -197,7 +197,7 @@
     \int\lim_{n\rightarrow\infty}|f_{n}|
     =\int|f|<\infty,
     $$
-    so $f\in L^{1}(\mu)$ and $\int f_{n}\rightarrow\int f$.
+    so $f\in L^{1}(\mu)$ and $\int f_{n}\rightarrow\int f$.\qed
 
     $(2)$ Choose 
     \begin{displaymath}
@@ -251,7 +251,7 @@
 \begin{proof}
     $"\Rightarrow"$: By triangular inequality, 
     $|f|-|f_n|\le g_{n}:=|f-f_{n}|$. Since $g_{n}\rightarrow 0$ a.e. 
-    and $\lim_{n}\rightarrow\infty g_{n}=0$, 
+    and $\lim_{n\rightarrow\infty} g_{n}=0$, 
     by Exercise 20, 
     \begin{displaymath}
         \lim_{n\rightarrow\infty}\int(|f|-|f_n|)
@@ -270,5 +270,108 @@
         =\int\lim_{n\rightarrow\infty}(|f-f_n|)
         =0.
     \end{displaymath}
+\end{proof}
+\begin{homeworkProblem}
+    Let $\mu$ be counting measure on $\mathbb{N}$. Interpret Fatou's 
+    Lemma and the MCT and the DCT as statements about infinite series.
+\end{homeworkProblem}
+\begin{proof}
+    By the definition of counting measure, $\int f\dif\mu=
+    \sum_{n\in\mathbb{N}}f(n)$.
+
+    MCT: If $\forall m,n\in\mathbb{N}$, $a_{mn}\ge 0$, and 
+    $\forall n\in\mathbb{N}$, $\{a_{mn}\}$ is increasing related 
+    to $m$, then 
+    \begin{displaymath}
+        \lim_{m\rightarrow\infty}\sum_{n=0}^{\infty}a_{mn}
+        =\sum_{n=0}^{\infty}\lim_{m\rightarrow\infty}a_{mn}.
+    \end{displaymath}
+
+    Fatou: If $\forall m,n\in\mathbb{N}$, $a_{mn}\ge 0$, 
+    then 
+    \begin{displaymath}
+        \sum_{n=0}^{\infty}\liminf_{m\rightarrow\infty}a_{mn}
+        \le\liminf_{m\rightarrow\infty}\sum_{n=0}^{\infty}a_{mn}.
+    \end{displaymath}
+
+    DCT: If $\forall n$, $\{a_{mn}\}$ converges related to $m$, 
+    and $\forall m\in\mathbb{N},|a_{mn}|\le b_{n}$, 
+    $\sum_{n=0}^{\infty}b_{n}<\infty$, then:
+    \begin{displaymath}
+        \lim_{m\rightarrow\infty}\sum_{n=0}^{\infty}a_{mn}
+        =\sum_{n=0}^{\infty}\lim_{m\rightarrow\infty}a_{mn}.
+    \end{displaymath}
+\end{proof}
+\begin{homeworkProblem}
+    Let $f(x)=x^{-\frac{1}{2}}$ if $0<x<1$, $f(x)=0$ otherwise. 
+    Let $\{r_n\}_{1}^{\infty}$ be an enumeration of the 
+    rationals, and set $g(x)=\sm{n}{\infty}2^{-n}f(x-r_n)$.
+    \begin{enumerate}
+        \item $g\in L^{1}(m)$, and in particular $g<\infty$ a.e.
+        \item $g$ is discontinuous at every point and 
+        unbounded on every interval, and it remains so after 
+        any modification on a Lebesgue null set.
+        \item $g^2<\infty$ a.e. but $g^{2}$ isn't 
+        integrable on any interval.
+    \end{enumerate}
+\end{homeworkProblem}
+\begin{proof}
+    $(1)$ Choose $g_{n}=2^{-n}f(x-r_{n})$, since 
+    \begin{displaymath}
+        \int |g_n|=2^{-n}\int |f(x-r_n)|=2^{1-n},
+    \end{displaymath}    
+    $\sm{n}{\infty}\int |g_{n}|$ converges. 
+    By Theorem 2.25, $\sm{n}{\infty}g_n$ converges to 
+    $g\in L^{1}(\mu)$. 
+    So $g\in L^{1}(m)$, it means $g<\infty$ a.e.\qed
+    
+    $(2)$ Assume $g$ is bounded on an interval $I$, i.e. 
+    $\exists M>0$, $\forall x\in I$, $g(x)<M$ on $I$, then 
+    \begin{displaymath}
+        \forall x\in I, f(x-r_{n})<2^{n}M.
+    \end{displaymath}
+    Since $\mathbb{Q}$ is dense on $\mathbb{R}$, 
+    $\exists r_{n_{0}}\in I$. 
+
+    It means that $\forall x\in I$, $f(x-r_{n_{0}})<2^{n_{0}}M$. 
+    Since $x^{-\frac{1}{2}}$ is unbounded on $(0,1)$, 
+    this statement can't be true. So $g(x)$ is unbounded on 
+    any interval $I$.
+
+    Now we consider the set $\Sc:=I\setminus\A$ with $m(\A)=0$. 
+    Since $\mathbb{Q}$ is dense in $\mathbb{R}$, 
+    and $m(\A)=0$,  
+    $\exists r_{n_{0}}\in\mathbb{Q}$ such that 
+    $\forall n\in\mathbb{N}$, 
+    $[r_{n_{0}},r_{n_{0}}+\frac{1}{n}]\cap (I\setminus\A)\neq\emptyset$.
+
+    Choose $x_{n}\in[r_{n_{0}},r_{n_{0}}+\frac{1}{n}]
+    \cap (I\setminus\A)\neq\emptyset$, 
+    it's clear that $x_{n}-r_{n_{0}}\rightarrow 0^{+}$ 
+    and $f(x_{n}-r_{n_{0}})\rightarrow\infty$, 
+    contradict! So $g(x)$ is unbounded on $I\setminus\A$.
+
+    If $g(x)$ is continuous on $x$, since 
+    $\forall\delta>0$, $g(x)$ is unbounded 
+    on $B_{\delta}(x)$, then $g(x)=\infty$. 
+    However, since $g(x)<\infty$ a.e., 
+    if $g(x)$ is continuous on $x$, 
+    $g(x)<\infty$, contradict! So $g(x)$ is nowhere continuous.\qed
+
+    $(3)$ On one hand, $g<\infty$ a.e. means $g^{2}<\infty$ a.e.
+
+    On the other hand, 
+    \begin{displaymath}
+        g^{2}(x)\ge\sm{n}{\infty}2^{-2n}f^{2}(x-r_n).
+    \end{displaymath}
+    So 
+    \begin{displaymath}
+        \forall n,\quad
+        \int_{I}|g^{2}(x)|
+        \ge 2^{-2n}\int_{I}f^{2}(x-r_{n}).
+    \end{displaymath}
+    Choose $r_{n}\in I$, it's clear that 
+    $\int_{I}f^{2}(x-r_{n})=\infty$. 
+    So $g^{2}$ isn't integrable on $I$.
 \end{proof}
 \end{document}
