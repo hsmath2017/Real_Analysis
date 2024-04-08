@@ -395,4 +395,85 @@
         \end{displaymath}
     \end{enumerate}
 \end{homeworkProblem}
+\begin{proof}
+    $(1)$ Since for $x\ge 0$, 
+    $a_{n}=(1+\frac{x}{n})^{-n}$ is decreasing, i.e. 
+    for $n\ge 2$, $(1+\frac{x}{n})^{-n}\le(1+\frac{x}{2})^{-2}$. 
+    So 
+    \begin{displaymath}
+        |(1+(\frac{x}{n}))^{-n}\sin\frac{x}{n}|\le 
+        h(x):=(1+\frac{x}{2})^{-2}.
+    \end{displaymath}
+    As $h\in L^{1}([0,\infty))$, by DCT:
+    \begin{displaymath}
+        \lim_{n\rightarrow\infty}\int_{0}^{\infty}(1+(\frac{x}{n}))^{-n}
+        \sin\frac{x}{n}\dif x
+        =\int_{0}^{\infty}\lim_{n\rightarrow\infty}[1+(\frac{x}{n})]^{-n}
+        \sin\frac{x}{n}\dif x
+        =0.
+    \end{displaymath}
+
+    $(2)$ For $0\le x\le 1$, $\frac{1+nx^2}{(1+x^2)^n}\le 1$. Since 
+    $\int_{0}^{1}\dif x=1<\infty$, by DCT:
+    \begin{displaymath}
+        \lim_{n\rightarrow\infty}\int_{0}^{1}(1+nx^2)(1+x^2)^{-n}
+        =\int_{0}^{1}\lim_{n\rightarrow\infty}\frac{1+nx^2}{(1+x^2)^n}
+        =0.
+    \end{displaymath}
+
+    $(3)$ Since 
+    \begin{displaymath}
+        \left|\frac{n\sin\frac{x}{n}}{x(1+x^2)}\right|\le
+        \frac{1}{1+x^2}\in L^{1}([0,\infty)),
+    \end{displaymath}
+    by DCT:
+    \begin{displaymath}
+        \lim_{n\rightarrow\infty}\int_{0}^{\infty}n\sin\frac{x}{n}
+        [x(1+x^{2})]^{-1}\dif x
+        =\int_{0}^{\infty}\lim_{n\rightarrow\infty}n\sin\frac{x}{n}
+        [x(1+x^2)]^{-1}\dif x
+        =\int_{0}^{\infty}\frac{1}{1+x^2}=\frac{\pi}{2}.
+    \end{displaymath}
+
+    $(4)$ 
+    \begin{displaymath}
+        I_{n}:=\int_{a}^{\infty}\frac{n}{1+n^2x^2}\dif x
+        =\int_{na}^{\infty}\frac{1}{1+t^2}\dif t
+        =\frac{\pi}{2}-\arctan(na).
+    \end{displaymath}
+    \begin{itemize}
+        \item If $a>0$, $\lim_{n\rightarrow\infty}I_{n}=0$.
+        \item If $a=0$, $\lim_{n\rightarrow\infty}I_{n}=\frac{\pi}{2}$.
+        \item If $a<0$, $\lim_{n\rightarrow\infty}I_{n}=\pi$.
+    \end{itemize}
+    For $a>0$, by MCT, we can exchange the limit and the integral.
+
+    If $a\le 0$, this exchange isn't true.
+\end{proof}
+\begin{homeworkProblem}
+    $f_n\rightarrow f$ in measure iff for every $\epsilon>0$ there exists $N\in\mathbb{N}$ 
+    such that $\mu(\{x:|f_{n}(x)-f(x)|\ge\epsilon\})<\epsilon$ for $n\ge N$.
+\end{homeworkProblem}
+\begin{proof}
+    $"\Rightarrow"$: Just by the definition of convergence in measure.
+
+    $"\Leftarrow"$: $\forall\epsilon>0$, it suffices to show $\lim_{n\rightarrow\infty}
+    \mu\{x:|f_{n}(x)-f(x)|\ge\epsilon\}=0$.
+
+    Assume $\exists\epsilon_0\le\epsilon$ s.t. $\forall N$, $\exists N_0\ge N$ 
+    s.t. 
+    \begin{displaymath}
+        \mu\{x:|f_{N_0}(x)-f(x)|\ge\epsilon\}\ge\epsilon_0.
+    \end{displaymath}
+    From the condition, $\exists \tilde{N}$ s.t. $\forall n>\tilde{N}$, 
+    \begin{displaymath}
+        \mu\{x:|f_n(x)-f(x)|\ge\epsilon_{0}\}<\epsilon_{0}.
+    \end{displaymath}
+    Since $\epsilon_0\le\epsilon$, for $n>\tilde{N}$, 
+    \begin{displaymath}
+        \epsilon_0>\mu\{x:|f_{n}(x)-f(x)|\ge\epsilon_{0}\}
+        \ge\mu\{x:|f_{n}(x)-f(x)|\ge\epsilon\}.
+    \end{displaymath}
+    Contradict!
+\end{proof}
 \end{document}
