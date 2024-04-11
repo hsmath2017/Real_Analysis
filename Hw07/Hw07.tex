@@ -1,0 +1,357 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\newtheorem{lemma}{Lemma}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass\ (\hmwkClassInstructor\ \hmwkClassTime): \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#7}
+\newcommand{\hmwkDueDate}{Apr 16, 2024}
+\newcommand{\hmwkClass}{Real Analysis}
+\newcommand{\hmwkClassTime}{Tuesday}
+\newcommand{\hmwkClassInstructor}{Professor Yakun Xi}
+\newcommand{\hmwkAuthorName}{\textbf{Shuang Hu}}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 10:00am}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor\ \hmwkClassTime}}
+    \vspace{3in}
+}
+
+\author{\hmwkAuthorName}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Alias for the Solution section header
+\newcommand{\solution}{\textbf{\large Solution}}
+\newcommand{\norm}[1]{\|#1\|}
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\newcommand{\supp}{\text{supp}}
+\newcommand{\Rn}{\mathbb{R}^{n}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\avg}[1]{\left\langle #1 \right\rangle}
+\newcommand{\difFrac}[2]{\frac{\dif #1}{\dif #2}}
+\newcommand{\pdfFrac}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\OFL}{\mathrm{OFL}}
+\newcommand{\UFL}{\mathrm{UFL}}
+\newcommand{\fl}{\mathrm{fl}}
+\newcommand{\Eabs}{E_{\mathrm{abs}}}
+\newcommand{\Erel}{E_{\mathrm{rel}}}
+\newcommand{\DR}{\mathcal{D}_{\widetilde{LN}}^{n}}
+\newcommand{\add}[2]{\sum_{#1=1}^{#2}}
+\newcommand{\innerprod}[2]{\left<#1,#2\right>}
+\newcommand{\Sc}{\mathcal{S}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\E}{\mathcal{E}}
+\newcommand{\A}{\mathcal{A}}
+\newcommand{\cp}[2]{\cup_{#1=1}^{#2}}
+\newcommand{\sm}[2]{\sum_{#1=1}^{#2}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\Lc}{\mathcal{L}}
+\newcommand\tbbint{{-\mkern -16mu\int}}
+\newcommand\tbint{{\mathchar '26\mkern -14mu\int}}
+\newcommand\dbbint{{-\mkern -19mu\int}}
+\newcommand\dbint{{\mathchar '26\mkern -18mu\int}}
+\newcommand\bint{
+{\mathchoice{\dbint}{\tbint}{\tbint}{\tbint}}
+}
+\newcommand\bbint{
+{\mathchoice{\dbbint}{\tbbint}{\tbbint}{\tbbint}}
+}
+\begin{document}
+\maketitle
+\pagebreak
+\begin{homeworkProblem}
+    If $f_n\ge 0$ and $f_n\rightarrow f$ in measure, then $\int f\le\liminf \int f_{n}$.
+\end{homeworkProblem}
+\begin{proof}
+    By the definition of limes inferior, exists a subsequence $f_{n_{k}}$ 
+    s.t. $\int f_{n_{k}}\rightarrow\liminf\int f_n$. Since $f_{n}\rightarrow f$ 
+    in measure, $f_{n_k}\rightarrow f$ in measure as well. 
+    By Riesz's Theorem, $\exists$ a subsequence of $f_{n_{k}}$, marked as 
+    $f_{m}$, s.t. $f_{m}\rightarrow f$ a.e. 
+
+    Finally, by Fatou's Lemma:
+    \begin{displaymath}
+        \liminf\int f_n=\lim\int f_{n_k}=\lim\int f_{m}
+        \ge\int\liminf f_{m}=\int f.
+    \end{displaymath}
+\end{proof}
+\begin{homeworkProblem}
+    Suppose $|f_{n}|\le g\in L^1$ and $f_n\rightarrow f$ in measure.
+    \begin{enumerate}
+        \item $\int f=\lim\int f_n$.
+        \item $f_n\rightarrow f$ in $L^1$.
+    \end{enumerate} 
+\end{homeworkProblem}
+\begin{proof}
+    TBD
+\end{proof}
+\begin{homeworkProblem}
+    Suppose $f_{n}\rightarrow f$ in measure and $g_{n}\rightarrow g$ 
+    in measure.
+    \begin{enumerate}
+        \item $f_n+g_n\rightarrow f+g$ in measure.
+        \item $f_n g_n\rightarrow fg$ in measure if $\mu(X)<\infty$, but 
+        not necessarily if $\mu(X)=\infty$.
+    \end{enumerate}
+\end{homeworkProblem}
+\begin{proof}
+    $(1)$ $f_{n}\rightarrow f$ in measure means $\lim\mu(\{|f_n-f|>\epsilon\})=0$, 
+    $g_{n}\rightarrow g$ in measure means $\lim\mu(\{|g_n-g|>\epsilon\})=0$. 
+    Since 
+    \begin{displaymath}
+        \{|f_{n}+g_n-f-g|> \epsilon\}\subset
+        \{|f_{n}-f|>\frac{\epsilon}{2}\}\cup\{|g_n-g|>\frac{\epsilon}{2}\},
+    \end{displaymath}
+    it's clear that 
+    \begin{displaymath}
+        \mu(\{|f_n+g_n-f-g|>\epsilon\})
+        \le\mu(\{|f_n-f|>\frac{\epsilon}{2}\})
+        +\mu(\{|g_n-g|>\frac{\epsilon}{2}\}).
+    \end{displaymath}
+    Set $n\rightarrow\infty$, $f_{n}+g_n\rightarrow f+g$ in measure.
+
+    $(2)$ If $\mu(X)<\infty$, $f_{n}\rightarrow f$ in measure 
+    yields $f<\infty$ a.e. 
+    So $\forall\epsilon>0$, $\exists A>0$ such that 
+    \begin{displaymath}
+        \mu(\{|f|>A\})+\mu(\{|g|>A\})<\epsilon.
+    \end{displaymath}
+    By triangular inequality:
+    \begin{displaymath}
+        |f_{n}g_n-fg|\le|f_n-f||g_n|+|f||g_n-g|,
+    \end{displaymath}
+    so:
+    \begin{displaymath}
+        \mu(\{|f_ng_n-fg|>2\epsilon\})\le\mu(\{|f_n-f||g_n|>\epsilon\})
+        +\mu(\{|f||g_n-g|>\epsilon\}).
+    \end{displaymath}
+    Choose $B:=\{|f|<A\}\cap\{|g|<A\}$, then $\mu(B^c)<\epsilon$, it means:
+    \begin{displaymath}
+        \mu(\{|f_ng_n-fg|>2\epsilon\})\le
+        \mu(B^{c})+\mu(\{|f_{n}-f||g_n|>\epsilon\}\cap B)
+        +\mu(\{|f||g_n-g|>\epsilon\}\cap B).
+    \end{displaymath}
+    On the one hand, if $|f|<A$, 
+    \begin{displaymath}
+        \mu(\{|f||g_n-g|>\epsilon\}\cap B)<\mu(\{|g_n-g|
+        >\frac{\epsilon}{A}\})
+        \rightarrow 0,
+    \end{displaymath}
+    on the other hand, when $|g|<A$, 
+    since $g_n\rightarrow g$ in measure, 
+    $\lim\mu(\{|g_n|>2A\})=0$. So 
+    \begin{displaymath}
+        \mu(\{|f_n-f||g_n|>\epsilon\}\cap B)
+        \le\mu(\{|g_n|>2A\})
+        +\mu(\{|f_n-f|>\frac{\epsilon}{2A}\})\rightarrow 0.
+    \end{displaymath}
+    It means 
+    \begin{displaymath}
+        \lim\mu(\{|f_ng_n-fg|>2\epsilon\})<\epsilon.
+    \end{displaymath}
+    By Exercise 35, $f_ng_n\rightarrow fg$ in measure.
+
+    If $\mu(X)=\infty$, choose $f_{n}(x)=\frac{1}{n}\chi_{[0,n]}$, 
+    $g_{n}(x)\equiv x$, $f_n\rightarrow 0$ in measure and $g_n\rightarrow x$ in measure. 
+    But $f_ng_n=\frac{x}{n}\chi_{[0,n]}$ doesn't converge to $0$ by measure. 
+    So in this case, $f_ng_n\rightarrow fg$ in measure isn't necessarily true.
+\end{proof}
+\begin{homeworkProblem}
+    In Egoroff's Theorem, the hypothesis $\mu(X)<\infty$ 
+    can be replaced by $|f_n|\le g$ for all $n$ where $g\in L^{1}(\mu)$. 
+\end{homeworkProblem}
+\begin{proof}
+    Set $G_{m}:=\{x:g(x)\ge\frac{1}{m}\}$, 
+    $g\in L^{1}(\mu)$ means $\forall m\in\mathbb{N}$, $\mu(G_{m})<\infty$. 
+    First, choose $Z:=\{x:g(x)=0\}$, it means 
+    $\forall x\in Z$, $n\in\mathbb{N}$, $|f_n(x)|=0$, i.e. $f_{n}\rightarrow g$ uniformly on $Z$.
+    Then, $\forall\epsilon>0$, by Egoroff's Theorem, $\exists F_{m}\subset G_{m}$ with $\mu(F_m)<\frac{\epsilon}{2^m}$ such that $f_n\rightarrow f$ 
+    uniformly on $G_m\setminus F_m$.
+    
+    So, $f_n\rightarrow f$ uniformly on $(\cp{m}{\infty}G_m)\setminus(\cp{m}{\infty}F_m)$, where 
+    \begin{displaymath}
+        \mu(\cp{m}{\infty}F_m)<\epsilon\sm{m}{\infty}2^{-m}<\epsilon,
+    \end{displaymath}
+    and $\cp{m}{\infty}G_m=\{x:g(x)>0\}$. 
+    Set $F:=\cp{m}{\infty}F_m$, it's clear that $\mu(F)<\epsilon$ and 
+    $f_n\rightarrow f$ uniformly on $X\setminus F$. 
+    It derives the Egoroff's Theorem.
+\end{proof}
+\begin{homeworkProblem}
+    Let $\mu$ be counting measure on $\mathbb{N}$, 
+    then $f_n\rightarrow f$ in measure iff $f_n\rightarrow f$ uniformly.
+\end{homeworkProblem}
+\begin{proof}
+    Since $\forall\Sc\in\mathcal{P}(X)$, 
+    $\mu_{N}(\Sc)\in\mathbb{N}$, 
+    in counting measure, $f_n\rightarrow f$ in measure equivalent to :
+    \begin{displaymath}
+        \forall \epsilon>0,\;\exists M,\;\forall m>M,\;n\in\mathbb{N},\;
+        |f_{m}(n)-f(n)|<\epsilon.
+    \end{displaymath}
+    It's just the definition of $f_{n}\rightarrow f$ uniformly.
+\end{proof}
+\begin{homeworkProblem}
+    Let $X=Y=\mathbb{N}$, $\M=\mathcal{N}=\mathcal{P}(\mathbb{B})$, 
+    $\mu$, $\nu$ are counting measures. 
+    Define $f(m,n)=1$ if $m=n$, 
+    $f(m,n)=-1$ if $m=n+1$ and $f(m,n)=0$ otherwise, 
+    then $\int|f|\dif(\mu\times\nu)=\infty$, and 
+    $\iint f\dif\mu\dif\nu$ and 
+    $\iint f\dif\nu\dif\mu$ exist and are unequal.
+\end{homeworkProblem}
+\begin{proof}
+    $f(m,n)$ marks an infinite matrix 
+    with diagonal elements equal $1$ and subdiagonal elements equal $-1$. 
+    Now:
+    \begin{displaymath}
+        \int|f|\dif(\mu\times\nu)
+        =\sum_{m,n=1}^{\infty}|f(m,n)|
+        =2\aleph_{0}=\infty.
+    \end{displaymath}
+    Since 
+    \begin{displaymath}
+        \int f(x,y)\dif\mu(x)
+        =\sum_{n=1}^{\infty}f(n,y)
+        =0,
+    \end{displaymath}
+    $\iint f\dif\mu\dif\nu=0$.
+
+    Since 
+    \begin{displaymath}
+        \int f(x,y)\dif\nu(y)
+        =\sum_{n=1}^{\infty}f(x,n)
+        =\left\{
+            \begin{aligned}
+                1&\quad x=0\\
+                0&\quad x\neq 0\\
+            \end{aligned}
+        \right.,
+    \end{displaymath}
+    $\iint f\dif\nu\dif\mu=1$. 
+    So $\iint f\dif\mu\dif\nu\neq\iint f\dif\nu\dif\mu$.
+\end{proof}
+\begin{homeworkProblem}
+    The Fubini-Tonelli theorem is valid when $(X,\M,\mu)$ is an arbitrary measure space 
+    and $Y$ is a countable set, $\mathcal{N}=\mathcal{P}(Y)$, 
+    and $\nu$ is counting measure on $Y$.
+\end{homeworkProblem}
+\begin{proof}
+    It suffices to show $\sm{n}{\infty}\int f_n=\int\sm{n}{\infty}f_n$ with the condition:
+    \begin{itemize}
+        \item Tonelli: $\{f_n\}$ are positive functions (It's Theorem 2.15).
+        \item Fubini: $\sm{n}{\infty}\int|f_n|<\infty$ 
+        (It's Theorem 2.25).
+    \end{itemize}
+\end{proof}
+\end{document}
