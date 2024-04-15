@@ -303,14 +303,22 @@
     Then, $\forall\epsilon>0$, by Egoroff's Theorem, $\exists F_{m}\subset G_{m}$ with $\mu(F_m)<\frac{\epsilon}{2^m}$ such that $f_n\rightarrow f$ 
     uniformly on $G_m\setminus F_m$.
     
-    So, $f_n\rightarrow f$ uniformly on $(\cp{m}{\infty}G_m)\setminus(\cp{m}{\infty}F_m)$, where 
+    Choose $F:=\cp{m}{\infty}F_m$, it's clear that 
+    $\mu(F)<\epsilon$. Then we show that $\exists N_{0}$ such that $\forall n\ge N_0$, $|f_n-f|<\epsilon$ on $X\setminus F$. 
+
+    First, choose $M$ such that $\frac{1}{M}<\frac{\epsilon}{2}$, then for $n\ge M$, on $G_{n}^{c}$:
     \begin{displaymath}
-        \mu(\cp{m}{\infty}F_m)<\epsilon\sm{m}{\infty}2^{-m}<\epsilon,
+        |f_n-f|\le|f_n|+|f|<\epsilon.
     \end{displaymath}
-    and $\cp{m}{\infty}G_m=\{x:g(x)>0\}$. 
-    Set $F:=\cp{m}{\infty}F_m$, it's clear that $\mu(F)<\epsilon$ and 
-    $f_n\rightarrow f$ uniformly on $X\setminus F$. 
-    It derives the Egoroff's Theorem.
+    By the discussions above, on $G_{M}\setminus F$, 
+    $f_{n}\rightarrow f$ uniformly, i.e. $\exists N$ such that 
+    $\forall x\in G_{M}\setminus F$, 
+    $|f_{N}-f|<\epsilon$. 
+    Choose $N_{0}=\max\{M,N\}$, 
+    $\forall n>N_{0}$, $|f_n-f|<\epsilon$ on $X\setminus E$. 
+
+    So, $f_{n}\rightarrow f$ uniformly on $X\setminus F$ with $\mu(F)<\epsilon$, 
+    which completes the proof.
 \end{proof}
 \begin{homeworkProblem}
     Let $\mu$ be counting measure on $\mathbb{N}$, 
