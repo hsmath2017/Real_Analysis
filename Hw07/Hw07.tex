@@ -193,7 +193,32 @@
     \end{enumerate} 
 \end{homeworkProblem}
 \begin{proof}
-    TBD
+    If $(2)$ holds, since 
+    \begin{displaymath}
+        \left|\int(f-f_n)\right|\le\int|f-f_n|,
+    \end{displaymath}
+    it's clear that 
+    \begin{displaymath}
+        \lim\left|\int(f-f_n)\right|
+        \le\lim\int|f-f_n|=0,
+    \end{displaymath}
+    so $(2)$ implies $(1)$. We only need to show $(2)$ holds.
+
+    Assume $f_n$ doesn't converge to $f$ in $L^1$, i.e. 
+    $\exists \epsilon_0>0$ and a subsequence $\{f_{n_j}\}$ of $\{f_n\}$, such that 
+    \begin{displaymath}
+        \int|f_{n_j}-f|\ge\epsilon_{0}.
+    \end{displaymath}
+    Because $f_n\rightarrow f$ in measure, $f_{n_j}\rightarrow f$ in measure as well. 
+    By Riesz's Theorem, there exists a subsequence of $\{f_{n_{j}}\}$, 
+    marked as $\{f_{m}\}$, such that 
+    $f_m\rightarrow f$ a.e. 
+    Since $|f_m-f|\le|f_m|+|f|\le 2|g|$ a.e., 
+    by DCT, 
+    \begin{displaymath}
+        \lim\int|f_m-f|=\int\lim|f_m-f|=0.
+    \end{displaymath}
+    Contradict! So $f_n\rightarrow f$ in $L^1$, $(2)$ holds.
 \end{proof}
 \begin{homeworkProblem}
     Suppose $f_{n}\rightarrow f$ in measure and $g_{n}\rightarrow g$ 
