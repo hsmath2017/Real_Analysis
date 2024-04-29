@@ -1,0 +1,426 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\newtheorem{lemma}{Lemma}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass\ (\hmwkClassInstructor\ \hmwkClassTime): \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#8}
+\newcommand{\hmwkDueDate}{Apr 30, 2024}
+\newcommand{\hmwkClass}{Real Analysis}
+\newcommand{\hmwkClassTime}{Tuesday}
+\newcommand{\hmwkClassInstructor}{Professor Yakun Xi}
+\newcommand{\hmwkAuthorName}{\textbf{Shuang Hu}}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 10:00am}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor\ \hmwkClassTime}}
+    \vspace{3in}
+}
+
+\author{\hmwkAuthorName}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Alias for the Solution section header
+\newcommand{\solution}{\textbf{\large Solution}}
+\newcommand{\norm}[1]{\|#1\|}
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\newcommand{\supp}{\text{supp}}
+\newcommand{\Rn}{\mathbb{R}^{n}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\avg}[1]{\left\langle #1 \right\rangle}
+\newcommand{\difFrac}[2]{\frac{\dif #1}{\dif #2}}
+\newcommand{\pdfFrac}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\OFL}{\mathrm{OFL}}
+\newcommand{\UFL}{\mathrm{UFL}}
+\newcommand{\fl}{\mathrm{fl}}
+\newcommand{\Eabs}{E_{\mathrm{abs}}}
+\newcommand{\Erel}{E_{\mathrm{rel}}}
+\newcommand{\DR}{\mathcal{D}_{\widetilde{LN}}^{n}}
+\newcommand{\add}[2]{\sum_{#1=1}^{#2}}
+\newcommand{\innerprod}[2]{\left<#1,#2\right>}
+\newcommand{\Sc}{\mathcal{S}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\E}{\mathcal{E}}
+\newcommand{\A}{\mathcal{A}}
+\newcommand{\cp}[2]{\cup_{#1=1}^{#2}}
+\newcommand{\sm}[2]{\sum_{#1=1}^{#2}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\Lc}{\mathcal{L}}
+\newcommand\tbbint{{-\mkern -16mu\int}}
+\newcommand\tbint{{\mathchar '26\mkern -14mu\int}}
+\newcommand\dbbint{{-\mkern -19mu\int}}
+\newcommand\dbint{{\mathchar '26\mkern -18mu\int}}
+\newcommand\bint{
+{\mathchoice{\dbint}{\tbint}{\tbint}{\tbint}}
+}
+\newcommand\bbint{
+{\mathchoice{\dbbint}{\tbbint}{\tbbint}{\tbbint}}
+}
+\begin{document}
+\maketitle
+\pagebreak
+\begin{homeworkProblem}
+    Prove Proposition 3.1
+\end{homeworkProblem}
+\begin{proof}
+    Set $F_n=\cp{j}{n}E_j$, $F_0=\emptyset$, 
+    $S_n:=F_n\setminus F_{n-1}$, it means that 
+    \begin{displaymath}
+        F_1\subset F_{2}\subset\ldots\subset F_n\subset\ldots,
+    \end{displaymath}
+    and since $\{E_i\}$ increasing, it means $F_n=E_n$, 
+    $\{\Sc_{i}\}$ disjoint and 
+    \begin{displaymath}
+        \cp{i}{\infty}\Sc_{i}=\cp{i}{\infty}E_i.
+    \end{displaymath}
+    Then:
+    \begin{displaymath}
+        \nu(\cp{i}{\infty}E_i)=\nu(\cp{i}{\infty}\Sc_i)
+        =\sm{i}{\infty}\nu(\Sc_{i})=\sm{i}{\infty}[\nu(F_i)-\nu(F_{i-1})]
+    \end{displaymath}
+    If $\nu(\cp{i}{\infty}E_i)<\infty$, 
+    by the definition, $\sm{i}{\infty}\nu(\Sc_{i})$ converges absolutely, 
+    i.e. 
+    \begin{displaymath}
+        \sm{i}{\infty}(\nu(F_i)-\nu(F_{i-1}))
+        =\lim_{n\rightarrow\infty}\nu(F_n)
+        =\lim_{n\rightarrow\infty}\nu(E_n).
+    \end{displaymath}
+    If $\nu(\cp{i}{\infty}E_{i})=\infty$, i.e. $\sm{i}{\infty}(\nu(F_{i})-\nu(F_{i-1}))=\infty$, 
+    it means that $\lim_{n\rightarrow\infty}\nu(E_n)
+    =\lim_{n\rightarrow\infty}\nu(F_n)=\infty$.
+
+    The proof of continuous from above 
+    is totally the same as Theorem 1.8.
+\end{proof}
+\begin{homeworkProblem}
+    If $\nu$ is a signed measure, $E$ is $\nu$-null 
+    iff $|\nu|(E)=0$. Also, if $\nu$ and $\mu$ are signed measures, 
+    $\nu\perp\mu$ iff $|\nu|\perp\mu$ iff $\nu^{+}\perp\mu$ and $\nu^{-}\perp\mu$.
+\end{homeworkProblem}
+\begin{proof}
+    $"\Leftarrow":$ $\forall F\subset E$ and $F\in\M$, 
+    since $|\nu|$ is a positive measure on $\M$, 
+    $|\nu|(E)=0$ means $|\nu|(F)=0$, i.e. 
+    $\nu^{+}(F)+\nu^{-}(F)=0$. Since $\nu^{+}$ and $\nu^{-}$ are both non-negative, $\nu^{+}(F)=\nu^{-}(F)=0$, then 
+    $\nu(F)=\nu^{+}(F)-\nu^{-}(F)=0$. 
+    Which means $E$ is a null set.
+
+    $"\Rightarrow":$ If $\nu(E)=0$ and $\nu^{+}(E)=\nu^{-}(E)=a>0$, by Jordan Decomposition Theorem, 
+    $\nu^{+}\perp\nu^{-}$, 
+    so there exists $F,G$ such that 
+    $F\cap G=\emptyset$, $F\cup G=X$, $F$ is null for $\nu^{+}$ and $G$ is null for $\nu^{-}$.
+    Choose $\tilde{F}:=F\cap E$, $\tilde{G}:=G\cap E$, we have 
+    \begin{displaymath}
+        a=\nu^{+}(E)=\nu^{+}(\tilde{F})
+        +\nu^{+}(\tilde{G})=\nu^{+}(\tilde{G})
+    \end{displaymath}
+    Since $\nu^{-}(\tilde{G})=0$, we can see $\nu(\tilde{G})=a\neq 0$, 
+    so $E$ isn't $\nu$-null, contradict!
+
+    By the result above, $\nu$ is $F$-null iff $|\nu|$ is $F$-null 
+    iff $\nu^{+}$ and $\nu^{-}$ are $F$-null, 
+    so $\nu\perp\mu$ iff $|\nu|\perp\mu$ iff 
+    $\nu^{+}\perp\mu$ and $\nu^{-}\perp\mu$.
+\end{proof}
+\begin{homeworkProblem}
+    If $\nu_1$, $\nu_2$ are signed measures that both omit the value $+\infty$ or $-\infty$, 
+    then $|\nu_1+\nu_2|\le|\nu_1|+|\nu_2|$.
+\end{homeworkProblem}
+\begin{proof}  
+    It suffices to show:  
+    \begin{equation}  
+        \label{eq:eqtoshow}  
+        |\nu_1+\nu_2|(E)=(\nu_1+\nu_2)^{+}(E)+(\nu_1+\nu_2)^{-}(E)  
+        \le\nu_{1}^{+}(E)+\nu_{1}^{-}(E)+\nu_{2}^{+}(E)+\nu_{2}^{-}(E).  
+    \end{equation}  
+    Since   
+    \begin{displaymath}  
+        \nu_1+\nu_2=(\nu_{1}^{+}+\nu_{2}^{+})-(\nu_{1}^{-}+\nu_{2}^{-}),  
+    \end{displaymath}  
+    by Exercise 4, $\nu_{1}^{+}+\nu_{2}^{+}\ge(\nu_1+\nu_2)^{+}$ and   
+    $\nu_{1}^{-}+\nu_{2}^{-}\ge(\nu_{1}+\nu_{2})^{-}$.   
+    It means \eqref{eq:eqtoshow} is true.  
+\end{proof}  
+\begin{homeworkProblem}
+    $\nu\ll\mu$ iff $|\nu|\ll\mu$ iff $\nu^{+}\ll\mu$ and $\nu^{-}\ll\mu$.
+\end{homeworkProblem}
+\begin{proof}
+    $\nu\ll\mu$ means $\forall E$ s.t. 
+    $\mu(E)=0$, 
+    $\nu(E)=0$. 
+    Since $\mu$ is a positive measure, 
+    $\forall F\subset E$ and $F\in\M$, 
+    $\mu(F)=0$, then $\nu(F)=0$.
+    So it is equivalent to the fact that 
+    $\nu$ is null on $E$. 
+    By Exercise 2, $\nu\ll\mu$ iff 
+    $|\nu|\ll\mu$ iff $\nu^{+}\ll\mu$ and 
+    $\nu^{-}\ll\mu$.
+\end{proof}
+\begin{homeworkProblem}
+    Suppose $\{\nu_j\}$ is a sequence of positive measures. 
+    If $\nu_{j}\perp\mu$ for all $j$, 
+    then $\sm{j}{\infty}\nu_{j}\perp \mu$; 
+    and if $\nu_{j}\ll\mu$ for all $j$, 
+    then $\sm{j}{\infty}\nu_{j}\ll\mu$.
+\end{homeworkProblem}
+\begin{proof}
+    If $\nu_{j}\perp\mu$, then there 
+    exists $E_{j},F_{j}\subset X$ such that 
+    $E_j\cap F_j=\emptyset$, $E_j\cup F_j=X$, $E_j$ is null on $\mu$ and $F_j$ is null on $\nu_{j}$.
+
+    Set $F:=\cap_{j=1}^{\infty}F_{j}$, since $\nu_{j}$ positive, 
+    \begin{displaymath}
+        (\sm{j}{\infty}\nu_j)(F)
+        \le\sm{j}{\infty}\nu_{j}(F_j)
+        =0.
+    \end{displaymath}
+    Then set $E=F^{c}=\cp{j}{\infty}F_{j}^{c}$, 
+    since $\mu$ positive, 
+    \begin{displaymath}
+        \mu(E)=\mu(F^{c})\le\sm{j}{\infty}\mu(F_{j}^{c})=\sm{j}{\infty}\mu(E_j)=0.
+    \end{displaymath}
+    So $\sm{j}{\infty}\nu_{j}\perp\mu$.
+
+    If $\nu_j\ll\mu$, then $\mu(E)=0$ means $\nu_j(E)=0$. $\forall E\in\M$ such that $\mu(E)=0$, 
+    we can see $\forall j$, $\nu_j(E)=0$. 
+    Since $\nu_{j}$ positive, $(\sm{j}{\infty}\nu_{j})(E)=0$. 
+    Then $\sm{j}{\infty}\nu_{j}\ll\mu$.
+\end{proof}
+\begin{homeworkProblem}
+    Theorem 3.5 may fail when $\nu$ is not finite.
+\end{homeworkProblem}
+\begin{proof}
+    For $\dif\nu=\frac{\dif x}{x}$ and $\dif\mu=\dif x$ on $(0,1)$, 
+    if $\mu(E)=0$, it means $\int_{E}\dif x=0$, i.e. $m(E)=0$, where 
+    $m$ means the Lebesgue measure on $(0,1)$. 
+    Then $\nu(E)=\int_{E}\dif\nu=\int_{E}\frac{\dif x}{x}$, since 
+    $E\subset(0,1)$ and $m(E)=0$, we can see $\nu(E)=0$. So $\nu\ll\mu$.
+
+    However, since $\int_{0}^{1}\frac{1}{x}\dif x=\infty$, $\forall\delta>0$, 
+    $\exists\mu(E_{\delta})<\delta$ s.t. $\int_{E_{\delta}}\frac{1}{x}\dif x>1$, 
+    then Theorem 3.5 fails.
+\end{proof}
+\begin{homeworkProblem}
+    If $\nu$ is an arbitrary signed measure and $\mu$ is a $\sigma$-finite 
+    measure on $(X,\M)$ such that $\nu\ll\mu$, there exists an extended 
+    $\mu$-integrable function $f:X\rightarrow[-\infty,\infty]$ such that 
+    $\dif\nu=f\dif\mu$.
+\end{homeworkProblem}
+\begin{proof}
+    First, assume $\mu$ is finite and $\nu$ is positive. 
+
+    Consider the set $\Sc:=\{A:\text{ }A\text{ is }\sigma\text{-finite related 
+    to }\mu\}$, then since $\mu$ is finite, 
+    $\sup_{E\in\Sc}\mu(E)<\infty$. 
+    Choose a sequence $\{E_n\}$ in $\Sc$ such that $\mu(E_n)\rightarrow\sup_{E\in\Sc}\mu(E)$, 
+    i.e. 
+    \begin{displaymath}
+    \mu(\cap_{n=1}^{\infty}\cup_{j=n}^{\infty}E_j)=\sup_{E\in\Sc}\mu(E),
+    \end{displaymath}
+    Choose $E=\cap_{n=1}^{\infty}\cup_{j=n}^{\infty}E_{j}$, 
+    $\{E_n\}$ is $\sigma$-finite related to $\nu$ 
+    means $E$ is $\sigma$-finite related to $\nu$. 
+    And by the definition of superior, 
+    $\forall F\in\Sc$, $\mu(F)\le\mu(E)$.
+
+    By the above discussion, if $F\cap E=\emptyset$, 
+    if $\mu(F)=0$, by $\nu\ll\mu$, $\nu(F)=0$. 
+    If $\mu(F)>0$, since $F\notin\Sc$, $|\nu(F)|=\infty$.
+
+    Now, apply R-N Theorem on $E$, $\exists$ $\sigma$-finite signed measures $\lambda$, $\rho$ such that 
+    \begin{itemize}
+        \item $\lambda\perp\mu$,
+        \item $\rho\ll\mu$,
+        \item $\nu=\lambda+\rho$,
+        \item $\dif\rho=f\dif\mu$.
+    \end{itemize}
+    Since $\lambda\perp\mu$, $\dif\nu=f\dif\mu$. On $E^{c}$, we set $f=\infty$. 
+    Then: $\forall S\subset X$, 
+    \begin{displaymath}
+        \int_{S}\dif\nu=\int_{S\cap E}\dif\nu
+        +\int_{S\cap E^{c}}\dif\nu
+        =\int_{S\cap E}f\dif\mu+\int_{S\cap E^{c}}\dif\nu.
+    \end{displaymath}
+    If $\mu(S\cap E^{c})=0$, it means 
+    $\nu(S\cap E^{c})=0$, then 
+    $\int_{S\cap E^{c}}\dif\nu=\int_{S\cap E^{c}}f\dif\mu=0$. 
+    If $\mu(S\cap E^{c})>0$, then $\int_{S\cap E^c}\dif\nu=
+    \int_{S\cap E^c}f\dif\mu=\infty$. 
+    So:
+    \begin{displaymath}
+        \forall S\subset X,\;\int_{S}\dif\nu=\int_{S}f\dif\mu.
+    \end{displaymath}
+    i.e. $\dif\nu=f\dif\mu$. 
+
+    Now consider the general case. 
+    Choose disjoint sets $\{E_{i}\}$ such that $\cp{i}{\infty}E_i=X$, 
+    $\mu(E_{i})<\infty$, and by 
+    Jordan Decomposition Theorem, 
+    $\nu=\nu^{+}-\nu^{-}$.
+
+    By exercise 8, $\nu\ll\mu\Leftrightarrow \nu^{+},\nu^{-}\ll\mu$, it means that 
+    $\forall E_{i}$, $\exists f_{i+},f_{i-}:E_i\rightarrow[-\infty,\infty]$ 
+    such that 
+    \begin{displaymath}
+        \begin{aligned}
+            \int_{E_i}\dif\nu^{+}&=\int_{E_i}f_{i+}\dif\mu\\
+            \int_{E_i}\dif\nu^{-}&=\int_{E_i}f_{i-}\dif\mu.
+        \end{aligned}
+    \end{displaymath}
+    So $\int_{E_i}(f_{i+}-f_{i-})\dif\mu=\int_{E_i}\dif\nu$, it means:
+    \begin{displaymath}
+        \dif\nu=\left(\sum(f_{i+}-f_{i-})\chi_{E_i}\right)\dif\mu.
+    \end{displaymath}
+\end{proof}
+\begin{homeworkProblem}
+    Suppose that $\mu,\nu$ are $\sigma$-finite measures on $(X,\M)$ 
+    with $\nu\ll\mu$, and let $\lambda=\mu+\nu$. 
+    If $f=\difFrac{\nu}{\lambda}$, 
+    then $0\le f<1$ a.e. and $\difFrac{\nu}{\mu}=\frac{f}{1-f}$.
+\end{homeworkProblem}
+\begin{proof}
+    The condition means that $\dif\nu=f\dif\lambda$. 
+    Choose $E\subset\M$, then $\int_{E}\dif\nu=\nu(E)=\int_{E}f\dif\lambda\ge 0$. 
+    Since $\mu,\nu$ positive, $\lambda$ is positive, so $f\ge0$ $\lambda$ a.e. 
+    which means $f\ge 0$ $\mu$ a.e. 
+
+    Since $\lambda(E)\ge\nu(E)$, we get $f\le 1$ a.e. Mark $F:=\{x:f(x)=1\}$, then:
+    \begin{displaymath}
+        \int_{F}\dif\nu=\int_{F}f\dif\lambda
+        \Rightarrow\nu(F)=\lambda(F)
+        \Rightarrow\mu(F)=0.
+    \end{displaymath}
+    Since $\nu\ll\mu$, we can see $\nu(F)=0$, so $\lambda(F)=0$. 
+    It shows that $0\le f<1$ $\lambda$-a.e. 
+
+    Then, $\forall E\in\M$, we have:
+    \begin{displaymath}
+        \int_{E}\dif\nu=\int_{E}f\dif\lambda
+        =\int_{E}f\dif(\mu+\nu)
+        =\int_{E}f\dif\mu+\int_{E}f\dif\nu.
+    \end{displaymath}
+    So $\int_{E}(1-f)\dif\nu=\int_{E}f\dif\mu$, it equals:
+    \begin{displaymath}
+        \forall E\in\M,\;
+        ((1-f)\dif\nu-f\dif\mu)(E)=0.
+    \end{displaymath}
+    So 
+    \begin{displaymath}
+        (1-f)\dif\nu-f\dif\mu=0\dif\mu=0\dif\nu,
+    \end{displaymath}
+    which means $(1-f)\dif\nu=f\dif\mu$, i.e. 
+    $\dif\nu=\frac{f}{1-f}\dif\mu$.
+\end{proof}
+\end{document}
