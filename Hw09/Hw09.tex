@@ -1,0 +1,313 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\newtheorem{lemma}{Lemma}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass\ (\hmwkClassInstructor\ \hmwkClassTime): \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#9}
+\newcommand{\hmwkDueDate}{May 7, 2024}
+\newcommand{\hmwkClass}{Real Analysis}
+\newcommand{\hmwkClassTime}{Tuesday}
+\newcommand{\hmwkClassInstructor}{Professor Yakun Xi}
+\newcommand{\hmwkAuthorName}{\textbf{Shuang Hu}}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 10:00am}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor\ \hmwkClassTime}}
+    \vspace{3in}
+}
+
+\author{\hmwkAuthorName}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Alias for the Solution section header
+\newcommand{\solution}{\textbf{\large Solution}}
+\newcommand{\norm}[1]{\|#1\|}
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\newcommand{\supp}{\text{supp}}
+\newcommand{\Rn}{\mathbb{R}^{n}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\avg}[1]{\left\langle #1 \right\rangle}
+\newcommand{\difFrac}[2]{\frac{\dif #1}{\dif #2}}
+\newcommand{\pdfFrac}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\OFL}{\mathrm{OFL}}
+\newcommand{\UFL}{\mathrm{UFL}}
+\newcommand{\fl}{\mathrm{fl}}
+\newcommand{\Eabs}{E_{\mathrm{abs}}}
+\newcommand{\Erel}{E_{\mathrm{rel}}}
+\newcommand{\DR}{\mathcal{D}_{\widetilde{LN}}^{n}}
+\newcommand{\add}[2]{\sum_{#1=1}^{#2}}
+\newcommand{\innerprod}[2]{\left<#1,#2\right>}
+\newcommand{\Sc}{\mathcal{S}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\E}{\mathcal{E}}
+\newcommand{\A}{\mathcal{A}}
+\newcommand{\cp}[2]{\cup_{#1=1}^{#2}}
+\newcommand{\sm}[2]{\sum_{#1=1}^{#2}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\Lc}{\mathcal{L}}
+\newcommand\tbbint{{-\mkern -16mu\int}}
+\newcommand\tbint{{\mathchar '26\mkern -14mu\int}}
+\newcommand\dbbint{{-\mkern -19mu\int}}
+\newcommand\dbint{{\mathchar '26\mkern -18mu\int}}
+\newcommand\bint{
+{\mathchoice{\dbint}{\tbint}{\tbint}{\tbint}}
+}
+\newcommand\bbint{
+{\mathchoice{\dbbint}{\tbbint}{\tbbint}{\tbbint}}
+}
+\begin{document}
+\maketitle
+\pagebreak
+\begin{homeworkProblem}
+    Prove Proposition 3.13c
+\end{homeworkProblem}
+\begin{proof}
+    Suppose $\dif\nu=h\dif\mu$, then $\dif|\nu|=|h|\dif\mu$, assume 
+    $h=h_r+ih_{i}$, then:
+    \begin{displaymath}
+        g\in L^{1}(\nu)\Leftrightarrow |g|h_{r},|g|h_i\in L^{1}(\mu)
+        \Leftrightarrow |g||h|\in L^{1}(\mu)\Leftrightarrow g\in L^{1}(|\nu|).
+    \end{displaymath}
+    The inequality:
+    \begin{displaymath}
+        \left|\int f\dif\nu\right|=\left|\int fh\dif\mu\right|\le
+        \int\left|fh\right|\dif\mu
+        \le\int|f||h|\dif\mu=\int|f|\dif|\nu|.
+    \end{displaymath}
+\end{proof}
+\begin{homeworkProblem}
+    If $\nu$, $\mu$ are complex measures and $\lambda$ is a positive measure, 
+    then $\nu\perp\mu$ iff $|\nu|\perp|\mu|$, and 
+    $\nu\ll\lambda$ iff $|\nu|\ll\lambda$.
+\end{homeworkProblem}
+\begin{proof}
+    We introduce the following lemma: 
+    \begin{lemma}
+    If $E$ is null related to $\nu$, 
+    then $E$ is null related to $|\nu|$.
+    \end{lemma}
+    \begin{proof}
+        E is null related to $\nu$ means $E$ is null related to $\nu_{i}$ and $\nu_{r}$, 
+        assume $\dif\nu=f\dif\mu$, it means:
+        \begin{displaymath}
+            \forall F\in \mathcal{P}(E)\cap\M, \int_{F}(f_r+if_{i})\dif\mu=0.
+        \end{displaymath}
+        It means $f_r=f_i=0$ on $E$ a.e., 
+        so $\int_{F}|f|\dif\mu=0$, which means $E$ is null related to $|\nu|$. 
+        
+        Since $|\nu(E)|\le|\nu|(E)$, if $E$ is null related to $|\nu|$, 
+        then $E$ is null related to $\nu$.
+    \end{proof}
+    The problem is just a simple corollary of the lemma.
+\end{proof}
+\begin{homeworkProblem}
+    If $\nu$ is a complex measure on $(X,\M)$ and $\nu(X)=|\nu|(X)$, then $\nu=|\nu|$.
+\end{homeworkProblem}
+\begin{proof}
+    Assume $\dif\nu=f\dif\mu$ and $f=f_r+if_i$, 
+    then $\nu(X)=|\nu|(X)$ means:
+    \begin{displaymath}
+        \int(|f|-f)\dif\mu=0.
+    \end{displaymath}
+    It means:
+    \begin{displaymath}
+        \begin{array}{rl}
+            &\int f_i\dif\mu=0,\\
+            &\int(|f_r|-f_r+|f_i|)\dif\mu=0.
+        \end{array}
+    \end{displaymath}
+    Since $|f_{r}|-f_r\ge 0$, $|f_i|\ge 0$, it means 
+    $|f_r|-f_r+|f_i|\ge 0$. 
+    So $|f_r|-f_r+|f_{i}|=0$ a.e., which means:
+    \begin{itemize}
+        \item $|f_r|=f_{r}$ a.e.
+        \item $|f_i|=0$ a.e.
+    \end{itemize}
+    Then $|f|=f$ a.e., which means $\nu=|\nu|$.
+\end{proof}
+\begin{homeworkProblem}
+    If $f\in L^1(\mathbb{R}^n)$, $f\neq 0$, there exist $C,R>0$ such that 
+    $Hf(x)\ge C|x|^{-n}$ for $|x|>R$. Hence 
+    $m(\{x:Hf(x)>\alpha\})\ge\frac{C'}{\alpha}$ when $\alpha$ is small, 
+    so the estimate in the maximal thoerem is essentially sharp.
+\end{homeworkProblem}
+\begin{proof}
+    Since $Hf(x)=\sup_{r>0}A_{r}|f|(x)$, WLOG, we assume $f\ge 0$ a.e. 
+    Then:
+    \begin{displaymath}
+        \begin{array}{rl}
+            Hf(x)<C|x|^{-n}&\Leftrightarrow
+            \forall r>0, A_{r}f(x)<C|x|^{-n}\\
+            &\Leftrightarrow \forall r>0,\frac{\int_{B(r,x)}f(\tau)\dif\tau}
+            {m(B(r,x))}<C|x|^{-n}\\
+            &\Leftrightarrow \forall r>0,\frac{|x|^{n}\int_{B(r,x)}f(\tau)\dif\tau}
+            {m(B(r,x))}<C.
+        \end{array}
+    \end{displaymath}
+    If $\forall C,R>0$, $\exists |x|>R$ such that $\forall r>0$, $A_{r}f(x)<C|x|^{-n}$, 
+    we choosem $C(m):=\frac{1}{m}$, then:
+    $\forall R>0$, $\exists |x|>R$ s.t. 
+    \begin{displaymath}
+        \frac{|x|^{n}\int_{B(r,x)}f(\tau)\dif\tau}{m(B(r,x))}<\frac{1}{m}.
+    \end{displaymath}
+    Choose $m\rightarrow\infty$, we can see:
+    \begin{displaymath}
+        \forall R,r>0,\exists |x|>R\text{ s.t. }\frac{\int_{B(r,x)}f(\tau)\dif\tau}{m(B(r,x))}=0.
+    \end{displaymath}
+    Which means $f\equiv 0$ a.e., contradict! So $\exists C,R$ s.t. 
+    $\forall |x|>R$, $Hf(x)\ge C|x|^{-n}$. 
+
+    Since $C|x|^{-n}\ge\alpha$ means 
+    $|x|\le\left(\frac{C}{\alpha}\right)^{n}$, 
+    it's clear that 
+    \begin{displaymath}
+        m(\{x:Hf(x)\ge\alpha\})\ge 
+        m(B((\frac{C}{\alpha})^{n},0))-m(B(R,0))
+        \ge\frac{C'}{\alpha}.
+    \end{displaymath}
+\end{proof}
+\begin{homeworkProblem}
+    A useful variant of the Hardy-Littlewood maximal function is 
+    \begin{displaymath}
+        H^{*}f(x)=\sup\left\{\frac{1}{m(B)}\int_{B}|f(y)|\dif y\text{: }
+        B\text{ is a ball and }x\in B\right\},
+    \end{displaymath}
+    show that $Hf\le H^{*}f\le 2^{n}Hf$.
+\end{homeworkProblem}
+\begin{proof}
+    $\forall x\in\mathbb{R}^{n}$, 
+    since $B(r,x)$ is a ball contains $x$, it's clear that 
+    $Hf(x)\le H^{*}f(x)$. It suffices to show that $H^{*}f(x)\le 2^{n}Hf(x)$. 
+    
+    Choose a ball $B$ such that $x\in B$ arbitrarily and mark 
+    \begin{displaymath}
+        H^{*}(B,f):=\frac{1}{m(B)}\int_{B}|f(y)|\dif y,
+    \end{displaymath}
+    assume $d:=\text{diam}(B)$, 
+    $\tilde{d}:=\text{dist}(x,\partial B)$, then:
+    \begin{displaymath}
+        B(d,x)\supset B(d-\tilde{d},x)\supset B.
+    \end{displaymath}
+    So:
+    \begin{displaymath}
+        H^{*}(B,f)\le\frac{\int_{B(d,x)}|f(y)|\dif y}{m(B)}
+        =\frac{\int_{B(d,x)}|f(y)|\dif y}{m(B(d,x))}\frac{m(B(d,x))}{m(B)}
+        =2^{n}\frac{\int_{B(d,x)}|f(y)|\dif y}{m(B(d,x))}.
+    \end{displaymath}
+    Get the supremum related to $B$, we get 
+    \begin{displaymath}
+        H^{*}f(x)\le 2^{n}Hf(x).
+    \end{displaymath}
+\end{proof}
+\end{document}
