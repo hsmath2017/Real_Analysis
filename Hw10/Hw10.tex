@@ -1,0 +1,399 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\newtheorem{lemma}{Lemma}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass\ (\hmwkClassInstructor\ \hmwkClassTime): \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#10}
+\newcommand{\hmwkDueDate}{May 14, 2024}
+\newcommand{\hmwkClass}{Real Analysis}
+\newcommand{\hmwkClassTime}{Tuesday}
+\newcommand{\hmwkClassInstructor}{Professor Yakun Xi}
+\newcommand{\hmwkAuthorName}{\textbf{Shuang Hu}}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 10:00am}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor\ \hmwkClassTime}}
+    \vspace{3in}
+}
+
+\author{\hmwkAuthorName}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Alias for the Solution section header
+\newcommand{\solution}{\textbf{\large Solution}}
+\newcommand{\norm}[1]{\|#1\|}
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\newcommand{\supp}{\text{supp}}
+\newcommand{\Rn}{\mathbb{R}^{n}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\avg}[1]{\left\langle #1 \right\rangle}
+\newcommand{\difFrac}[2]{\frac{\dif #1}{\dif #2}}
+\newcommand{\pdfFrac}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\OFL}{\mathrm{OFL}}
+\newcommand{\UFL}{\mathrm{UFL}}
+\newcommand{\fl}{\mathrm{fl}}
+\newcommand{\Eabs}{E_{\mathrm{abs}}}
+\newcommand{\Erel}{E_{\mathrm{rel}}}
+\newcommand{\DR}{\mathcal{D}_{\widetilde{LN}}^{n}}
+\newcommand{\add}[2]{\sum_{#1=1}^{#2}}
+\newcommand{\innerprod}[2]{\left<#1,#2\right>}
+\newcommand{\Sc}{\mathcal{S}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\E}{\mathcal{E}}
+\newcommand{\A}{\mathcal{A}}
+\newcommand{\cp}[2]{\cup_{#1=1}^{#2}}
+\newcommand{\sm}[2]{\sum_{#1=1}^{#2}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\Lc}{\mathcal{L}}
+\newcommand\tbbint{{-\mkern -16mu\int}}
+\newcommand\tbint{{\mathchar '26\mkern -14mu\int}}
+\newcommand\dbbint{{-\mkern -19mu\int}}
+\newcommand\dbint{{\mathchar '26\mkern -18mu\int}}
+\newcommand\bint{
+{\mathchoice{\dbint}{\tbint}{\tbint}{\tbint}}
+}
+\newcommand\bbint{
+{\mathchoice{\dbbint}{\tbbint}{\tbbint}{\tbbint}}
+}
+\begin{document}
+\maketitle
+\pagebreak
+\begin{homeworkProblem}
+    Let $\nu$ be a complex measure on $(X,\M)$. If $E\in\M$, define:
+    \begin{displaymath}
+        \begin{array}{rl}
+            \mu_{1}(E)&=\sup\{\sum_{1}^{n}|\nu(E_i)|:n\in\mathbb{N}, 
+            E_{1},\ldots, E_{n}\text{ disjoint, }E=\cp{i}{n}E_{i}\},\\
+            \mu_2(E)&=\sup\{\sm{i}{\infty}|\nu(E_i)|:E_1,\ldots,E_{n}\text{ disjoint, }
+            E=\cp{1}{\infty}E_i\},\\
+            \mu_3(E)&=\sup\left\{\left|\int_{E}f\dif\nu\right|:|f|\le 1\right\}.
+        \end{array}
+    \end{displaymath}
+    Then $\mu_1=\mu_2=\mu_3=\nu$.
+\end{homeworkProblem}
+\begin{proof}
+    First, we show that $\mu_1\le\mu_2\le\mu_3$. 
+
+    If $E=\cp{j}{n}E_j$, $E_j$ disjoint, 
+    set $\tilde{E}_j:=E_{j}$ for $j\le n$ and 
+    $\tilde{E}_j:=\emptyset$ for $j>n$, then $\tilde{E}_j$ disjoint and 
+    \begin{displaymath}
+        \sm{j}{n}|\nu(E_j)|=\sm{j}{n}|\nu(\tilde{E}_j)|.
+    \end{displaymath}
+    Get supermum for $\sm{j}{n}|\nu(E_j)|$, it's clear that $\mu_1(E)\le\mu_2(E)$, 
+    so $\mu_1\le\mu_2$.
+
+    Assume the positive measure $\tilde{\mu}$ satisfies $\nu\ll\tilde{\mu}$, 
+    and $\dif\nu=h\dif\tilde{\mu}$, then $\forall\epsilon>0$, 
+    $\exists$ disjoint sets $E_{j}$ satisfies:
+    \begin{displaymath}
+        \mu_{2}(E)-\epsilon=\sm{j}{\infty}\left|\int_{E_j}h\dif\tilde{\mu}\right|
+        \le\sm{j}{\infty}\int_{E_j}|h|\dif\tilde{\mu}=\int_{E}|h|\dif\tilde{\mu}.
+    \end{displaymath}
+    and 
+    \begin{displaymath}
+        \mu_{3}(E)=\sup_{|f|\le 1}\left\{\left|\int_{E}f\dif\nu\right|\right\}
+        =\sup_{|f|\le 1}\left\{\left|\int_{E}fh\dif\tilde{\mu}\right|\right\}
+        =\int_{E}|h|\dif\tilde{\mu}.
+    \end{displaymath}
+    So $\forall\epsilon>0$, $\mu_{2}(E)-\epsilon\le\mu_{3}(E)$, i.e. 
+    $\mu_{2}\le\mu_{3}$. Then we show that $\mu_{3}=|\nu|$.
+
+    On one hand, 
+    \begin{displaymath}
+        \left|\int_{E}f\dif\nu\right|\le\int_{E}|f|\dif|\nu|
+        \le\int_{E}\dif|\nu|=|\nu|(E),
+    \end{displaymath}
+    i.e. $\mu_{3}\le|\nu|$. On the other hand, let $f=\overline{\frac{\dif\nu}{\dif|\nu|}}$, 
+    then 
+    \begin{displaymath}
+        \mu_{3}(E)\ge\left|\int_{E}\overline{\frac{\dif\nu}{\dif|\nu|}}\dif\nu\right|
+        =\left|\int_{E}\dif|\nu|\right|=|\nu|(E),
+    \end{displaymath}
+    i.e. $|\nu|\le\mu_{3}$, so $\mu_{3}=|\nu|$.
+
+    Finally, we show $\mu_{3}\le\mu_{1}$. By the definition of integral, 
+    $\exists$ a sequence of simple functions $\chi_{nf}$ such that 
+    \begin{displaymath}
+        \int_{E}\chi_{nf}\rightarrow\int_{E}f.
+    \end{displaymath}
+    What's more, $\forall$ simple function $\chi$ on $E$ with $|\chi|\le 1$, 
+    $\chi:=\sm{i}{n}a_{i}\chi_{E_i}$, 
+    \begin{displaymath}
+        \left|\int_{E}\chi\dif\nu\right|=\sm{i}{n}|a_i||\nu(E_i)|
+        \le\sm{i}{n}|\nu(E_i)|=\mu_{1}(E).
+    \end{displaymath}
+    So $\mu_{3}(E)\le\mu_{1}(E)$.
+\end{proof}
+\begin{homeworkProblem}
+    If $f\in L_{\text{loc}}^{1}$ and $f$ is continuous at $x$, then $x$ is in the 
+    Lebesgue set of $f$.
+\end{homeworkProblem}
+\begin{proof}
+    $f$ is continuous at $x$ means $\forall\epsilon>0$, $\exists\delta$ such that 
+    $\forall|y-x|<\delta_{\epsilon}$, $|f(y)-f(x)|<\epsilon$. Then:
+    \begin{displaymath}
+        \forall r<\delta_{\epsilon}, 
+        \frac{1}{m(B(r,x))}\int_{B(r,x)}|f(y)-f(x)|\dif y<\epsilon.
+    \end{displaymath}
+    So:
+    \begin{displaymath}
+        \forall\epsilon>0, \limsup_{r\rightarrow 0}\frac{1}{m(B(r,x))}
+        \int_{B(r,x)}|f(y)-f(x)|\dif y\le \epsilon.
+    \end{displaymath}
+    It means that $x\in L_{f}$.        
+\end{proof}
+\begin{homeworkProblem}
+    If $E$ is a Borel set in $\mathbb{R}^{n}$, the \textbf{density} $D_{E}(x)$ of $E$ 
+    at $x$ is defined as 
+    \begin{displaymath}
+        D_{E}(x):=\lim_{r\rightarrow 0}\frac{m(E\cap B(r,x))}{m(B(r,x))},
+    \end{displaymath}
+    whenever the limit exists.
+    \begin{enumerate}
+        \item Show that $D_{E}(x)=1$ for a.e. $x\in E$ and $D_{E}(x)=0$ for a.e. $x\in E^{c}$.
+        \item Find examples of $E$ and $x$ such that $D_{E}(x)$ is a given number $\alpha\in(0,1)$, 
+        or such that $D_{E}(x)$ doesn't exist.
+    \end{enumerate}
+\end{homeworkProblem}
+\begin{proof}
+    $(1)$ Choose $E_{r}:=B(r,x)$, then $E_{r}$ shrinks nicely to $x$. 
+    Mark $f:=\chi_{E}$, by Lebesgue Differentiation Theorem, 
+    \begin{displaymath}
+        \lim_{r\rightarrow 0}\frac{\int_{B(r,x)}\chi_{E}}{m(B(r,x))}
+        =\lim_{r\rightarrow 0}\frac{m(E\cap B(r,x))}{m(B(r,x))}=\chi_{E}(x)\;a.e.
+    \end{displaymath}
+    Then: for a.e. $x\in E$, $D_{E}(x)=\chi_{E}(x)=1$. 
+    For a.e. $x\in E^{c}$, $D_{E}(x)=\chi_{E}(x)=0$.\qed
+
+    $(2)$ $D_{E}(0)=\alpha$: If $n\ge 2$, 
+    just choose $x=0$ and 
+    \begin{displaymath}
+        E:=\left\{x\in\mathbb{R}^{n}:(x,e_1)\ge\cos(\alpha\pi)\right\}.
+    \end{displaymath}
+    Then $D_{E}(0)=\alpha$. 
+
+    (The following example comes from Math Stack Exchange)
+    If $n=1$, put $U_{n,\alpha}:=\left(\frac{1}{n+1},\frac{1}{n+1}+\alpha(\frac{1}{n}-\frac{1}{n+1})\right)$, 
+    set $E_{n}:=U_{n,\alpha}\cup(-U_{n,\alpha})$, $E:=\cup_{n\ge 1}E_{n}$, 
+    then $D_{E}(0)=\alpha$.
+
+    $D_{E}(0)$ doesn't exist: choose $F$ be a fat-Cantor set with $m(F)=\sigma>0$, and $E:=F^{n}$, then $D_{E}(0)$ doesn't exist. 
+\end{proof}
+\begin{homeworkProblem}
+    If $\lambda,\mu$ are positive, mutually singular Borel measures on $\mathbb{R}^{n}$ and $\lambda+\mu$ is regular, then so are $\lambda$ and $\mu$.
+\end{homeworkProblem}
+\begin{proof}
+    Since $\lambda,\mu$ are both positive and Borel measures, 
+    $\forall$ compact set $K\subset\mathbb{R}^{n}$, it satisfies:
+    \begin{itemize}
+        \item $K\in\M(\lambda)\cap\M(\mu)$.
+        \item $(\lambda+\mu)(K)<\infty$.
+    \end{itemize}
+    So $\lambda(K)\le(\lambda+\mu)(K)<\infty$ and $\mu(K)\le(\lambda+\mu)(K)<\infty$. 
+
+    Let $E$ be a Borel set, it suffices to show:
+    \begin{displaymath}
+        \lambda(E)=\inf\left\{\lambda(U):\;U\;\text{open, }U\supset E\right\}.
+    \end{displaymath}
+    Set $G_{k}:=[-k,k]^{n}$, $\mathbb{R}^{n}=\cp{k}{\infty}G_{k}$ 
+    and $(\lambda+\mu)(G_{k})<\infty$, so 
+    $\forall k$, $\exists U_{k}\supset E\cap G_{k}$ s.t. $(\lambda+\mu)(U_k\setminus (E\cap G_{k}))<\epsilon 2^{-k}$. Then 
+    \begin{displaymath}
+        U:=\cp{k}{\infty}U_{k}\Rightarrow (\lambda+\mu)(U\setminus E)<\epsilon
+        \Rightarrow\lambda(U\setminus E)<\epsilon.
+    \end{displaymath}
+    So 
+    \begin{displaymath}
+        \lambda(E)=\inf\left\{\lambda(U):E\subset U\;,\;U\text{ open}\right\}.
+    \end{displaymath}
+\end{proof}
+\begin{homeworkProblem}
+    If $F\in NBV$, let $G(x):=|\mu_{F}|((-\infty,x])$. Prove that $|\mu_{F}|=\mu_{T_{F}}$ 
+    by showing that $G=T_{F}$.
+\end{homeworkProblem}
+\begin{proof}
+    First, we show that $T_{F}\le G$. $\forall$ partition $-\infty=x_{0}<x_{1}<\cdots<x_{n}=x$, 
+    \begin{displaymath}
+        \begin{array}{rl}
+           G(x)&=|\mu_{F}|((-\infty,x])\\
+           &=|\mu_{F}|(\cp{i}{n}((x_{i-1},x_{i}]))\\
+           &=\sm{i}{n}|\mu_{F}|((x_{i-1},x_{i}])\\
+           &\ge\sm{i}{n}|F(x_i)-F(x_{i-1})|.\\ 
+        \end{array}
+    \end{displaymath}
+    Get the supermum, it's clear that $G(x)\ge T_{F}(x)$. 
+    
+    Then for $E=(a,b]$, $|\mu_{F}(E)|=|F(b)-F(a)|$ and 
+    $\mu_{TF}(E)=T_{F}(b)-T_{F}(a)$. By Lemma 3.26, 
+    $\mu_{TF}(E)\ge|\mu_{F}(E)|$. So 
+    $\mu_{TF}\ge|\mu_{F}|$ for intervals. 
+
+    Mark $\A:=\{(a,b]:-\infty\le a<b\le\infty\}$, then 
+    $\mathcal{C}:=\{E\in \mathcal{B}_{\mathbb{R}}||\mu_{F}(E)|\le\mu_{T_{F}}(E)\}$ is a monotone class contains $\A$, by Lemma 2.35, $\mathcal{C}=\M(\A)=\mathcal{B}(\mathbb{R})$. 
+    So $\mu_{TF}(E)\ge|\mu_{F}(E)|$ for all Borel sets.
+
+    $\forall$ Borel set $E$, by Exercise 21, 
+    \begin{displaymath}
+        \begin{array}{rl}
+        |\mu_{F}|(E)&=\sup\{\sm{k}{\infty}|\mu_{F}(E_{k})|\}\\
+        &\le\sup\{\sm{k}{\infty}\mu_{TF}(E_{k})\}\\
+        &=\mu_{TF}(E).
+        \end{array}
+    \end{displaymath}
+    So $G\le T_{F}$, i.e. $G=T_{F}$, and 
+    $\M:=\left\{E:|\mu_{F}(E)=\mu_{TF}(E)\right\}$ is a $\sigma$-algebra 
+    contains $(-\infty,x]$, which means 
+    $\mathcal{B}_{\mathbb{R}}\subset\M$. 
+    So $|\mu_{F}|=\mu_{TF}$.
+\end{proof}
+\begin{homeworkProblem}
+    Construct an increasing function on $\mathbb{R}$ whose set of discontinuities is $\mathbb{Q}$.
+\end{homeworkProblem}
+\begin{proof}
+    TBD
+\end{proof}
+\begin{homeworkProblem}
+    Let $F(x)=x^{2}\sin(x^{-1})$ and $G(x)=x^2\sin(x^{-2})$ for $x\neq 0$, 
+    and $F(0)=G(0)=0$.
+    \begin{enumerate}
+        \item $F$ and $G$ are differentiable.
+        \item $F\in BV([-1,1])$ and $G\notin BV([-1,1])$.
+    \end{enumerate}
+\end{homeworkProblem}
+\begin{proof}
+    $(1)$ For $x\neq 0$, $F,G$ are both the composition of foundamental functions, i.e. differentiable. 
+    Since 
+    \begin{displaymath}
+        \lim_{x\rightarrow 0}\frac{F(x)}{x}=\lim_{x\rightarrow 0}x\sin\frac{1}{x}=0,
+        \lim_{x\rightarrow 0}\frac{G(x)}{x}=\lim_{x\rightarrow 0}x\sin\frac{1}{x^2}=0,
+    \end{displaymath}
+    $F,G$ are differentiable everywhere.
+
+    $(2)$ For $x\neq 0$, 
+    \begin{displaymath}
+        F'(x)=(2x-1)\sin\frac{1}{x},
+    \end{displaymath}
+    which is bounded on $[-1,1]\setminus\{0\}$. So $F$ is Lipschitz continuous on $[-1,1]$, which means 
+    $F\in BV([-1,1])$.
+
+    Since $G\in D[-1,1]$, 
+    \begin{displaymath}
+        T_{G}(1)-T_{G}(-1)=\int_{-1}^{1}|G'(t)|\dif t
+        =\int_{-1}^{1}\left|2x\sin\frac{1}{x^2}-\frac{2\cos\frac{1}{x^2}}{x}\right|\dif x=\infty,
+    \end{displaymath}
+    which means $G\notin BV([-1,1])$.
+\end{proof}
+
+\end{document}
