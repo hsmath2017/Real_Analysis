@@ -1,0 +1,370 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\newtheorem{lemma}{Lemma}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass\ (\hmwkClassInstructor\ \hmwkClassTime): \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#10}
+\newcommand{\hmwkDueDate}{May 14, 2024}
+\newcommand{\hmwkClass}{Real Analysis}
+\newcommand{\hmwkClassTime}{Tuesday}
+\newcommand{\hmwkClassInstructor}{Professor Yakun Xi}
+\newcommand{\hmwkAuthorName}{\textbf{Shuang Hu}}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 10:00am}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor\ \hmwkClassTime}}
+    \vspace{3in}
+}
+
+\author{\hmwkAuthorName}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Alias for the Solution section header
+\newcommand{\solution}{\textbf{\large Solution}}
+\newcommand{\norm}[1]{\|#1\|}
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\newcommand{\supp}{\text{supp}}
+\newcommand{\Rn}{\mathbb{R}^{n}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\avg}[1]{\left\langle #1 \right\rangle}
+\newcommand{\difFrac}[2]{\frac{\dif #1}{\dif #2}}
+\newcommand{\pdfFrac}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\OFL}{\mathrm{OFL}}
+\newcommand{\UFL}{\mathrm{UFL}}
+\newcommand{\fl}{\mathrm{fl}}
+\newcommand{\Eabs}{E_{\mathrm{abs}}}
+\newcommand{\Erel}{E_{\mathrm{rel}}}
+\newcommand{\DR}{\mathcal{D}_{\widetilde{LN}}^{n}}
+\newcommand{\add}[2]{\sum_{#1=1}^{#2}}
+\newcommand{\innerprod}[2]{\left<#1,#2\right>}
+\newcommand{\Sc}{\mathcal{S}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\E}{\mathcal{E}}
+\newcommand{\A}{\mathcal{A}}
+\newcommand{\cp}[2]{\cup_{#1=1}^{#2}}
+\newcommand{\sm}[2]{\sum_{#1=1}^{#2}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\Lc}{\mathcal{L}}
+\newcommand\tbbint{{-\mkern -16mu\int}}
+\newcommand\tbint{{\mathchar '26\mkern -14mu\int}}
+\newcommand\dbbint{{-\mkern -19mu\int}}
+\newcommand\dbint{{\mathchar '26\mkern -18mu\int}}
+\newcommand\bint{
+{\mathchoice{\dbint}{\tbint}{\tbint}{\tbint}}
+}
+\newcommand\bbint{
+{\mathchoice{\dbbint}{\tbbint}{\tbbint}{\tbbint}}
+}
+\begin{document}
+\maketitle
+\pagebreak
+\begin{homeworkProblem}
+    Suppose $F:\mathbb{R}\rightarrow\mathbb{C}$. There is a constant $M$ 
+    such that $|F(x)-F(y)|\le M|x-y|$ for all $x,y\in\mathbb{R}$ iff $F$ 
+    is absolutely continuous and $|F'|\le M$ a.e.
+\end{homeworkProblem}
+\begin{proof}
+    $"\Leftarrow"$: By Theorem 3.35, 
+    \begin{displaymath}
+        \begin{array}{rl}
+            |F(x)-F(y)|&=|\int_{y}^{x}F'(t)\dif t|\\
+            &\le\left|\int_{y}^{x}|F'(t)|\dif t\right|\\
+            &\le M|x-y|.
+        \end{array}
+    \end{displaymath}
+
+    $"\Rightarrow"$: $\forall\epsilon>0$, for $\delta=\frac{\epsilon}{M}$, 
+    $\forall$ finite disjoint intervals $\{(a_i,b_i)\}$ s.t. $\sm{i}{N}(b_i-a_i)<\frac{\epsilon}{M}$, 
+    we have 
+    \begin{displaymath}
+        \sm{i}{N}|F(b_i)-F(a_i)|\le M\sm{i}{N}|b_i-a_i|<\epsilon.
+    \end{displaymath}
+    So $F$ is absolutely continuous, i.e. $F$ is differentiable a.e. on $\mathbb{R}$. 
+
+    Choose $\Sc:=\{x:|F'(x)|>M\}$, it suffices to show $m(\Sc)=0$. Assume $m(\Sc)>0$, 
+    then $\forall\epsilon>0$, $\exists$ a finite union of intervals $A$ such that 
+    $m(A\triangle E)<\epsilon$, then:
+    \begin{displaymath}
+        \begin{array}{ll}
+            \int_{\Sc}|F'|\le\int_{A\cup\Sc}|F'|\le M(m(\Sc)+\epsilon)+\int_{A\triangle \Sc}|F'|,\\
+            \int_{\Sc}|F'|=\int_{A\cap \Sc}|F'|+\int_{A^c\cap\Sc}|F'|>Mm(A\cap \Sc)>M(m(\Sc)-\epsilon),\\
+        \end{array}
+    \end{displaymath}
+    while the first inequality follows from the condition about Lipschitz continuous, and the second inequality follows from the assumption. 
+
+    Choose $\epsilon\rightarrow 0$, since $m(A\triangle E)<\epsilon$ and 
+    $F$ is a uniformly continuous function, $\int_{A\triangle\Sc}|F'|\rightarrow 0$. 
+    So choose $\epsilon\rightarrow 0$, it's clear that 
+    \begin{displaymath}
+        \int_{\Sc}|F'|=Mm(\Sc),
+    \end{displaymath}
+    i.e. $|F'(x)|=M$ a.e. on $\Sc$, contradict! 
+    So $m(\Sc)=0$.
+\end{proof}
+\begin{homeworkProblem}
+    If $\{F_j\}$ is a sequence of nonnegative increasing functions on $[a,b]$ such that 
+    $F(x)=\sm{j}{\infty}F_j(x)<\infty$ for all $x\in[a,b]$, then $F'(x)=\sm{j}{\infty}F_{j}'(x)$ for a.e. $x\in[a,b]$.
+\end{homeworkProblem}
+\begin{proof}
+    Choose 
+    \begin{displaymath}
+        \tilde{F}_{j}(x)=\left\{
+            \begin{array}{rl}
+                0,&x\le a;\\
+                F_{j}(x)-F_{j}(a),&a<x\le b;\\
+                F_{j}(b)-F_{j}(a),&x>b.\\
+            \end{array}
+        \right.
+    \end{displaymath}
+    Then $\tilde{F}_{j}\in\text{NBV}$, $\tilde{F}(x):=\sm{j}{\infty}\tilde{F}_{j}(x)<\infty$ 
+    and $\tilde{F}_{j}(a)=0$. 
+    It suffices to show $\tilde{F}'=\sm{j}{\infty}\tilde{F}_{j}'$ a.e. 
+    Set $\mu_{\tilde{F}_{j}}(-\infty,x]:=\tilde{F}_{j}(x)$, then $\mu_{\tilde{F}_{j}}$ is a $\sigma$-finite positive measure. 
+    By Lebesgue-Radon-Nikodym Theorem, $\mu_{\tilde{F}_{j}}=\lambda_{\tilde{F}_{j}}+
+    \rho_{\tilde{F}_{j}}$ with $\lambda_{\tilde{F}_{j}}\perp m$, $\rho_{\tilde{F}_j}\ll m$, then 
+    \begin{displaymath}
+        \mu_{\tilde{F}}=(\sm{j}{\infty}\lambda_{\tilde{F}_j})+(\sm{j}{\infty}\rho_{\tilde{F}_j}).
+    \end{displaymath}
+    By exercise 9, $\sm{j}{\infty}\lambda_{\tilde{F}_j}\perp m$, 
+    $\sm{j}{\infty}\rho_{\tilde{F}_j}\ll m$, 
+    and 
+    \begin{displaymath}
+        \tilde{F}'=\frac{\dif\sm{j}{\infty}\rho_{\tilde{F}_j}}{\dif m}\;a.e.,\quad\tilde{F}'_{j}=\difFrac{\rho_{\tilde{F}_j}}{m}\; a.e.
+    \end{displaymath}
+    Since $\tilde{F}_j$ increasing, by MCT:
+    \begin{displaymath}
+        \frac{\dif\sm{j}{\infty}\rho_{\tilde{F}_j}}{\dif m}=\sm{j}{\infty}\difFrac{\rho_{\tilde{F}_j}}{m}.
+    \end{displaymath}
+    So $F'=\sm{j}{\infty}F'_{j}$ a.e. on $[a,b]$.
+\end{proof}
+\begin{homeworkProblem}
+    Let $F$ denote the Cantor function on $[0,1]$, and set $F(x)=0$ for $x<0$ 
+    and $F(x)=1$ for $x>1$. Let $\{[a_n,b_n]\}$ be an enumeration of the closed 
+    subintervals of $[0,1]$ with rational endpoints, and let $F_n(x)=F(\frac{x-a_n}{b_n-a_n})$. 
+    Then $G=\sm{n}{\infty}2^{-n}F_n$ is continuous and strictly increasing on $[0,1]$, 
+    and $G'=0$ a.e.
+\end{homeworkProblem}
+\begin{proof}
+    Since $F_{n}(x)\ge 0$ and 
+    \begin{displaymath}
+        |G|\le\sm{n}{\infty}2^{-n}=1,
+    \end{displaymath}
+    $\sm{n}{\infty}F_{n}(x)$ converges uniformly to $G$. 
+    $F_{n}\in\mathcal{C}[0,1]$ yields $G=\sm{n}{\infty}F_{n}\in\mathcal{C}[0,1]$. 
+
+    $\forall x<y$, $\exists q_{x},q_{y}\in\mathbb{Q}$ such that $x<q_x<q_y<y$, assume 
+    $a_{n}=q_x,b_n=q_y$, then $F_{n}(y)=1>F_{n}(x)=0$. Since $F_{i}$ 
+    increasing $\forall i\in\mathbb{N}$, it means 
+    that $G(y)-G(x)>F_{n}(y)-F_{n}(x)>0$. So $G$ is strictly increasing. 
+    By the definition of Cantor function, we can see $F_{n}'(x)=0$ a.e. on $[0,1]$. 
+    By Exercise 39, $G'(x)=0$ a.e.
+\end{proof}
+\begin{homeworkProblem}
+    Let $A\subset[0,1]$ be a Borel set such that $0<m(A\cap I)<m(I)$ for every subinterval 
+    $I$ of $[0,1]$.
+    \begin{enumerate}
+        \item Let $F(x)=m([0,x]\cap A)$. Then $F$ is absolutely continuous and strictly 
+        increasing on $[0,1]$, but $F'=0$ on a set of positive measure.
+        \item Let $G(x)=m([0,x]\cap A)-m([0,x]\setminus A)$. Then $G$ is absolutely continuous on $[0,1]$, but $G$ is not monotone on any subinterval of $[0,1]$.
+    \end{enumerate}
+\end{homeworkProblem}
+\begin{proof}
+    $(1)$ Absolutely continuous: $\forall$ interval $(a_j,b_j)$, 
+    \begin{displaymath}
+        F(b_j)-F(a_j)=m([0,b_j]\cap A)-m([0,a_j]\cap A)
+        =m((a_j,b_j]\cap A)\le b_j-a_j.
+    \end{displaymath}
+    So $F$ is Lipschitz with constant $1$, i.e. $F$ is absolutely continuous.
+
+    Strictly increasing: $\forall y>x$, 
+    \begin{displaymath}
+        F(y)-F(x)=m((x,y]\cap A)>0.
+    \end{displaymath}
+    So $F(x)$ strictly increasing. 
+
+    Set $\mu_{F}((a,b]):=F(b)-F(a)$, by LRN Theorem, $\mu_{F}=\lambda+\nu$ with 
+    $\lambda\perp m$, $\nu\ll m$, and 
+    $\difFrac{\nu}{m}=F'$. Since 
+    $\mu_{F}(A)=m(A)=\mu_{F}(I)$, it means 
+    $\mu_{F}(A^c)=0$, i.e. $\nu(A^c)=0\Rightarrow F'=0$ on $A^c$. 
+    But $m(A^c)\neq 0$.
+
+    $(2)$ In the same way, $H(x):=m([0,x]\setminus A)$ is absolutely continuous, 
+    strictly increasing and $H'(x)=0$ on $A$. 
+    So $G(x)$ is absolutely continuous on $[0,1]$. 
+    As $G'=F'-H'$, it means:
+    For $x\in A$, $G'(x)>0$. For $x\in A^c $, $G'(x)<0$. 
+    And for each interval $I$, $I\cap A\neq\emptyset$ and $I\cap A^c\neq\emptyset$. 
+    So $G$ isn't monotone on any interval.
+\end{proof}
+\begin{homeworkProblem}
+    Suppose $0<p<q<\infty$. 
+    \begin{enumerate}
+        \item $L^{p}\not\subset L^q$ iff $X$ contains sets of arbitrarily small positive measure. 
+        \item $L^q\not\subset L^{p}$ iff $X$ contains sets of arbitrarily large finite measure.
+    \end{enumerate}
+\end{homeworkProblem}
+\begin{proof}
+    $(1)$ $"\Leftarrow"$: $\exists$ a disjoint sequence $\{E_n\}$ such that 
+    $0<\mu(E_n)<2^{-n}$. Mark $f=\sm{n}{\infty}a_{n}\chi_{E_n}$, then 
+    \begin{displaymath}
+        \int_{X}|f|^{p}=\sm{n}{\infty}|a_n|^{p}\mu(E_{n}).
+    \end{displaymath}
+    Choose $a_{n}:=\mu(E_{n})^{-\frac{2}{p+q}}$, then:
+    \begin{displaymath}
+        \begin{array}{rl}
+            \int_{X}|f|^{p}&=\sm{n}{\infty}\mu(E_{n})^{\frac{q-p}{q+p}}<\infty,\\
+            \int_{X}|f|^{q}&=\sm{n}{\infty}\mu(E_{n})^{\frac{p-q}{p+q}}=\infty.
+        \end{array}
+    \end{displaymath}
+    So $L^{p}\not\subset L^{q}$.
+
+    $"\Rightarrow"$: TBD
+
+    $(2)$ $"\Rightarrow"$: By Proposition 6.12.
+
+    $"\Leftarrow"$: Choose disjoint sequence with $\infty>\mu(E_n)>2^n$, 
+    $f:=\sm{n}{\infty}a_{n}\chi_{E_n}$. 
+    Choose $a_{n}:=(m(E_n))^{-\frac{2}{p+q}}$, then 
+    \begin{displaymath}
+        \begin{array}{rl}
+        \int_{X}|f|^{q}&=\sm{n}{\infty}(m(E_n))^{\frac{p-q}{p+q}}<\infty\\
+        \int_{X}|f|^{p}&=\sm{n}{\infty}(m(E_n))^{\frac{q-p}{q+p}}=\infty.
+        \end{array}
+    \end{displaymath}
+\end{proof}
+\begin{homeworkProblem}
+    Suppose $0<p_0<p_1<\infty$, find examples of functions $f$ on $(0,\infty)$, such that $f\in L^{p}$ iff 
+    \begin{itemize}
+        \item $p_0<p<p_1$,
+        \item $p_0\le p\le p_1$,
+        \item $p_{0}=p$.
+    \end{itemize}
+\end{homeworkProblem}
+\begin{proof}
+    By simple calculus, we can see:
+    \begin{itemize}
+        \item $\int_{e}^{\infty}\frac{\dif x}{x^{\frac{p}{p_{0}}}}$ converges $\Leftrightarrow$ $p>p_0$,
+        \item $\int_{0}^{\frac{1}{e}}\frac{\dif x}{x^{\frac{p}{p_{0}}}}$ converges $\Leftrightarrow$ $p<p_0$,
+        \item $\int_{e}^{\infty}\frac{\dif x}{\left(x(\log x)^{2}\right)^{\frac{p}{p_{1}}}}$ converges $\Leftrightarrow$ $p\ge p_{1}$,
+        \item $\int_{0}^{\frac{1}{e}}\frac{\dif x}{\left(x(\log x)^{2}\right)^{\frac{p}{p_{1}}}}$ converges $\Leftrightarrow$ $p\le p_{1}$.
+    \end{itemize}
+    So the solutions:
+    \begin{itemize}
+        \item $f:=\frac{\chi_{x\ge e}}{x^{\frac{1}{p_{0}}}}+\frac{\chi_{x\le\frac{1}{e}}}{x^{\frac{1}{p_1}}}$,
+        \item $f:=\frac{\chi_{x\ge e}}{(x(\log x)^{2})^{\frac{1}{p_0}}}+\frac{\chi_{x\le\frac{1}{e}}}{(x(\log x)^{2})^{\frac{1}{p_1}}}$
+        \item $f:=\frac{\chi_{x\ge e}+\chi_{x\le\frac{1}{e}}}{(x(\log x)^{2})^{\frac{1}{p_0}}}$.
+    \end{itemize}
+\end{proof}
+\end{document}
