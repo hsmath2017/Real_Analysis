@@ -176,9 +176,13 @@ containing $\mathcal{E}$
 \end{prop}
 \begin{proof}
     On one hand, 
-    $\pi_{k}^{-1}(E_{k})=(X_{1},\ldots,X_{k-1},E_{k},X_{k+1},\ldots)$, 
+    \begin{displaymath}
+    \pi_{k}^{-1}(E_{k})=(X_{1},\ldots,X_{k-1},E_{k},X_{k+1},\ldots), 
+    \end{displaymath}
     on the other hand, 
-    $\prod_{k=1}^{\infty}E_{k}=\cap_{k=1}^{\infty}\pi_{k}^{-1}(E_k)$, 
+    \begin{displaymath}
+        \prod_{k=1}^{\infty}E_{k}=\cap_{k=1}^{\infty}\pi_{k}^{-1}(E_k),
+    \end{displaymath}
     then the 
     result follows from 
     Lemma \ref{Lem:GeneratedSigmaAlgLem}.
@@ -188,5 +192,66 @@ containing $\mathcal{E}$
     =\otimes_{1}^{n}\mathcal{B}_{\mathbb{R}}$.
 \end{exc}
 \section{Measures}
+\begin{defn}[Measure]
+    \label{Defn:Measure}
+    A \textit{measure} on $(X,\M)$ is 
+    a function $\mu:\M\rightarrow[0,\infty]$ such that 
+    \begin{itemize}
+        \item $\mu(\emptyset)=0$,
+        \item If $\{E_{j}\}_{1}^{\infty}$ pairwise disjoint, 
+        $\mu(\cp{j}{\infty}E_j)=\sm{j}{\infty}\mu(E_j)$.
+    \end{itemize}
+\end{defn}
+\begin{rem}
+    Definition \ref{Defn:Measure} is a 
+    generalization of Definition \ref{Defn:volume}.
+\end{rem}
+\begin{rem}
+    $\M$ is a $\sigma$-algebra, so $\mu(\cp{j}{\infty}E_{j})$ 
+    is well-defined. 
+    It means that $\M$ \textbf{must} be a $\sigma$-algebra.
+\end{rem}
+\begin{defn}
+    \label{Defn:MeasureWithFinite}
+    $(X,\M)$ is a \textit{measurable space}, the sets in $\M$ are 
+    \textit{measurable sets}, and $(X,\M,\mu)$ is a 
+    \textit{measurable space}.
+    \begin{itemize}
+        \item If $\mu(X)<\infty$, $\mu$ is \textit{finite}.
+        \item If $X=\cp{j}{\infty}E_{j}$, $E_{j}\in\M$ and 
+        $\forall j$, $\mu(E_j)<\infty$, $\mu$ is 
+        \textit{$\sigma$-finite}.
+        \item If $\forall E\in\M$, $\mu(E)=\infty$, 
+        $\exists F\subset E$ s.t. 
+        $0<\mu(F)<\infty$, then $\mu$ is \textit{semi-finite}.
+    \end{itemize}
+\end{defn}
+\begin{rem}
+    If $\mu$ is volume in $\mathbb{R}^{n}$, then $\mu(X)=\infty$ 
+    means $X$ is unbounded. 
+    So, it's essential to show a measure is 
+    finite or not.
+\end{rem}
+\begin{exm}
+    \label{Exm:CountingAndDirac}
+    Given a function $f:X\rightarrow [0,\infty)$, 
+    for $E\in\mathcal{P}(X)$, 
+    \begin{displaymath}
+        \mu_{f}(E):=\sum_{x\in E}f(x)
+    \end{displaymath}
+    is a measure on $X$. 
+    If $f\equiv 1$, $\mu$ is called \textit{counting measure}. 
+    If $f(x)=\left\{\begin{array}{rl}
+        1,x=x_0,\\
+        0,x\neq x_0,\\
+    \end{array}\right.$
+    then $\mu$ is called \textit{Dirac delta measure} on $x_{0}$, 
+    marked as $\delta_{x_0}$.
+\end{exm}
+\begin{exc}
+    Exclaim the meanings of 
+    counting measure and Dirac delta measure 
+    by some examples in real world.
+\end{exc}
 \section{Outer Measures}
 \section{Lebesgue Measure}
