@@ -313,5 +313,133 @@ containing $\mathcal{E}$
     For the Dirac delta measure,Think about a ruler. The Dirac delta measure at a specific point on the ruler would 
     represent the mass or density concentrated at that point. 
 \end{proof}
+\begin{thm}
+    \label{Thm:PropertiesOfMeasure}
+    Given a measurable space $(X,\M,\mu)$, 
+    \begin{enumerate}[(a)]
+        \item \textit{Monotonicity:} If $E,F\in\M$ and $E\subset F$, 
+        then $\mu(E)\le\mu(F)$. 
+        \item \textit{Subadditivity:} 
+        If $\{E_{j}\}_{1}^{\infty}\subset\M$, 
+        then $\mu\left(\cp{j}{\infty}E_j\right)\le\sm{j}{\infty}\mu(E_j)$.
+        \item \textit{Continuity from below:} 
+        If $\{E_j\}_{1}^{\infty}\subset\M$, 
+        $E_1\subset E_2\subset\ldots$, then 
+        $\mu(\cp{i}{\infty}E_{i})=\lim_{n\rightarrow\infty}\mu(E_n)$.
+        \item \textit{Continuity from above:}
+        If $\{E_j\}_{1}^{\infty}\subset\M$, 
+        $E_1\supset E_2\supset\ldots$ and $\mu(E_{1})<\infty$, 
+        then 
+        $\mu(\cap_{i=1}^{\infty}E_{i})=\lim_{n\rightarrow\infty}\mu(E_n)$.
+    \end{enumerate} 
+\end{thm}
+\begin{proof}
+    (a) Since $F=E\cup (F\setminus E)$, 
+    by Definition \ref{Defn:Measure}, 
+    \begin{displaymath}
+        \mu(F)=\mu(E)+\mu(F\setminus E)\ge\mu(E).
+    \end{displaymath}
+    (b) Mark 
+    \begin{displaymath}
+        F_{1}:=E_{1},\quad F_{k}:=E_{k}\setminus\cp{i}{k-1}E_{i},
+    \end{displaymath}
+    then $\{F_{k}\}$ are pairwise disjoint sets, and 
+    $\cp{i}{\infty}E_{i}=\cp{i}{\infty}F_{i}$.  
+    Then by Definition \ref{Defn:Measure}, 
+    \begin{equation}
+        \label{Equ:SubAddi1}
+        \mu\left(\cp{i}{\infty}E_i\right)
+        =\mu\left(\cp{i}{\infty}F_{i}\right)=\sm{i}{\infty}\mu(F_i).
+    \end{equation}
+    By the definition of $F_{k}$, 
+    $\forall k\ge 1$, $F_{k}\subset E_{k}$, so 
+    \begin{equation}
+        \label{Equ:SubAddi2}
+        \sm{i}{\infty}\mu(F_i)\le\sm{i}{\infty}(E_i).
+    \end{equation}
+    By \eqref{Equ:SubAddi1} and \eqref{Equ:SubAddi2}, 
+    (b) is true. 
+
+    (c) We set $E_0:=\emptyset$, since $\{E_{k}\}_{1}^{\infty}$ 
+    increasing, $F_{k}:=E_{k}\setminus\left(\cp{i}{k-1}E_i\right)
+    =E_{k}\setminus E_{k-1}$. 
+    Then by Definition \ref{Defn:Measure}:
+    \begin{displaymath}
+        \begin{array}{rl}
+        \mu(\cp{j}{\infty}E_j)=&\mu(\cp{j}{\infty}F_j)\\
+        =&\sm{j}{\infty}\mu(F_j)\\
+        =&\lim_{n\rightarrow\infty}\sm{j}{n}\mu(E_j\setminus E_{j-1})\\
+        =&\lim_{n\rightarrow\infty}\mu(E_n).\\
+        \end{array}
+    \end{displaymath}
+
+    (d) Mark $G_{j}:=E_{1}\setminus E_{j}$, 
+    by Definition \ref{Defn:Measure} and $(c)$, 
+    \begin{equation}
+        \label{Equ:ContinuousFromAbove}
+        \begin{array}{rl}
+            \mu(E_1)&=\mu(\cap_{i=1}^{\infty}E_{i})
+            +\lim_{j\rightarrow\infty}\mu(F_j)\\
+            &=\mu(\cap_{i=1}^{\infty}E_{i})+\lim_{j\rightarrow\infty}
+            (\mu(E_1)-\mu(E_{j})).
+        \end{array}
+    \end{equation} 
+    Since $\mu(E_1)<\infty$, \eqref{Equ:ContinuousFromAbove} 
+    means $\lim_{j\rightarrow\infty}\mu(E_{j})
+    =\mu(\cap_{i=1}^{\infty}E_{i})$. 
+\end{proof}
+\begin{rem}
+    The item (b) omit the condition 
+    for $\{E_{k}\}$ disjoint. 
+\end{rem}
+\begin{rem}
+    In this chapter, 
+    unless otherwise specified, 
+    we consider the measurable space 
+    $(X,\M,\mu)$.
+\end{rem}
+\begin{exc}
+    Give an example to show that 
+    if $\mu(E_1)=\infty$, 
+    (d) in Theorem \ref{Thm:PropertiesOfMeasure} may fail. 
+\end{exc}
+\begin{defn}
+    \label{Defn:NullSet}
+    If $E\in\M$ satisfies $\mu(E)=0$, $E$ 
+    is said to be a \textit{null set.}
+\end{defn}
+\begin{defn}
+    \label{Defn:Trueae}
+    If $P(x)$ is a statement which is true 
+    for all $x$ outside of a null set $E$, 
+    we say $P(x)$ is \textit{true a.e.}
+\end{defn}
+\begin{exc}
+    If $\mu(E)=0$ and $F\subset E$, 
+    can we conclude that $\mu(F)=0$? 
+\end{exc}
+\begin{defn}
+    \label{Defn:CompleteMeas}
+    If all subsets of any null sets are 
+    in $\M$, we say $\mu$ is \textit{complete}.
+\end{defn}
+\begin{exm}
+    The volume in Definition \ref{Defn:volume} 
+    is a complete measure.
+\end{exm}
+\begin{thm}
+    \label{Thm:CompletationForMeas}
+    Let $\mathcal{N}:=\{N\in\M,\mu(N)=0\}$, 
+    $\overline{\M}:=\{E\cup F:E\in\M,\; 
+    F\subset N\text{ for some }N\in\mathcal{N}\}$, 
+    then $\overline{\M}$ is a $\sigma$-algebra, 
+    and there is a unique 
+    extension $\bar{\mu}$ of $\mu$, 
+    which is complete on $\overline{\M}$.
+\end{thm}
+\begin{exc}
+    Prove Theorem \ref{Thm:CompletationForMeas} 
+    (Hint: $\bar{\mu}(E\cup F):=\mu(E)$).
+\end{exc}
 \section{Outer Measures}
 \section{Lebesgue Measure}
