@@ -61,7 +61,7 @@
     by the second property, $1\le\mu(\tilde{E})\le 3$.
 
     By the constuction of $E$, $\forall t_{1}\neq t_2$, 
-    $E_{t_1}\cap E_{t_2}=\empty$. 
+    $E_{t_1}\cap E_{t_2}=\emptyset$. 
     Since $E_{t_1}$ can be transformed into $E_{t_2}$ by translation, 
     by the third property, $\mu(E_{t_1})=\mu(E_{t_3})$.
 
@@ -104,7 +104,8 @@
 \end{exc}
 \begin{proof}
     If $\mathcal{A}$ is an algebra, $\mathcal{A}\neq\emptyset$. 
-    If $E\in\mathcal{A}$, we have $\emptyset=E\cap E^c$, $X=E\cup E^c$.
+    If $E\in\mathcal{A}$, we have $\emptyset=E\cap E^c\in\mathcal{A}$, 
+    $X=E\cup E^c\in\mathcal{A}$.
 \end{proof}
 \begin{exc}
     If $\mathcal{A}$ is a $\sigma-$algebra and 
@@ -127,19 +128,23 @@
     Prove Lemma \ref{Lem:IntersecOfSigmaAlg}.
 \end{exc}
 \begin{proof}
-    If $\mathcal{A}_{i}\subset\mathcal{P}(X)$,$i\in I$, 
+    If $\mathcal{A}_{i}\subset\mathcal{P}(X)$, $i\in I$, 
     where $I$ is index set. We can notice that $\cap_{i \in I}\mathcal{A}_{i}\neq\emptyset$,
     since $\{\emptyset,X\}\subset\cap_{i \in I}\mathcal{A}_{i}$.
     
-    If $E\in\cap_{i\in I}\mathcal{A}_{i}$$\Rightarrow$$E\in\mathcal{A}_{i}$,$\forall i\in I$.
-    By the third property of $\sigma$-algebras, $E^c\in\mathcal{A}_{i}$,$\forall i\in I$,
+    If $E\in\cap_{i\in I}\mathcal{A}_{i}$ 
+    $\Rightarrow$ $\forall i\in I$, 
+    $E\in\mathcal{A}_{i}$. 
+    By the third property of $\sigma$-algebras, $\forall i\in I$, 
+    $E^c\in\mathcal{A}_{i}$, 
     which implies $E^c\in\cap_{i \in I}\mathcal{A}_{i}$.
     
-    If $\{E_{k}\}_1^{\infty}\subset\cap_{i \in I}\mathcal{A}_{i}$$\Rightarrow$
-    $\{E_{k}\}_1^{\infty}\in\mathcal{A}_{i}$,$\forall i\in I$.
-    By the second property of $\sigma$-algebras, 
-    $\cup_{i\in I}\{E_{k}\}_1^{\infty}\in\mathcal{A}_{i}$,$\forall i\in I$,
-    which implies $\cup_{i\in I}\{E_{k}\}_1^{\infty}\in\cap_{i \in I}\mathcal{A}_{i}$.
+    If $\{E_{k}\}_1^{\infty}\subset\cap_{i \in I}\mathcal{A}_{i}$ 
+    $\Rightarrow$ 
+    $\forall i\in I$, $\{E_{k}\}_1^{\infty}\in\mathcal{A}_{i}$. 
+    By the second property of $\sigma$-algebras, $\forall i\in I$, 
+    $\cp{k}{\infty}E_{k}\in\mathcal{A}_{i}$, 
+    which implies $\cp{k}{\infty}E_k\in\cap_{i\in I}\mathcal{A}_{i}$.
 \end{proof}
 \begin{defn}
 \label{Defn:GeneratedSigmaAlg}
@@ -161,7 +166,7 @@ containing $\mathcal{E}$
     Prove Lemma \ref{Lem:GeneratedSigmaAlgLem}.
 \end{exc}
 \begin{proof}
-    $\mathcal{M}(\mathcal{F})$ is a $\sigma$-algebra containing $\mathcal{E}$; it therefore contains $\mathcal{M}(\mathcal{F})$.
+    $\mathcal{M}(\mathcal{F})$ is a $\sigma$-algebra containing $\mathcal{E}$; it therefore contains $\mathcal{M}(\mathcal{E})$.
 \end{proof}
 \begin{defn}
     If $(X,\tau)$ is a topological space, then 

@@ -1,7 +1,7 @@
 default: RealAnalysis.pdf
 
 %.pdf : %.tex bib pst sec
-	$(MAKE) --directory=pst
+#$(MAKE) --directory=pst
 	pdflatex $<
 	pdflatex $<
 	bibtex $*
