@@ -1,0 +1,323 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\newtheorem{lemma}{Lemma}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass\ (\hmwkClassInstructor\ \hmwkClassTime): \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#12}
+\newcommand{\hmwkDueDate}{May 28, 2024}
+\newcommand{\hmwkClass}{Real Analysis}
+\newcommand{\hmwkClassTime}{Tuesday}
+\newcommand{\hmwkClassInstructor}{Professor Yakun Xi}
+\newcommand{\hmwkAuthorName}{\textbf{Shuang Hu}}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 10:00am}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor\ \hmwkClassTime}}
+    \vspace{3in}
+}
+
+\author{\hmwkAuthorName}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Alias for the Solution section header
+\newcommand{\solution}{\textbf{\large Solution}}
+\newcommand{\norm}[1]{\|#1\|}
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\newcommand{\supp}{\text{supp}}
+\newcommand{\Rn}{\mathbb{R}^{n}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\avg}[1]{\left\langle #1 \right\rangle}
+\newcommand{\difFrac}[2]{\frac{\dif #1}{\dif #2}}
+\newcommand{\pdfFrac}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\OFL}{\mathrm{OFL}}
+\newcommand{\UFL}{\mathrm{UFL}}
+\newcommand{\fl}{\mathrm{fl}}
+\newcommand{\Eabs}{E_{\mathrm{abs}}}
+\newcommand{\Erel}{E_{\mathrm{rel}}}
+\newcommand{\DR}{\mathcal{D}_{\widetilde{LN}}^{n}}
+\newcommand{\add}[2]{\sum_{#1=1}^{#2}}
+\newcommand{\innerprod}[2]{\left<#1,#2\right>}
+\newcommand{\Sc}{\mathcal{S}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\E}{\mathcal{E}}
+\newcommand{\A}{\mathcal{A}}
+\newcommand{\cp}[2]{\cup_{#1=1}^{#2}}
+\newcommand{\sm}[2]{\sum_{#1=1}^{#2}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\Lc}{\mathcal{L}}
+\newcommand\tbbint{{-\mkern -16mu\int}}
+\newcommand\tbint{{\mathchar '26\mkern -14mu\int}}
+\newcommand\dbbint{{-\mkern -19mu\int}}
+\newcommand\dbint{{\mathchar '26\mkern -18mu\int}}
+\newcommand\bint{
+{\mathchoice{\dbint}{\tbint}{\tbint}{\tbint}}
+}
+\newcommand\bbint{
+{\mathchoice{\dbbint}{\tbbint}{\tbbint}{\tbbint}}
+}
+\begin{document}
+\maketitle
+\pagebreak
+\begin{homeworkProblem}
+    When does equality hold in Minkowski's inequality?
+\end{homeworkProblem}
+\begin{proof}
+    For $p=1$, 
+    \begin{displaymath}
+        \norm{f+g}_1=\int|f+g|\le\int(|f|+|g|)=\int|f|+\int|g|.
+    \end{displaymath}
+    $"="$ holds if and only if $|f+g|=|f|+|g|$ a.e., it means 
+    \begin{displaymath}
+        \text{for a.e. }z\in X,\;\overline{f(z)}g(z)\ge 0.
+    \end{displaymath}
+    
+    For $1<p<\infty$, by the proof of Theorem 6.5, $"="$ means:
+    \begin{itemize}
+        \item $|f+g|=|f|+|g|$ a.e..
+        \item \begin{displaymath}
+            \begin{array}{rl}
+                \alpha|f|^{p}&=\beta(|f+g|^{p-1})^{p'},\\
+                \tilde{\alpha}|g|^{p}&=\tilde{\beta}(|f+g|^{p-1})^{p'},\\
+            \end{array}
+        \end{displaymath}
+        where $p'=\frac{p}{p-1}$. So it means that 
+        $g=\lambda f$ for $\lambda>0$ a.e..
+    \end{itemize}
+
+    For $p=\infty$, $\norm{f+g}_{\infty}=\norm{f}_{\infty}+\norm{g}_{\infty}$ means: 
+
+    $\forall\epsilon>0$, $\exists$ $z\in X$ such that 
+    \begin{itemize}
+        \item $f(z)\ge\norm{f}_{\infty}-\epsilon$,
+        \item $g(z)\ge\norm{g}_{\infty}-\epsilon$, 
+        \item $f(z)=\lambda g(z)$ for $\lambda>0$.
+    \end{itemize}
+\end{proof}
+\begin{homeworkProblem}
+    Prove Theorem 6.8.
+\end{homeworkProblem}
+\begin{proof}
+    $(a)$ By the definition:
+    \begin{displaymath}
+        \norm{fg}_1=\int|fg|\le\int \norm{g}_{\infty}|f|=\norm{g}_{\infty}\int|f|
+        =\norm{f}_1\norm{g}_{\infty}.
+    \end{displaymath}
+    In the case $f\in L^{1}$ and $g\in L^{\infty}$, it means $\norm{g}_{\infty}<\infty$, 
+    $\norm{f}_1<\infty$. Then $"="$ holds means $|fg|=|f|\norm{g}_{\infty}$ a.e.. 
+    which means on the set $\{f\neq 0\}$, $|g|=\norm{g}_{\infty}$ a.e..
+
+    $(b)$ By the definition, $\forall f\in L^{\infty}$, $\norm{f}_{\infty}\ge 0$. 
+
+    $\norm{f}_{\infty}=0$ means $\forall\epsilon>0$, $\mu(\{x:|f(x)|>\epsilon\})=0$, 
+    so $f=0$ a.e.. 
+
+    For $\lambda\in\mathbb{C}$, $\mu(|f|>a)=0\Leftrightarrow \mu(|\lambda f|>|\lambda|a)=0$. 
+    So $\norm{\lambda f}_{\infty}=\text{esssup}_{x\in X}|\lambda f|=|\lambda|\text{esssup}_{x\in X}|f|=|\lambda|\norm{f}_{\infty}$.
+
+    Since $|f|\le\norm{f}_{\infty}$ a.e., $|g|\le\norm{g}_{\infty}$ a.e., 
+    \begin{displaymath}
+        |f+g|\le|f|+|g|\le\norm{f}_{\infty}+\norm{g}_{\infty}\text{ a.e.,}
+    \end{displaymath}
+    so $\norm{f+g}_{\infty}\le\norm{f}_{\infty}+\norm{g}_{\infty}$. 
+
+    $(c)$ $"\Rightarrow"$: $\norm{f_n-f}_{\infty}\rightarrow 0$ means 
+    $\forall\epsilon>0$, $\exists N$, $\forall n>N$, $|f_n-f|<\epsilon$ a.e.. 
+    Then it means: $\forall n>N_{n}$, $|f_{n}-f|<\frac{1}{n}$ on $E_{n}$ 
+    with $\mu(X\setminus E_{n})=0$. Choose $E:=\cp{n}{\infty}E_n$, 
+    $\mu(X\setminus E)=0$. So $\forall n\in \mathbb{N}$, $\exists N_{n}$ such that 
+    $\forall n>N_{n}$, $|f_{n}-f|<\frac{1}{n}$ on $E$, which means 
+    $f_n\rightarrow f$ uniformly on $E$.
+
+    $"\Leftarrow"$: $f_{n}\rightarrow f$ uniformly on $E$ means 
+    $\forall\epsilon>0$, $\exists N$ such that $\forall x\in E$, $n>N$, 
+    $|f_{n}(x)-f(x)|<\epsilon$. 
+    Since $\mu(X\setminus E)=0$, we can see $\norm{f_n-f}_{\infty}\rightarrow 0$.
+
+    $(d)$ Choose a Cauchy sequence $\{x_n\}$ on $L^{\infty}$, i.e. 
+    \begin{displaymath}
+        \forall\epsilon>0,\;\exists N,\;\forall m,n>N\quad \norm{x_{n}-x_{m}}<\epsilon.
+    \end{displaymath}
+    Assume $E_{n,m}(\epsilon):=\{t:|x_{n}(t)-x_{m}(t)|>\epsilon\}$, 
+    then $\mu(E_{n,m}(\epsilon))=0$. If we choose 
+    \begin{displaymath}
+        F:=\cp{n}{\infty}\cup_{m,p\ge N(\frac{1}{n})}E_{m,p}(\frac{1}{n}),
+    \end{displaymath}
+    we have $\mu(F)=0$. So on $F^{c}$, $\forall n\in\mathbb{N}$, $\exists N$ such that 
+    $\forall m,n>N$, $|x_{n}(t)-x_{m}(t)|<\frac{1}{n}$. 
+    So if $t\in F^c$, $\{x_{n}(t)\}$ is a Cauchy sequence. 
+    Now we set $x(t):=\lim_{n\rightarrow\infty}x_{n}(t)$ on $F^c$, $x(t):=0$ on $F$, 
+    then $|x_{n}(t)-x_{m}(t)<\epsilon$ on $F^c$, which means $\{x_{n}(t)\}\rightarrow x(t)$ 
+    uniformly on $F^c$. So $L^{\infty}$ is complete. 
+    
+    $(e)$ Choose $E:=\{x:|f(x)|\le\norm{f}_{\infty}\}$, then $\mu(X\setminus E)=0$. 
+    By Theorem 2.10(b), $\exists$ a series of simple sunctions on $E$ such that 
+    $x_{n}\rightarrow f$ uniformly on $E$. 
+    Define $x_{n}(t)=0$ on $X\setminus E$, then by $(c)$, 
+    $\norm{f-x_{n}}_{\infty}\Rightarrow 0$. 
+    So simple functions are dense in $L^{\infty}$. 
+\end{proof}
+\begin{homeworkProblem}
+    If $1\le p<r\le \infty$, $L^{p}\cap L^r$ is a Banach space with norm 
+    $\norm{f}=\norm{f}_p+\norm{f}_r$, and if $p<q<r$, the inclusion map 
+    $L^{p}\cap L^{r}\rightarrow L^{q}$ is continuous.
+\end{homeworkProblem}
+\begin{proof}
+    Since $\norm{f}_p$, $\norm{f}_r$ are both norm, $\norm{f}$ is also a norm. 
+    Assume $\{f_{n}\}$ is Cauchy related to $\norm{\cdot}$, i.e. 
+    $\{f_{n}\}$ is Cauchy related to $\norm{\cdot}_{p},\norm{\cdot}_{q}$, 
+    by completeness, $f_{n}\rightarrow f$ on $L^{p}\cap L^{q}$. 
+    So $L^{p}\cap L^{q}$ is complete. 
+
+    Since $\norm{f}_{q}\le\norm{f}_{p}^{\lambda}\norm{f}_{r}^{1-\lambda}$, 
+    if $\norm{f_{n}}\rightarrow 0$, $\norm{f_{n}}_{p},\norm{f_{n}}_{r}\rightarrow 0$, 
+    which means $\norm{f_{n}}_{q}\rightarrow 0$. So $i$ is continuous.
+\end{proof}
+\begin{homeworkProblem}
+    If $1\le p<r\le\infty$, $L^{p}+L^{r}$ is a Banach space with norm 
+    $\norm{f}=\inf\{\norm{g}_p+\norm{h}_{r}:f=g+h\}$, and if $p<q<r$, 
+    $i:L^{q}\rightarrow L^{p}+L^{r}$ is continuous.
+\end{homeworkProblem}
+\begin{proof}
+    NVS: By the definition, $\norm{f}\ge 0$ 
+    and $\norm{f}=0\Leftrightarrow \norm{g}_p=\norm{h}_q=0\Leftrightarrow f=0$ a.e.. 
+
+    \begin{displaymath}\norm{\lambda f}=\inf\{\norm{\lambda g}_{p}+\norm{\lambda h}_{r}\}=\inf\{|\lambda|(\norm{g}_{p}+\norm{h}_{r})\}=|\lambda|\norm{f}.
+    \end{displaymath}
+    \begin{displaymath}
+    \norm{f_1+f_{2}}=\inf\{\norm{g_1+g_2}_{p}+\norm{h_1+h_2}_{r}\}
+    \le\int\{\norm{g_1}_p+\norm{h_1}_{r}+\norm{g_2}_{p}+\norm{h_2}_{r}\}
+    =\norm{f_{1}}+\norm{f_{2}}.
+    \end{displaymath}
+    Complete: if $\{f_{n}\}$ is Cauchy on $L^{p}+L^{r}$, 
+    then $\{g_{n}\}$ is Cauchy on $L^{p}$ and 
+    $\{h_{n}\}$ is Cauchy on $L^{r}$. 
+    It means $g_{n}\rightarrow g$ on $L^{p}$ and $h_{n}\rightarrow h$ on $L^{r}$. 
+    So $f_{n}\rightarrow f:=g+h$ on $L^{p}+L^{r}$. 
+
+    If $\norm{f_{n}}_{q}\rightarrow 0$ on $L^{q}$, choose $E_{n}:=\{x:|f(x)|>1\}$, 
+    then $g_{n}:=f_{n}\chi_{E_{n}}\in L^{p}$ and $h_{n}:=f_{n}(1-\chi_{E_n})\in L^{r}$, 
+    and 
+    \begin{displaymath}
+        \norm{f_{n}}=\norm{g_{n}}_p+\norm{h_n}_{r}\le
+        \norm{g_{n}}_{q}+\norm{h_{n}}_{q}
+        \le 2\norm{f_{n}}_{q}\rightarrow 0.
+    \end{displaymath}
+    So $i:L^{q}\rightarrow L^{p}+L^{r}$ is continuous.
+\end{proof}
+\begin{homeworkProblem}
+    If $f\in L^{p}\cap L^{\infty}$ for some $p<\infty$, 
+    so that $f\in L^{q}$ for all $q>p$, 
+    then $\norm{f}_{\infty}=\lim_{q\rightarrow\infty}\norm{f}_{q}$.
+\end{homeworkProblem}
+\end{document}
