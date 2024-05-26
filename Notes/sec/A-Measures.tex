@@ -403,6 +403,17 @@ containing $\mathcal{E}$
     if $\mu(E_1)=\infty$, 
     (d) in Theorem \ref{Thm:PropertiesOfMeasure} may fail. 
 \end{exc}
+\begin{proof}
+    For instance, consider the Lebesgue measure on the set of real numbers. 
+    Let's assume $E_n=[n,+\infty)$,
+    a sequence of intervals starting from $n$.
+    These sets are decreasing, as 
+    $E_1\supset E_2\supset\ldots$ and $\mu(E_n)=\infty$ for all $n$.
+    Therefore, $\lim_{n\rightarrow\infty}\mu(E_n)=\infty$.
+    However, $\cap_{i=1}^{\infty}E_{i}=\emptyset$, 
+    $\mu(\cap_{i=1}^{\infty}E_{i})=0\neq\infty$.
+    In this case, the theorem does not hold.
+\end{proof}
 \begin{defn}
     \label{Defn:NullSet}
     If $E\in\M$ satisfies $\mu(E)=0$, $E$ 
@@ -418,6 +429,12 @@ containing $\mathcal{E}$
     If $\mu(E)=0$ and $F\subset E$, 
     can we conclude that $\mu(F)=0$? 
 \end{exc}
+\begin{proof}
+    By Monotonicity in Theorem \ref{Thm:PropertiesOfMeasure},
+    we can conclude that $\mu(F)=0$,
+    since $0\leq\mu(F)\leq\mu(E)=0$.
+    However, it may not be true that $F\in\M$. 
+\end{proof}
 \begin{defn}
     \label{Defn:CompleteMeas}
     If all subsets of any null sets are 
@@ -441,5 +458,38 @@ containing $\mathcal{E}$
     Prove Theorem \ref{Thm:CompletationForMeas} 
     (Hint: $\bar{\mu}(E\cup F):=\mu(E)$).
 \end{exc}
+\begin{proof}
+    Since $\mathcal{N}$ and $\M$ are closed under countable unions,
+    so is $\overline{\M}$.
+    If $E\cup F\in\overline{\M}$ where $E\in\M$ and $F\subset N\in\mathcal{N}$,
+    we can assume that $E\cap N=\emptyset$ 
+    (otherwise, replace $F$ and $N$ by $F\setminus E$ and $N\setminus E$).
+    Then $E\cup F=(E\cup N)\cap(N^c\cup F)$,
+    so $(E\cup F)^c=(E\cup N)^c\cup(N\setminus F)$.
+    But $(E\cup F)^c\in\M$ and $N\setminus F\subset N$, so that $(E\cup F)^c\in\overline{\M}$.
+    Thus $\overline{\M}$ is a $\sigma$-algebra.
+
+    If $E\cup F\in\overline{\M}$ as above, we set $\bar{\mu}(E\cup F):=\mu(E)$.
+    This well defined, since if $E_1\cup F_1=E_2\cup F_2$ where $F_j\subset N_j$,
+    then $E_1\subset E_2\cup N_2$ and so $\mu{E_1}\leq\mu{E_2}+\mu{N_2}=\mu{E_2}$,
+    and likewise $\mu{E_2}\leq\mu{E_1}$.
+
+    Firstly, we prove $\bar{\mu}$ is a measure. $\bar{\mu}(\emptyset)=\mu(\emptyset)=0$.
+    If $\{E_j\cup F_j\}_{1}^{\infty}$ pairwise disjoint, 
+    $\bar{\mu}(\cup_{j=1}^{\infty}(E_j\cup F_j))=\mu(\cup_{j=1}^{\infty}E_j)=\sum_{j=1}^{\infty}\mu{E_j}=\sum_{j=1}^{\infty}\bar{\mu}(E_j\cup F_j)$.
+    Thus $\bar{\mu}$ is a measure.
+
+    Secondly, we prove $\bar{\mu}$ is complete. If $\bar{\mu}(E)=0$, $E\in\mathcal{N}$.
+    Any $F\subset E$, $\bar{\mu}(F)=\bar{\mu}(\emptyset\cup F)=\mu(\emptyset)=0$, 
+    so $\bar{\mu}$ is complete.
+
+    Finally, we prove $\bar{\mu}$ is the only complete measure on $\overline{\M}$ that extends $\mu$.
+    If there exists another complete measure $\mu^*$ is a extension of $\mu$ on $\overline{\M}$.
+    By monotonicity of $\mu^*$, $\bar{\mu}(E\cup F)=\mu(E)=\mu^*(E)\leq\mu^*(E\cup F)$.
+    By completeness and subadditivity of $\mu^*$, 
+    $\mu^*(E\cup F)\leq\mu^*(E)+\mu^*(F)=\mu^*(E)=\mu(E)=\bar{\mu}(E\cup F)$.
+    We derive that for all $E\cup F\in\overline{\M}$, $\mu^*(E\cup F)=\bar{\mu}(E\cup F)$, 
+    so $\mu^*=\bar{\mu}$.
+\end{proof}
 \section{Outer Measures}
 \section{Lebesgue Measure}
