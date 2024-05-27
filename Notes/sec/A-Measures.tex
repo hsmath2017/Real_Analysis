@@ -492,4 +492,121 @@ containing $\mathcal{E}$
     so $\mu^*=\bar{\mu}$.
 \end{proof}
 \section{Outer Measures}
+\begin{rem}
+    By Theorem \ref{Thm:NotMeasurableSet}, there exists 
+    some sets $X\subset\mathbb{R}^{n}$ such that we can't define the 
+    volume of $X$, but, on which condition can we define the volume of $X$?
+    In this section, we define a map 
+    $\mu^{*}:\mathcal{P}(X)\rightarrow [0,\infty]$, derive the 
+    $\mu^{*}$-measurable sets $\M\subset \mathcal{P}(X)$, and 
+    deduce a measure on $\M$. 
+\end{rem}
+\begin{defn}
+    Given a set $X$, $\mu^{*}:\mathcal{P}(X)\rightarrow[0,\infty]$ 
+    is an \textit{outer measure} if 
+    \begin{itemize}
+        \item $\mu^{*}(\emptyset)=0$,
+        \item $\mu^{*}(A)\le\mu^{*}(B)$ if $A\subset B$, 
+        \item $\mu^{*}(\cp{j}{\infty}A_{j})\le\sm{j}{\infty}\mu^{*}(A_{j})$.
+    \end{itemize}
+\end{defn}
+\begin{rem}
+    The outer measure only need 
+    the subadditivity, rather than countable additivity. 
+    So, we can derive an outer measure from the volume of unit cubes.
+\end{rem}
+\begin{prop}
+    \label{Prop:OuterMeasureFromFunction}
+    Given $\mathcal{E}\subset\mathcal{P}(X)$ and 
+    $\rho:\mathcal{E}\rightarrow[0,\infty]$ such that 
+    $\emptyset\in\mathcal{E}$, $x\in\mathcal{E}$ 
+    and $\rho(\emptyset)=0$, for $A\subset X$, 
+    \begin{equation}
+        \label{Equ:DerivedOuterMeas}
+        \mu^{*}(A):=\inf_{E_j\in\mathcal{E},A\subset\cp{j}{\infty}E_j}
+        \sm{j}{\infty}\rho(E_j),
+    \end{equation}
+    then $\mu^{*}$ is an outer measure.
+\end{prop}
+\begin{rem}
+    If $X=\mathbb{R}^{n}$, $\mathcal{E}$ marks all the 
+    elementary cubes $\prod_{i=1}^{n}(a_i,b_i]$, 
+    and 
+    \begin{displaymath}
+        \rho\left(\prod_{i=1}^{n}(a_i,b_i]\right)
+        :=\prod_{i=1}^{n}(b_i-a_i),
+    \end{displaymath}
+    then 
+    \eqref{Equ:DerivedOuterMeas} is the Lebesgue outer measure 
+    on $\mathbb{R}^{n}$.
+\end{rem}
+\begin{exc}
+    Prove Proposition \ref{Prop:OuterMeasureFromFunction}.
+\end{exc}
+Then, we should construct a measurable space 
+$(X,\M,\mu)$ from the outer measure $\mu^{*}$. 
+\begin{defn}
+    \label{Defn:MuStarMeasurable}
+    Given an outward measure $\mu^{*}$ on $\mathcal{P}(X)$, 
+    a set $A\subset X$ is called \textit{$\mu^{*}$-measurable} 
+    if 
+    \begin{equation}
+        \label{Equ:MeasurableCondition}
+        \forall E\subset X,\quad \mu^{*}(E)=\mu^{*}(E\cap A)
+        +\mu^{*}(E\cap A^c).
+    \end{equation}
+\end{defn}
+\begin{thm}[Caratheodory]
+    \label{Thm:CaratheodoryThm}
+    Give an outer measure $\mu^{*}$ on $\mathcal{P}(X)$, 
+    $\M:=\{\Sc\subset X:\Sc\text{ is }\mu^*-\text{measurable}\}$, 
+    then $\M$ is a $\sigma$-algebra and 
+    $\mu^{*}|_{\M}$ is a complete measure. 
+\end{thm}
+\begin{proof}
+    We divide this proof into four steps.
+    
+    First, by equation \eqref{Equ:MeasurableCondition}, it's straightforward 
+    that $\M$ is closed under complementation. 
+
+    Second, we show that $\M$ is closed under finite union. 
+    If $A,B\in\M$, by \eqref{Equ:MeasurableCondition}, 
+    $\forall E\subset X$ we have:
+    \begin{equation*}
+        \label{Equ:ABMeasurable}
+        \begin{array}{rl}
+            \mu^{*}(E)&=\mu^{*}(E\cap A)+\mu^{*}(E\cap A^c),\\
+            \mu^{*}(E)&=\mu^{*}(E\cap B)+\mu^{*}(E\cap B^c).\\
+        \end{array}
+    \end{equation*}
+    Then:
+    \begin{equation}
+        \label{Equ:ExpressMuStarE}
+        \begin{array}{rl}
+        &\mu^{*}(E)=\mu^{*}(E\cap A)+\mu^{*}(E\cap A^c)\\
+        =&\mu^{*}(E\cap A\cap B)+\mu^{*}(E\cap A\cap B^c)\\
+        +&\mu^{*}(E\cap A^c\cap B)+\mu^{*}(E\cap A^c\cap B^c).
+        \end{array}
+    \end{equation}
+    As $A\cup B=(A\cap B)\cup(A\cap B^c)\cup(A^c\cap B)$, 
+    from the subadditivity, 
+    \begin{equation}
+        \label{Equ:ExpressionsForEcapAcupB}
+        \begin{array}{rl}
+        &\mu^{*}(E\cap A\cap B)+\mu^{*}(E\cap A\cap B^c)\\
+        +&\mu^{*}(E\cap A^c\cap B)\ge\mu^{*}(E\cap(A\cup B)).\\
+        \end{array}
+    \end{equation}
+    From \eqref{Equ:ExpressMuStarE} and 
+    \eqref{Equ:ExpressionsForEcapAcupB}, 
+    \begin{displaymath}
+        \mu^{*}(E)\ge\mu^{*}(E\cap (A\cup B))+\mu^{*}(E\cup (A\cup B)).
+    \end{displaymath}
+    And from the subadditivity, we derive $A\cup B\in\M$, 
+    which means $\M$ is an algebra. If $A\cap B=\emptyset$, 
+    \begin{displaymath}
+        \mu^{*}(A\cup B)=\mu^{*}(A\cup B\cap B)+
+        \mu^{*}(A\cup B\cap B^c)=\mu^{*}(A)+\mu^{*}(B).
+    \end{displaymath}
+\end{proof}
 \section{Lebesgue Measure}
