@@ -320,4 +320,102 @@
     so that $f\in L^{q}$ for all $q>p$, 
     then $\norm{f}_{\infty}=\lim_{q\rightarrow\infty}\norm{f}_{q}$.
 \end{homeworkProblem}
+\begin{proof}
+    Since $\norm{f}_{\infty}<\infty$, we derive:
+    \begin{displaymath}
+        \int|f|^{q}=\int|f|^{p}|f|^{q-p}\le\norm{f}_{\infty}^{q-p}\int_{E}|f|^{p}
+        <\infty.
+    \end{displaymath}
+    So $f\in L^{q}$. On one hand:
+    \begin{displaymath}
+        \left(\int|f|^{q}\right)^{\frac{1}{q}}\le\left(\int|f|^{p}\right)^{\frac{1}{q}}
+        \left(\norm{f}_{\infty}^{q-p}\right)^{\frac{1}{q}}
+        \rightarrow\norm{f}_{\infty}.
+    \end{displaymath}
+    On the other hand, mark $E_{\epsilon}:=\{x:|f(x)|\ge\norm{f}_{\infty}-\epsilon\}$, 
+    then $\forall\epsilon>0$, 
+    \begin{displaymath}
+        \left(\int|f|^{q}\right)^{\frac{1}{q}}\ge
+        \left(\int\left(\norm{f}_{\infty}-\epsilon\right)^{q}\chi_{E_{\epsilon}}\right)^{\frac{1}{q}}
+        =\left[(\norm{f}_{\infty}-\epsilon)^q\mu(E_{\epsilon})\right]^{\frac{1}{q}}
+        \rightarrow\norm{f}_{\infty}-\epsilon.
+    \end{displaymath}
+    So $\lim_{q\rightarrow\infty}\norm{f}_{q}=\norm{f}_{\infty}$.
+\end{proof}
+\begin{homeworkProblem}
+    Suppose $1\le p<\infty$, if $\norm{f_{n}-f}_{p}\rightarrow 0$, then 
+    $f_{n}\rightarrow f$ in measure. On the other hand, if $f_{n}\rightarrow f$ 
+    in measure and $|f_{n}|\le g\in L^{p}$ for all $n$, then $\norm{f_{n}-f}_{p}\rightarrow 0$.
+\end{homeworkProblem}
+\begin{proof}
+    First, 
+    \begin{displaymath}
+        \begin{array}{rl}
+            &\int|f_{n}-f|^{p}\rightarrow 0\\
+            \Rightarrow&\forall\epsilon>0,\int|f_{n}-f|^{p}\chi_{\{|f_{n}-f|\ge\epsilon\}}
+            \rightarrow 0\\
+            \Rightarrow&\epsilon^p\mu(\{|f_n-f|\ge\epsilon\})\rightarrow 0\\
+            \Rightarrow&\lim_{n\rightarrow\infty}\mu(\{|f_n-f|\ge\epsilon\})=0\\
+            \Rightarrow&f_{n}\rightarrow f\text{ in measure.}
+        \end{array}
+    \end{displaymath}
+    Then: if $f_{n}\rightarrow f$ in measure and $|f_{n}|\le g\in L^{p}$, 
+    we derive that $f_{n}-f\in L^{p}$ and $|f|\le g$ a.e.. 
+    Assume $\exists\{f_{n_{j}}\}$ s.t. $\int|f_{n_j}-f|^{p}\ge\epsilon_{0}$, 
+    by Riesz's Theorem, 
+    $f_{n_j}\rightarrow f$ in measure means there exists a subsequence $\tilde{f}_n$ 
+    such that $\tilde{f}_n\rightarrow f$ a.e.. By DCT:
+    \begin{displaymath}
+        \lim\int|f_{n_j}-f|^{p}=\lim\int|\tilde{f}_n-f|^{p}=\int\lim|\tilde{f}_n-f|^{p}=0.
+    \end{displaymath}
+    Contradict! So $f_{n}\rightarrow f$ in $L^{p}$.
+\end{proof}
+\begin{homeworkProblem}
+    If $p\neq 2$, the $L^{p}$ norm does not arise from an inner product 
+    on $L^{p}$, except in trivial cases when $\dim(L^{p})\le 1$. 
+\end{homeworkProblem}
+\begin{proof}
+    By parallelogram law, if $L^{p}$ is an inner product space, the norm 
+    must satisfy 
+    \begin{displaymath}
+        \norm{f+g}^{2}+\norm{f-g}^{2}=2\left(\norm{f}^2+\norm{g}^2\right).
+    \end{displaymath}
+    For $1\le p<\infty$, if $\dim L^{p}>1$, choose $A,B\subset X$ such that 
+    $A\cap B=\emptyset$, $0<\mu(A)<\infty$, $0<\mu(B)<\infty$. Then set 
+    $f:=\left(\frac{1}{\mu(A)}\right)^{\frac{1}{p}}\chi_{A}$, 
+    $g:=\left(\frac{1}{\mu(B)}\right)^{\frac{1}{p}}\chi_{B}$, 
+    it means 
+    \begin{displaymath}
+        \begin{array}{rll}
+            \norm{f+g}_{p}&=\norm{f-g}_{p}&=2^{\frac{1}{p}},\\
+            \norm{f}_{p}&=\norm{g}_{p}&=1.        
+        \end{array}
+    \end{displaymath}
+    By parallelogram law, it means $4^{\frac{1}{p}}=2$. So if $p<\infty$, 
+    for $p\neq 2$, $L^{p}$ isn't an inner product space. 
+
+    For $p=\infty$, just choose $A,B$ such that $A\subset B$, 
+    $f=\chi_{A}$, $g=\chi_{B}$, we can get such contradiction.
+\end{proof}
+\begin{homeworkProblem}
+    With notation as in Theorem 6.14, if $\mu$ is semifinite, $q<\infty$, 
+    and $M_{q}(g)<\infty$, then $\{x:|g(x)|>\epsilon\}$ has finite measure 
+    for all $\epsilon>0$ and hense $S_g$ is $\sigma$-finite.
+\end{homeworkProblem}
+\begin{proof}
+    Mark $E_{\epsilon}:=\{x:|g(x)|>\epsilon\}$, since $\mu$ is semifinite, 
+    $\lambda:=\sup\{\alpha>0:\mu(E_{\alpha})=\infty\}$ exists. Mark 
+    \begin{displaymath}
+        f:=\frac{1}{\mu(E_{\lambda+\frac{1}{n}})^{\frac{1}{p}}}\chi_{E_{\lambda+\frac{1}{n}}}\overline{\text{sgn} g},
+    \end{displaymath}
+    it means $\norm{f}_{p}=1$. Then:
+    \begin{displaymath}
+        \infty> M_{q}(g)\ge
+        \left|\int fg\right|
+        =\frac{1}{\mu(E_{\lambda+\frac{1}{n}})^{\frac{1}{p}}}\int_{E_{\lambda+\frac{1}{n}}}|g|\dif\mu
+        >\mu(E_{\lambda+\frac{1}{n}})^{1-\frac{1}{p}}(\lambda+\frac{1}{n}).
+    \end{displaymath}
+    If $\lambda>0$, for $n\rightarrow\infty$, $RHS\rightarrow\infty$, contradict! 
+    So $\forall\epsilon>0$, $\mu(E_{\epsilon})<\infty$.
+\end{proof}
 \end{document}
