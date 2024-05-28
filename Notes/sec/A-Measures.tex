@@ -501,6 +501,7 @@ containing $\mathcal{E}$
     $\mu^{*}$-measurable sets $\M\subset \mathcal{P}(X)$, and 
     deduce a measure on $\M$. 
 \end{rem}
+\subsection{Definition}
 \begin{defn}
     Given a set $X$, $\mu^{*}:\mathcal{P}(X)\rightarrow[0,\infty]$ 
     is an \textit{outer measure} if 
@@ -543,7 +544,9 @@ containing $\mathcal{E}$
 \begin{exc}
     Prove Proposition \ref{Prop:OuterMeasureFromFunction}.
 \end{exc}
-Then, we should construct a measurable space 
+\subsection{From outer measure to measure}
+In this section, 
+we should construct a measurable space 
 $(X,\M,\mu)$ from the outer measure $\mu^{*}$. 
 \begin{defn}
     \label{Defn:MuStarMeasurable}
@@ -607,6 +610,151 @@ $(X,\M,\mu)$ from the outer measure $\mu^{*}$.
     \begin{displaymath}
         \mu^{*}(A\cup B)=\mu^{*}(A\cup B\cap B)+
         \mu^{*}(A\cup B\cap B^c)=\mu^{*}(A)+\mu^{*}(B).
+    \end{displaymath}
+
+    Third, we show that $\M$ is closed under countable union. 
+    Set $B:=\cp{i}{\infty}A_{i}$, since $\mathcal{M}$ is an algebra, 
+    WLOG, we assume $\{A_{j}\}$ disjoint. Mark $B_{n}:=\cp{j}{n}A_j$, 
+    by \eqref{Equ:MeasurableCondition}, 
+    \begin{displaymath}
+        \begin{array}{rl}
+        \mu^{*}(E\cap B_n)&=\mu^{*}(E\cap B_{n}\cap A_{n})+
+        \mu^{*}(E\cap B_n\cap A_n^c)\\
+        &=\mu^{*}(E\cap A_n)+\mu^{*}(E\cap B_{n-1}).
+        \end{array}
+    \end{displaymath}
+    So $\mu^{*}(E\cap B_n)=\sm{j}{n}\mu^{*}(E\cap A_j)$. Since $\M$ 
+    be an algebra, $B_{n}$ is $\mu^{*}$-countable, then:
+    \begin{displaymath}
+        \begin{array}{rl}
+            \mu^{*}(E)&=\mu^{*}(E\cap B_n)+\mu^{*}(E\cap B_{n}^{c})\\
+            &\ge\sm{j}{n}\mu^{*}(E\cap A_j)+\mu^{*}(E\cap B^c).\\
+        \end{array}
+    \end{displaymath}
+    Set $n\rightarrow\infty$, it yields 
+    \begin{displaymath}
+        \mu^{*}(E)\ge\sm{j}{\infty}\mu^{*}(E\cap A_j)+\mu^{*}(E\cap B^c)
+        \ge\mu^{*}(E\cap B)+\mu^{*}(E\cap B^c),
+    \end{displaymath}
+    so $B\in\M$. It means $\M$ is a $\sigma$-algebra. 
+    The properties of $\mu^{*}$ are remained as exercise.
+\end{proof}
+\begin{exc}
+    Complete the proof of Theorem \ref{Thm:CaratheodoryThm}, 
+    you should show $\mu^{*}$ is countable additive 
+    and complete on $\M$.
+\end{exc}
+\begin{rem}
+    By Theorem \ref{Thm:CaratheodoryThm}, we can derive the conditions 
+    of \textit{countable set} by outer measure, and 
+    define the \textit{measure} of each countable sets.
+\end{rem}
+\subsection{Premeasure and its extension}
+In this section, we define a \textit{premeasure} on an \textbf{algebra} 
+(not necessary $\sigma$-algebra), 
+then extend it to $\M:=\M(\mathcal{A})$.
+\begin{defn}[premeasure]
+    \label{Defn:Premeasure}
+    $\mathcal{A}\subset\mathcal{P}(X)$ is an algebra, 
+    $\mu_{0}:\mathcal{A}\rightarrow[0,\infty]$ is called 
+    a \textit{premeasure} if:
+    \begin{itemize}
+        \item $\mu_{0}(\emptyset)=0$,
+        \item If $\{A_j\}$ disjoint and 
+        $\cp{j}{\infty}A_j\in\mathcal{A}$, then 
+        \begin{displaymath}
+            \mu_0(\cp{j}{\infty}A_j)=\sm{j}{\infty}\mu_{0}(A_j).
+        \end{displaymath}
+    \end{itemize}
+\end{defn}
+\begin{rem}
+    If $\mathcal{A}$ isn't a $\sigma$-algebra, 
+    $\cp{j}{\infty}A_{j}$ may not in $\mathcal{A}$. 
+    The premeasure only keeps countable additivity 
+    when $\cp{j}{\infty}A_j\in\mathcal{A}$.
+\end{rem}
+\begin{ntn}
+    By Proposition \ref{Prop:OuterMeasureFromFunction}, 
+    a premeasure $\mu_{0}$ can induce 
+    an outer measure on $\mathcal{P}(X)$. 
+    In the following part of this section, 
+    we denote $\mu^{*}$ to represent the induced measure 
+    of $\mu_{0}$, i.e. 
+    \begin{displaymath}
+        \mu^{*}(E):=\inf_{A_{j\in\mathcal{A}},E\subset\cp{j}{\infty}A_j}
+        \sm{j}{\infty}\mu_{0}(A_j).
+    \end{displaymath}
+\end{ntn}
+\begin{prop}
+    \label{Prop:PremeasureAndOuterMeas}
+    Given $\mu_{0}$ be a premeasure on $\mathcal{A}$, 
+    $\mu^{*}$ is the outer measure induced by $\mu_{0}$, then 
+    \begin{enumerate}
+        \item $\forall A\in\mathcal{A}$, $\mu_{0}(A)=\mu^{*}(A)$.
+        \item $\forall A\in\mathcal{A}$, $A$ is a $\mu^{*}$-measurable 
+        set.
+    \end{enumerate}
+\end{prop}
+\begin{exc}
+    Prove Proposition \ref{Prop:PremeasureAndOuterMeas}.
+\end{exc}
+\begin{thm}
+    \label{Thm:PremeasureExtension}
+    Suppose $\mathcal{A}$ is an algebra, $\mu_{0}$ is a premeasure on 
+    $\mathcal{A}$, $\M:=\M(\mathcal{A})$, then:
+    \begin{enumerate}
+        \item There exists a measure $\mu:\M\rightarrow[0,\infty]$ 
+        s.t. $\mu=\mu^{*}|_{\mathcal{M}}$ and $\mu|_{\mathcal{A}}
+        =\mu_{0}.$
+        \item If $\nu$ ia another measure on $\M$ such that 
+        $\nu|_{\mathcal{A}}=\mu_{0}$, then $\nu(E)\le\mu(E)$, 
+        and if $\mu(E)<\infty$ then $\nu(E)=\mu(E)$.
+        \item If $\mu_{0}$ is $\sigma$-finite, then $\mu$ is unique.
+    \end{enumerate}
+\end{thm}
+\begin{proof}
+    $(1)$ By Proposition \ref{Prop:PremeasureAndOuterMeas}, 
+    every sets in $\mathcal{A}$ are $\mu^{*}$-measurable. Then by 
+    Theorem \ref{Thm:CaratheodoryThm}, the $\mu^{*}$-measurable 
+    sets form a $\sigma$-algebra. 
+    So $\forall M\in\M(\mathcal{A})$, $M$ is $\mu^{*}$-measurable. 
+    By Theorem \ref{Thm:CaratheodoryThm}, 
+    there exists the extended measure $\mu$ on $\M$. 
+
+    $(2)$ If $E\in\M$, choose $E\subset\cp{j}{\infty}A_{j}$, 
+    $A_{j}\in\mathcal{A}$, then:
+    \begin{displaymath}
+        \nu(E)\le\sm{j}{\infty}\nu(A_{j})
+        =\sm{j}{\infty}\mu_{0}(A_j).
+    \end{displaymath}
+    Get the infimum for $E\subset\cp{j}{\infty}A_j$, it means 
+    $\nu(E)\le\mu(E)$. 
+
+    If $\mu(E)<\infty$, choose disjoint sets $\{A_{j}\}$ such that 
+    \begin{itemize}
+        \item $A:=\cp{j}{\infty}A_j\supset E$,
+        \item $\mu(A)<\mu(E)+\epsilon$,
+    \end{itemize}
+    i.e. $\mu(A\setminus E)<\epsilon$. In additional:
+    \begin{displaymath}
+        \nu(A)=\lim_{n\rightarrow\infty}\nu(\cp{j}{n}A_j)
+        =\lim_{n\rightarrow\infty}\mu(\cp{j}{n}A_j)=\mu(A),
+    \end{displaymath}
+    so 
+    \begin{displaymath}
+        \begin{array}{rl}
+        &\mu(E)\le\mu(A)=\nu(A)=\nu(E)+\nu(A\setminus E)\\
+        \le&\nu(E)+\mu(A\setminus E)<\nu(E)+\epsilon.
+        \end{array}
+    \end{displaymath}
+    i.e. $\nu(E)=\mu(E)$.
+
+    $(3)$ If $X=\cp{j}{\infty}A_{j}$ with $\mu_{0}(A_j)<\infty$, 
+    and $\{A_j\}$ disjoint, 
+    then:
+    \begin{displaymath}
+        \forall E\in\M,\quad \mu(E)=\sm{j}{\infty}\mu(E\cap A_j)
+        =\sm{j}{\infty}\nu(E\cap A_j)=\nu(E).
     \end{displaymath}
 \end{proof}
 \section{Lebesgue Measure}
