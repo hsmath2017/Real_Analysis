@@ -977,9 +977,9 @@ then extend it to $\M:=\M(\mathcal{A})$.
 \begin{rem}
     \begin{displaymath}
         \begin{array}{rl}
-            \mu^{*}(E)&:=\inf\{\sm{i}{\infty}\mu((a_i,b_i]):
-            E\subset\cp{i}{\infty}(a_i,b_i]\}\\
-            &=\inf\{\sm{i}{\infty}(F(b_i)-F(a_i))\}.\\
+            \mu^{*}(E)&:=\inf\left\{\sm{i}{\infty}\mu((a_i,b_i]):
+            E\subset\cp{i}{\infty}(a_i,b_i]\right\}\\
+            &=\inf\left\{\sm{i}{\infty}(F(b_i)-F(a_i))\right\}.\\
         \end{array}
     \end{displaymath}
     If $F(x)\equiv x$, $\mu^{*}$ is the \textit{Lebesgue 
@@ -989,3 +989,144 @@ then extend it to $\M:=\M(\mathcal{A})$.
     $\M_{\mu}$ is the collection of all the $\mu^{*}$-measurable 
     sets.
 \end{ntn}
+\begin{lem}
+    \label{Lem:OuterMeasureByOpen}
+    \begin{displaymath}
+        \nu^{*}(E):=\inf\left\{\sm{i}{\infty}\mu((a_i,b_i)):
+        E\subset\cp{i}{\infty}(a_i,b_i)\right\},
+    \end{displaymath}
+    then $\mu^{*}(E)=\nu^{*}(E)$.
+\end{lem}
+\begin{exc}
+    Prove Lemma \ref{Lem:OuterMeasureByOpen}.
+\end{exc}
+\begin{thm}
+    \label{Thm:ApproxMeasurableSet}
+    If $E\in\M_{\mu}$, then:
+    \begin{displaymath}
+        \begin{array}{rl}
+        \mu(E)&=\inf\{\mu(U):U\text{ is open, }U\supset E\}\\
+        &=\sup\{\mu(K):K\text{ is compact, }K\subset E\}.
+        \end{array}
+    \end{displaymath}
+\end{thm}
+\begin{proof}
+    The first equality follows from Lemma \ref{Lem:OuterMeasureByOpen}. 
+    Now we need to show 
+    \begin{displaymath}
+        \mu(E)=\sup\{\mu(K):K\text{ is compact, }K\subset E\}.
+    \end{displaymath}
+    First, assume $E$ is bounded. If $E$ is closed, just choose $K=E$. 
+    Otherwise, $\forall\epsilon>0$, $\exists$ open set 
+    $U\supset\bar{E}\setminus E$ s.t. 
+    \begin{displaymath}
+        \mu(U)\le\mu(\bar{E}\setminus E)+\epsilon.
+    \end{displaymath}
+    Mark $K:=\bar{E}\setminus U$, then $K$ is compact and $K\subset E$, 
+    and:
+    \begin{displaymath}
+        \begin{array}{rl}
+            \mu(K)&=\mu(E)-\mu(E\cap U)\\
+            &=\mu(E)-[\mu(U)-\mu(U\setminus E)]\\
+            &\ge\mu(E)-\mu(U)+\mu(\bar{E}\setminus E)\\
+            &\ge\mu(E)-\epsilon.
+        \end{array}
+    \end{displaymath}
+    If $E$ is unbounded, let $E_j:=E\cap (j,j+1]$, then 
+    $E_{j}$ is bounded. $\forall\epsilon>0$, $\exists$ a compact 
+    set $K_j\subset E_j$ such that 
+    $\mu(K_j)\ge\mu(E_j)-4^{-|j|}\epsilon$. 
+    Let $H_{n}:=\cup_{j=-n}^{n}K_j$, then $H_n$ is compact and 
+    $H_n\subset E$ with $\mu(H_n)\ge\mu(\cup_{j=-n}^{n}E_j)-\epsilon$. 
+    Get supremum related to $n$, 
+    it means:
+    \begin{displaymath}
+        \sup\{\mu(K):K\text{ is compact and }K\subset E\}
+        \ge\mu(E)-\epsilon.
+    \end{displaymath}
+    What's more, $K\subset E$ means $\mu(K)\le\mu(E)$, so 
+    \begin{displaymath}
+        \mu(E)=\sup\{\mu(K):K\text{ is compact, }K\subset E\}.
+    \end{displaymath}
+\end{proof}
+\begin{rem}
+    Theorem \ref{Thm:ApproxMeasurableSet} shows we can 
+    approximate a Borel measurable set by 
+    open set or closed set.
+\end{rem}
+\begin{defn}
+    A countable intersection of open sets is called a 
+    \textit{$G_{\delta}$-set}.
+\end{defn}
+\begin{defn}
+    A countable union of closed sets is called an 
+    \textit{$F_{\sigma}$-set}.
+\end{defn}
+\begin{thm}
+    \label{Thm:ApproxMeasSetByGdFs}
+    If $E\subset\mathbb{R}$, TFAE:
+    \begin{enumerate}
+        \item $E\in\mathcal{M}_{\mu}$.
+        \item $E=V\setminus N_1$, $V$ is a $G_{\delta}$ set and 
+        $\mu(N_1)=0$.
+        \item $E=H\cup N_2$, $H$ is a $F_{\sigma}$ set and 
+        $\mu(N_2)=0$.
+    \end{enumerate}
+\end{thm}
+\begin{proof}
+    $(2)\Rightarrow(1)$ or $(3)\Rightarrow(1)$: Since $\mu$ 
+    is complete on $\M_{\mu}$, $V,H,N_1,N_2$ all measurable, 
+    so $E$ is measurable.
+
+    $(1)\Rightarrow(3)$ or $(1)\Rightarrow(2)$: If $E\in\M_{\mu}$, 
+    first assume $\mu(E)<\infty$, 
+    by Theorem \ref{Thm:ApproxMeasurableSet}
+    it means $\forall j\in\mathbb{N},\epsilon>0,$ 
+    there exists open sets $U_{j}$, closed sets $K_{j}$ such that 
+    $K_j\subset E\subset U_j$ and 
+    \begin{displaymath}
+        \mu(U_j)-2^{-j}\epsilon\le\mu(E)\le\mu(K_{j})+2^{-j}\epsilon.
+    \end{displaymath}
+    Choose $V:=\cap_{j=1}^{\infty}U_{j}$, $H:=\cup_{j=1}^{\infty}K_j$, 
+    then $V$ is a $G_{\delta}$ set and 
+    $H$ is a $F_{\sigma}$ set, and 
+    $\mu(V)=\mu(H)=\mu(E)<\infty$. So 
+    $\mu(V\setminus E)=\mu(E\setminus H)=0$.
+\end{proof}
+\begin{exc}
+    When $\mu(E)=\infty$, prove Theorem \ref{Thm:ApproxMeasSetByGdFs}.
+\end{exc}
+\begin{exc}
+    If $E\in\M_{\mu}$ and $\mu(E)<\infty$, then for every 
+    $\epsilon>0$ there is a set $A$ that is a finite union of open 
+    intervals such that $\mu(E\triangle A)<\epsilon$.
+\end{exc}
+\begin{defn}
+    If $F(x)=x$, $\mu_{F}$ is called the \textit{Lebesgue measure }on 
+    $\mathbb{R}$. The domain of $m$ is the class of Lebesgue 
+    measurable sets $\mathcal{L}$.
+\end{defn}
+\begin{defn}
+    The \textit{Cantor set }$\mathcal{C}\subset[0,1]$ is the 
+    set ot all $x\in[0,1]$ with 
+    \begin{displaymath}
+        x=\sm{j}{\infty}a_j3^{-j},\quad a_j\in\{0,2\}.
+    \end{displaymath}
+\end{defn}
+\begin{prop}
+    \label{Prop:PropertiesOfCantorSet}
+    Cantor set has some special properties:
+    \begin{enumerate}
+        \item $\mathcal{C}$ is compact, nowhere dense, 
+        totally disconnected and with no isolated points.
+        \item $m(\mathcal{C})=0$.
+        \item $\text{card}(\mathcal{C})=\aleph$.
+    \end{enumerate}
+\end{prop}
+\begin{exc}
+    Prove Proposition \ref{Prop:PropertiesOfCantorSet}.
+\end{exc}
+\begin{rem}
+    Cantor set is a noticeable example 
+    for the subset of $[0,1]$.
+\end{rem}
