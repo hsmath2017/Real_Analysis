@@ -798,4 +798,194 @@ then extend it to $\M:=\M(\mathcal{A})$.
         =\sm{j}{\infty}\nu(E\cap A_j)=\nu(E).
     \end{displaymath}
 \end{proof}
-\section{Lebesgue Measure}
+\section{Borel Measure}
+\begin{rem}
+    In this section, we consider a special case for 
+    $\M:=\mathcal{B}_{\mathbb{R}}$, and induce the 
+    \textit{Borel measure} on $\M$. Finally, we introduce the 
+    \textit{Lebesgue measure} as a special case.
+\end{rem}
+\begin{defn}
+    \label{Defn:BorelMeas}
+    A measure $\mu$ is called a \textit{Borel measure} if 
+    $\mu:\mathcal{B}_{\mathbb{R}}\rightarrow[0,\infty]$.
+\end{defn}
+\begin{defn}
+    \label{Defn:DistributionFunc}
+    If $\mu$ is a finite Borel measure, $F(x):=\mu((-\infty,x])$ 
+    is the \textit{distribution function} of $\mu$.
+\end{defn}
+\begin{prop}
+    \label{Prop:DistributionFuncProperties}
+    If $F$ is a distribution function of a Borel measure $\mu$, then:
+    \begin{enumerate}
+        \item $F(x)$ is increasing on $\mathbb{R}$. 
+        \item $F(x)$ is right continuous on $\mathbb{R}$.
+        \item For $b>a$, $\mu(a,b]=F(b)-F(a)$.
+    \end{enumerate}
+\end{prop}
+\begin{exc}
+    Prove Proposition \ref{Prop:DistributionFuncProperties}.
+\end{exc}
+\begin{exc}
+    Assume $X$ is a random variable on $\mathbb{R}$, 
+    explain the relationship between the probability and 
+    the distribution function of $X$.
+\end{exc}
+\begin{rem}
+    Now, we induce a distribution function $F$ by a Borel measure 
+    $\mu$. Can we induce a Borel measure $\mu$ by a 
+    increasing and right continuous function $F$?
+\end{rem}
+\begin{ntn}
+    $(a,b]$, $(a,\infty)$, $\emptyset$ are called 
+    \textit{half-intervals} in $\mathbb{R}$.
+\end{ntn}
+\begin{prop}
+    \label{Prop:FiniteHalfIntAlg}
+    Mark $\mathcal{A}$:=\{finite disjoint union of \newline
+    half-intervals in $\mathbb{R}$\}, then 
+    $\mathcal{A}$ is an algebra, 
+    and $\M(\mathcal{A})=\mathcal{B}_{\mathbb{R}}$.
+\end{prop}
+\begin{exc}
+    Prove Proposition \ref{Prop:FiniteHalfIntAlg}.
+\end{exc}
+\begin{lem}
+    \label{Lem:PremeasureOnAlg}
+    Given a right-continuous and increasing function 
+    $F:\mathbb{R}\rightarrow\mathbb{R}$, if 
+    $\{(a_j,b_j]\}_{j=1}^{n}$ are disjoint half-intervals, 
+    let $\mu_0(\cp{j}{n}(a_j,b_j]):=\sm{i}{n}(F(b_i)-F(a_i))$ 
+    and $\mu_{0}(\emptyset)=0$, then $\mu_0$ is a premeasure on 
+    $\mathcal{A}$.
+\end{lem}
+\begin{proof}
+    We divide this proof into three steps.
+
+    First, we show that $\mu_{0}$ is well-defined. 
+    If $\{I_i\}_{i=1}^{n}$, $\{J_{j}\}_{j=1}^{m}$ are disjoint 
+    half-intervals satisfies $\cp{i}{n}I_i=\cp{j}{m}J_j$, 
+    then:
+    \begin{displaymath}
+        \sm{i}{n}\mu_{0}(I_{i})
+        =\sum_{i,j}\mu_{0}(I_i\cap J_j)
+        =\sm{j}{m}\mu_{0}(J_j),
+    \end{displaymath}
+    so $\mu_0(E)$ isn't related to the partition, i.e. 
+    $\mu_{0}$ is well-defined on $\mathcal{A}$. 
+
+    Second, we show $\mu_{0}$ is finitely additive. 
+    Choose $I_{i}:=(a_i,b_i]$, and $\forall 1\le i<j\le n$, 
+    $I_i\cap I_j=\emptyset$, then:
+    \begin{displaymath}
+        \mu_{0}(\cp{i}{n}I_{i})
+        =\sm{i}{n}(F(b_i)-F(a_i))
+        =\sm{i}{n}\mu_{0}(I_i).
+    \end{displaymath}
+    So $\mu_{0}$ is finitely additive on $\mathcal{A}$.
+
+    Finally, we show $\mu_{0}$ is countably additive. 
+    If $\{I_{j}\}_{j=1}^{\infty}$ are disjoint half-intervals, 
+    it suffices to show 
+    $\mu_{0}(\cp{j}{\infty}I_j)=\sm{j}{\infty}\mu_{0}(I_j)$. 
+    Since $\cp{j}{\infty}I_{j}\in\mathcal{A}$, 
+    $I:=\cp{j}{\infty}I_{j}$ is a finite union of 
+    half-intervals. 
+    So, WLOG, assume $\cp{j}{\infty}I_j=(a,b]$. 
+    We consider the case for $-\infty<a<b<\infty$. If 
+    $a=-\infty$ or $b=\infty$, the proof is remained as exercise. 
+    Mark $I:=\cp{j}{\infty}I_j=(a,b]$, then:
+    \begin{displaymath}
+        \begin{array}{rl}
+        \mu_{0}(I)&=\mu_{0}(\cp{j}{n}I_j)+\mu_{0}(I\setminus\cp{j}{n}I_j)\\
+        &\ge\mu_{0}(\cp{j}{n}I_j)=\sm{j}{n}\mu_{0}(I_j).
+        \end{array}
+    \end{displaymath}
+    Set $n\rightarrow\infty$, then 
+    $\mu_{0}(I)\ge\sm{j}{\infty}\mu_{0}(I_j)$. 
+    Since $F$ is right continuous, $\forall\epsilon>0$, 
+    $\exists\delta>0$, $F(a+\delta)-F(a)<\epsilon$, 
+    and each $I_j:=(a_j,b_j]$, $\exists \delta_j>0$ such that 
+    $F(b_j+\delta_j)-F(b_j)<2^{-j}\epsilon$. 
+    By the definition, $\cp{j}{\infty}(a_j,b_j+\delta_j)
+    \supset[a+\delta_1,b]$. Since $[a+\delta_1,b]$ is compact, 
+    there exists a finite subcover 
+    $\{(a_{j_{k}},b_{j_k}+\delta_{j_k})\}_{k=1}^{N}$ 
+    that covers $[a+\delta_1,b]$. 
+
+    Now, sort this finite subcover such that $b_{j_k}+\delta_{j_k}
+    \in(a_{j_{k+1}},b_{j_{k+1}}+\delta_{j_{k+1}})$, then:
+    \begin{displaymath}
+        \begin{array}{rl}
+            \mu_{0}(I)&<F(b)-F(a+\delta)+\epsilon\\
+            &\le F(b_{j_N}+\delta_{j_N})-F(a_{j_1})+\epsilon\\
+            &\le\sm{j}{N}[F(b_{j_{k}}+\delta_{j_k})-F(a_{j_k})]+\epsilon\\
+            &\le 2\epsilon+\sm{k}{N}(F(b_{j_k})-F(a_{j_k}))\\
+            &\le\sm{j}{\infty}\mu(I_j)+2\epsilon.
+        \end{array}
+    \end{displaymath}
+    So $\mu_{0}(I)\le\sm{j}{\infty}\mu_{0}(I_j)$. 
+    The countable additivity is true 
+    for $-\infty<a<b<\infty$. 
+\end{proof}
+\begin{exc}
+    Complete the proof of Lemma \ref{Lem:PremeasureOnAlg}.
+\end{exc}
+\begin{rem}
+    By Lemma \ref{Lem:PremeasureOnAlg}, we generalize 
+    the length of intervals to the premeasure on $\mathcal{A}$.
+\end{rem}
+\begin{thm}
+    \label{Thm:BorelMeasAndGenFunc}
+
+    \begin{enumerate}
+        \item If $F:\mathbb{R}\rightarrow\mathbb{R}$ is increasing and 
+        right continuous, then there exists unique Borel measure 
+        $\mu_{F}$ on $\mathbb{R}$ such that 
+        $\mu_{F}((a,b])=F(b)-F(a)$.
+        \item If $\mu$ is a Borel measure on $\mathbb{R}$ that is 
+        finite on all bounded Borel sets, define 
+        \begin{displaymath}
+            F(x)=\left\{
+                \begin{array}{rll}
+                    &\mu((0,x]),&x>0\\
+                    &0,&x=0\\
+                    &-\mu([x,0)),&x<0\\
+                \end{array}
+            \right.,
+        \end{displaymath}
+        then $F$ is increasing and right continuous.
+    \end{enumerate}
+\end{thm}
+\begin{proof}
+    $(1)$ By Lemma \ref{Lem:PremeasureOnAlg}, $F$ gives a 
+    $\sigma$-finite premeasure on $\mathcal{A}$. 
+    Then by Theorem \ref{Thm:PremeasureExtension}, there exists a 
+    unique measure $\mu_{F}$ on $\mathbb{R}$ such that 
+    $\mu_{F}(a,b]=F(b)-F(a)$.
+
+    $(2)$ A direct corollary of Proposition 
+    \ref{Prop:DistributionFuncProperties}.
+\end{proof}
+\begin{rem}
+    Theorem \ref{Thm:BorelMeasAndGenFunc} 
+    omit the assumption that $\mu$ is finite. 
+    The Borel measure $\mu_{F}$ is called 
+    \textit{Lebesgue-Stieltjes measure.} 
+\end{rem}
+\begin{rem}
+    \begin{displaymath}
+        \begin{array}{rl}
+            \mu^{*}(E)&:=\inf\{\sm{i}{\infty}\mu((a_i,b_i]):
+            E\subset\cp{i}{\infty}(a_i,b_i]\}\\
+            &=\inf\{\sm{i}{\infty}(F(b_i)-F(a_i))\}.\\
+        \end{array}
+    \end{displaymath}
+    If $F(x)\equiv x$, $\mu^{*}$ is the \textit{Lebesgue 
+    outer measure }on $\mathbb{R}$. 
+\end{rem}
+\begin{ntn}
+    $\M_{\mu}$ is the collection of all the $\mu^{*}$-measurable 
+    sets.
+\end{ntn}
