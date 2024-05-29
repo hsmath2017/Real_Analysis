@@ -673,8 +673,8 @@ $(X,\M,\mu)$ from the outer measure $\mu^{*}$.
 \end{proof}
 \begin{rem}
     By Theorem \ref{Thm:CaratheodoryThm}, we can derive the conditions 
-    of \textit{countable set} by outer measure, and 
-    define the \textit{measure} of each countable sets.
+    of \textit{measurable set} by outer measure, and 
+    define the \textit{measure} of each measurable sets.
 \end{rem}
 \subsection{Premeasure and its extension}
 In this section, we define a \textit{premeasure} on an \textbf{algebra} 
@@ -727,7 +727,7 @@ then extend it to $\M:=\M(\mathcal{A})$.
 \end{exc}
 \begin{proof}
     (a)Suppose $E\in\mathcal{A}$. If $E\subset\cup_1^{\infty}A_j$ with $A_j\in\mathcal{A}$,
-    let $B_n=E\cap(A_n/\cup_1^{n-1}A_j)$. Then the $B_n$'s are disjoint members of $\mathcal{A}$
+    let $B_n=E\cap(A_n\setminus\cup_1^{n-1}A_j)$. Then the $B_n$'s are disjoint members of $\mathcal{A}$
     whose union is $E$, so $\mu_{0}(E)=\sum_1^{\infty}\mu_{0}(B_j)\leq\sum_1^{\infty}\mu_{0}(A_j)$.
     It follows that $\mu_{0}(E)\leq\mu^*(E)$, and the reverse inequality is obvious since           
     $E\subset\cup_{1}^{\infty}A_j$ where $A_1=E$ and $A_j=\emptyset$ for $j>1$.
