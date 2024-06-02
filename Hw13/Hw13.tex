@@ -1,0 +1,408 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\newtheorem{lemma}{Lemma}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass\ (\hmwkClassInstructor\ \hmwkClassTime): \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#13}
+\newcommand{\hmwkDueDate}{Jun 4, 2024}
+\newcommand{\hmwkClass}{Real Analysis}
+\newcommand{\hmwkClassTime}{Tuesday}
+\newcommand{\hmwkClassInstructor}{Professor Yakun Xi}
+\newcommand{\hmwkAuthorName}{\textbf{Shuang Hu}}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 10:00am}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor\ \hmwkClassTime}}
+    \vspace{3in}
+}
+
+\author{\hmwkAuthorName}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Alias for the Solution section header
+\newcommand{\solution}{\textbf{\large Solution}}
+\newcommand{\norm}[1]{\|#1\|}
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+\newcommand{\supp}{\text{supp}}
+\newcommand{\Rn}{\mathbb{R}^{n}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\avg}[1]{\left\langle #1 \right\rangle}
+\newcommand{\difFrac}[2]{\frac{\dif #1}{\dif #2}}
+\newcommand{\pdfFrac}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\OFL}{\mathrm{OFL}}
+\newcommand{\UFL}{\mathrm{UFL}}
+\newcommand{\fl}{\mathrm{fl}}
+\newcommand{\Eabs}{E_{\mathrm{abs}}}
+\newcommand{\Erel}{E_{\mathrm{rel}}}
+\newcommand{\DR}{\mathcal{D}_{\widetilde{LN}}^{n}}
+\newcommand{\add}[2]{\sum_{#1=1}^{#2}}
+\newcommand{\innerprod}[2]{\left<#1,#2\right>}
+\newcommand{\Sc}{\mathcal{S}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\E}{\mathcal{E}}
+\newcommand{\A}{\mathcal{A}}
+\newcommand{\cp}[2]{\cup_{#1=1}^{#2}}
+\newcommand{\sm}[2]{\sum_{#1=1}^{#2}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\Lc}{\mathcal{L}}
+\newcommand\tbbint{{-\mkern -16mu\int}}
+\newcommand\tbint{{\mathchar '26\mkern -14mu\int}}
+\newcommand\dbbint{{-\mkern -19mu\int}}
+\newcommand\dbint{{\mathchar '26\mkern -18mu\int}}
+\newcommand\bint{
+{\mathchoice{\dbint}{\tbint}{\tbint}{\tbint}}
+}
+\newcommand\bbint{
+{\mathchoice{\dbbint}{\tbbint}{\tbbint}{\tbbint}}
+}
+\begin{document}
+\maketitle
+\pagebreak
+\begin{homeworkProblem}
+    If $g\in L^{\infty}$, the operator $T$ defined by $Tf=fg$ 
+    is bounded on $L^{p}$ for $1\le p\le \infty$. Its operator norm 
+    is at most $\norm{g}_{\infty}$, with equality if $\mu$ 
+    is semifinite.
+\end{homeworkProblem}
+\begin{proof}
+    Since 
+    \begin{displaymath}
+        \begin{array}{rl}
+        \norm{Tf}_{p}&=\left(\int_{X}|fg|^{p}\right)^{\frac{1}{p}}\\
+        &\le\left(\norm{g}_{\infty}^{p}\int_{X}|f|^{p}\right)
+        ^\frac{1}{p}\\
+        &=\norm{g}_{\infty}\norm{f}_{p},
+        \end{array}
+    \end{displaymath}
+    it's clear that $\norm{T}\le\norm{g}_{\infty}$. 
+    
+    If $\mu$ is 
+    semifinite, i.e. $\exists E\subset X$ such that $\mu(E)<\infty$, 
+    then $\forall\epsilon>0$, $\exists$ set $E_{\epsilon}$ s.t. 
+    \begin{displaymath}
+        \left\{
+            \begin{array}{rl}
+                0<\mu(E_{\epsilon})<\infty,\\
+                \forall x\in E_{\epsilon},\quad 
+                \norm{g}_{\infty}-\epsilon<|g(x)|<\norm{g}_{\infty}.
+            \end{array}
+        \right.
+    \end{displaymath}
+    We choose $f:=\chi_{E_{\epsilon}}$, derive 
+    $\norm{T}\ge\norm{g}_{\infty}-\epsilon$, 
+    so $\norm{T}=\norm{g}_{\infty}$.
+\end{proof}
+\begin{homeworkProblem}
+    Suppose that $\mu,\nu$ are positive finite measures on $(X,\M)$, 
+    and let $\lambda=\mu+\nu$.
+    \begin{enumerate}
+        \item The map $f\mapsto \int f\dif\nu$ is a bounded linear 
+        functional on $L^{2}(\lambda)$, so $\int f\dif\nu
+        =\int fg\dif\lambda$ for some $g\in L^{2}(\lambda)$. 
+        Equivalently, $\int f(1-g)\dif\nu=\int fg\dif\mu$ for 
+        $f\in L^{2}(\lambda)$.
+        \item $0\le g\le 1$ $\lambda$-a.e., so we may assume 
+        $0\le g\le 1$ everywhere. 
+        \item Let $A=\{x:g(x)<1\}$, $B=\{x:g(x)=1\}$, and set 
+        $\nu_{a}(E):=\nu(A\cap E)$, $\nu_{s}(E):=\nu(B\cap E)$. 
+        Then $\nu_{s}\perp\mu$ and $\nu_{a}\ll\mu$; in fact, 
+        $\dif\nu_{a}=g(1-g)^{-1}\chi_{A}\dif\mu$.
+    \end{enumerate}
+\end{homeworkProblem}
+\begin{proof}
+    $(1)$ Linear: just by the definition. 
+
+    Bounded: since $\nu(X)<\infty$, by Cauchy-Schwarz inequality:
+    \begin{displaymath}
+        |Tf|=\left|\int_{X}f\dif\nu\right|
+        \le\left(\int_{X}|f|^{2}\dif\nu\int_{X}1\dif\nu\right)
+        ^{\frac{1}{2}}
+        =\sqrt{\nu(X)}\norm{f}_{L^2}.
+    \end{displaymath}
+    So $T$ is a bounded linear operator on $L^{2}(\lambda)$. 
+    By Riesz's Representation Theorem, there exists 
+    $g\in L^{2}(\lambda)$ such that 
+    \begin{equation}
+        \label{equ:RepTf}
+        Tf=\int f\dif\nu=\int fg\dif\lambda.
+    \end{equation}
+    Equivalently, 
+    \begin{equation}
+        \label{equ:Repdifmu}
+        \int f(1-g)\dif\nu=\int f\dif\nu
+        -\int fg\dif\nu
+        =\int fg(\dif\lambda-\dif\nu)
+        =\int fg\dif\mu.
+    \end{equation}
+
+    $(2)$ Assume $g<0$ on $E_1$ with $\lambda(E_1)>0$, 
+    by \eqref{equ:RepTf}, 
+    \begin{displaymath}
+        \int\chi_{E_1}\dif\nu=\int \chi_{E_1}g\dif\lambda.
+    \end{displaymath}
+    If $\nu(E_1)>0$, it means $\int_{E_1}g\dif\lambda>0$, 
+    but $g<0$ on $E_1$ with $\lambda(E_1)>0$, contradict! 
+
+    If $\nu(E_1)=0$, i.e. $\mu(E_1)=\lambda(E_1)>0$, 
+    then 
+    \begin{displaymath}
+        \int_{E_1}\dif\nu=\int g\dif\lambda=0.
+    \end{displaymath}
+    Contradict to $g<0$ and $\lambda(E_1)>0$. So $g\ge 0 \lambda$ a.e..
+
+    Assume $g>1$ on $E_2$ with $\lambda(E_2)>0$, then 
+    \begin{displaymath}
+        \int_{E_2}\dif\nu=\int\chi_{E_2}g\dif\lambda
+        \Rightarrow \nu(E_2)=\int_{E_2}g\dif\lambda.
+    \end{displaymath}
+    What's more, $\lambda=\mu+\nu$ and $\mu,\nu$ positive, 
+    it means 
+    \begin{displaymath}
+        \int E_2 g\dif\lambda>\int E_2\dif\lambda=\lambda(E_2)
+        \ge\nu(E_2),
+    \end{displaymath}
+    contradict! So $\lambda(E_2)=0$. i.e. $0\le g\le 1$ $\lambda$-a.e..
+
+    $(3)$ On $B$, if $E\subset B$, 
+    \begin{displaymath}
+        \nu_{s}(E)=\nu(B\cap E)=\nu(E)
+        =\int_{E}\dif\nu
+        =\int\chi_{E}\dif\nu
+        =\int\chi_{E}g\dif\lambda
+        =\int\chi_{E}\dif\lambda.
+    \end{displaymath}
+    Since $\lambda=\mu+\nu$, it means $\mu(E)=0$. 
+    So $\mu=0$ on $B$. 
+
+    If $E\subset A$, $\nu_{s}(E)=\nu(B\cap E)=\nu(\emptyset)=0$. 
+    Since $A\cup B=X$, $A\cap B=\emptyset$, $\nu_{s}\perp\mu$. 
+
+    If $\mu(E)=0$, 
+    \begin{displaymath}
+        \begin{array}{rl}
+            \lambda(E)=\nu(E)&\Rightarrow 
+            \int \chi_{E}\dif\lambda=\int\chi_{E}\dif\nu
+            =\int\chi_{E}g\dif\lambda\\
+            &\Rightarrow g=1\text{ a.e. on }E\\
+            &\Rightarrow \nu_{a}(E)=0\Rightarrow\nu_{a}\ll\mu.
+        \end{array}
+    \end{displaymath}
+
+    Finally:
+    \begin{displaymath}
+        \begin{array}{rl}
+            \int_{E}\dif\nu_a&=
+            \nu_{a}(E)=\nu(A\cap E)
+            =\int_{A\cap E}\dif\nu
+            =\int_{E}\chi_{A}\dif\nu
+            =\int_{E}\chi_{A}g\dif\lambda\\
+            &=\int_{E}\chi_{A}g(\dif\mu+\dif\nu)
+            =\int_{E}\chi_{A}g\dif\nu+\int_{E}\chi_{A}g\dif\mu
+            =\int_{E}\chi_{A}\frac{g}{1-g}\dif\mu.
+        \end{array}
+    \end{displaymath}
+    So $\dif\nu_{a}=g(1-g)^{-1}\chi_{A}\dif\mu$.
+\end{proof}
+\begin{homeworkProblem}
+    TBD
+\end{homeworkProblem}
+\begin{homeworkProblem}
+    Complete the proof of Theorem 6.18 for the cases $p=1$ 
+    and $p=\infty$.
+\end{homeworkProblem}
+\begin{proof}
+    For $p=\infty$:
+    \begin{displaymath}
+        \begin{array}{rl}
+            |Tf(x)|&=\left|\int K(x,y)f(y)\dif\nu(y)\right|\\
+            &\le\int|K(x,y)||f(y)|\dif\nu(y)\\
+            &\le\norm{f}_{\infty}\int|K(x,y)|\dif\nu(y)
+            \le C\norm{f}_{\infty}.
+        \end{array}
+    \end{displaymath}
+    For $p=1$: 
+    \begin{displaymath}
+        \begin{array}{rl}
+            \int |Tf(x)|\dif\mu(x)&=\int|\int K(x,y)f(y)\dif\nu(y)|
+            \dif\mu(x)\\
+            &\le\int\int|K(x,y)||f(y)|\dif\nu(y)\dif\mu(x)\\
+            &\le\int\left(\int |K(x,y)|\dif\mu(x)\right)|f(y)|\dif\nu(y)\\
+            &\le C\int|f(y)|\dif\nu(y)=C\norm{f}_1.
+        \end{array}
+    \end{displaymath}
+    So $Tf\in L^1$, i.e. $Tf$ converges absolutely.
+\end{proof}
+\begin{homeworkProblem}
+    Suppose that $1\le p_j\le\infty$ and $\sm{j}{n}p_{j}^{-1}=r^{-1}\le 1$. 
+    If $f_{j}\in L^{p_j}$ for $j=1,\ldots,n$, then 
+    $\prod_{1}^{n}f_j\in L^r$ and 
+    $\norm{\prod_{1}^{n}f_j}_{r}\le \prod_{1}^{n}\norm{f_j}_{p_j}$. 
+\end{homeworkProblem}
+\begin{proof}
+    First, consider the case for $n=2$, 
+    since $1=\frac{r}{p_1}+\frac{r}{p_2}$, by Holder's inequality:
+    \begin{displaymath}
+        \norm{fg}_{r}^{r}=\int|fg|^r
+        =\norm{f^{r}g^{r}}_{1}
+        \le\norm{f^{r}}_{\frac{p_1}{r}}\norm{g^r}_{\frac{p_2}{r}}
+        =\left(\int|f|^{p_1}\right)^{\frac{r}{p_1}}
+        \left(\int|g|^{p_2}\right)^{\frac{r}{p_2}}.
+    \end{displaymath}
+    So $\norm{fg}_r\le\norm{f}_{p_1}\norm{g}_{p_2}$.
+
+    Then using induction on $n$, assume the result holds for $n=k$. 
+    When $n=k+1$, it means $\sm{i}{k+1}\frac{1}{p_i}=\frac{1}{r}$, 
+    \begin{displaymath}
+        \norm{\prod_{i=1}^{k+1}f_i}_{r}
+        =\norm{f_{k+1}(\prod_{i=1}^{k}f_{i})}_{r}
+        \le\norm{f_{k+1}}_{p_{k+1}}\norm{\prod_{i=1}^{n}f_{i}}
+        _{\frac{1}{\frac{1}{r}-\frac{1}{p_{n+1}}}}.
+    \end{displaymath}
+    Since $\sm{i}{n}\frac{1}{p_i}=\frac{1}{r}-\frac{1}{p_{n+1}}$, 
+    \begin{displaymath}
+        \norm{\prod_{i=1}^{n}f_{i}}
+        _{\frac{1}{\frac{1}{r}-\frac{1}{p_{n+1}}}}
+        \le\prod_{i=1}^{n}\norm{f_{i}}_{p_{i}}.
+    \end{displaymath}
+    It completes the proof.
+\end{proof}
+\begin{homeworkProblem}
+    Suppose that $(X,\M,\mu)$ and $(Y,\mathcal{N},\nu)$ are 
+    $\sigma$-finite measure spaces and $K\in L^{2}(\mu\times\nu)$. 
+    If $f\in L^{2}(\nu)$, the integral $Tf(x)=\int K(x,y)f(y)\dif\nu(y)$ 
+    converges absolutely for a.e. $x\in X$; moreover, $Tf\in L^2(\mu)$ 
+    and $\norm{Tf}_{2}\le\norm{K}_{2}\norm{f}_{2}$.
+\end{homeworkProblem}
+\begin{proof}
+    Since $K\in L^{2}(\mu\times\nu)$, 
+    \begin{displaymath}
+        |Tf(x)|\le\int|K(x,y)f(y)|\dif\nu(y)
+        \le\left(\int (K(x,y))^{2}\dif\nu(y)\right)^{\frac{1}{2}}
+        \left(\int|f(y)|^{2}\dif\nu(y)\right)^{\frac{1}{2}}
+        <\infty
+    \end{displaymath}
+    for a.e. $x$. Moreover:
+    \begin{displaymath}
+        \begin{array}{rl}
+            \norm{Tf}_{2}^{2}&=\int |Tf(x)|^{2}\dif\mu(x)\\
+            &=\int\left(\int K(x,y)f(y)\dif\nu(y)\right)^2\dif\mu(x)\\
+            &\le\int\left(\int|K(x,y)|^{2}\dif\nu(y)
+            \int|f(y)|^{2}\dif\nu(y)\right)\dif\mu(x)\\
+            &=\norm{f}_{2}^{2}\iint |K(x,y)|^{2}\dif\nu(y)\dif\mu(x)\\
+            &=\norm{f}_{2}^{2}\norm{K}_{2}^{2}.
+        \end{array}
+    \end{displaymath}
+    So $\norm{Tf}_{2}\le\norm{K}_{2}\norm{f}_{2}$.
+\end{proof}
+\end{document}
