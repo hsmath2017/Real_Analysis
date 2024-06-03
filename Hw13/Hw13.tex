@@ -315,8 +315,64 @@
     So $\dif\nu_{a}=g(1-g)^{-1}\chi_{A}\dif\mu$.
 \end{proof}
 \begin{homeworkProblem}
-    TBD
+    Suppose $\sup_{n}\norm{f_n}_{p}<\infty$ and $f_n\rightarrow f$ 
+    a.e..
+    \begin{enumerate}
+        \item If $1<p<\infty$, then $f_{n}\rightarrow f$ weakly in 
+        $L^{p}$.
+        \item The result of (1) is false in general for $p=1$. 
+        However, ture for $p=\infty$ if $\mu$ is $\sigma$-finite 
+        and weak convergence is replaced by weak* convergence.
+    \end{enumerate}
 \end{homeworkProblem}
+\begin{proof}
+    $(1)$ $\forall g\in L^{q}$, we claim the properties of $g$. 
+    $\forall\epsilon>0$, by the continuity of integral, $\forall E$ 
+    satisfies $\mu(E)<\delta$, $\int_{E}|g|^{q}<\epsilon$. Since 
+    $g\in L^{q}$, $\exists A\subset X$ such that $\mu(A)<\infty$ 
+    and $\int_{X\setminus A}|g|^{q}<\epsilon$. 
+    Then by Egoroff's Theorem, $\exists B\subset A$ such that 
+    $\mu(A\setminus B)<\delta$ and $f_{n}\rightarrow f$ uniformly 
+    on $B$. 
+
+    Then we will show that $\int f_{n}g\rightarrow\int fg$. Assume 
+    $\sup_{n}\norm{f_n}_{p}<M$, since $f_n\rightarrow f$ a.e., 
+    $\norm{f}_p<M$ as well. Now:
+    \begin{displaymath}
+        \begin{array}{rl}
+            \int |(f_n-f)g|&\le\left(\int|f_{n}-f|^{p}\right)^{\frac{1}{p}}
+            \left(\int |g|^{q}\right)^{\frac{1}{q}}\\
+            &\le 2M(\int_{X\setminus A}|g|^{q}+\int_{A\setminus B}|g|^{q})
+            +\norm{g}_{q}\int_{B}|f_n-f|^{p}\\
+            &\le 4M\epsilon+\norm{g}_{q}\int_{B}|f_n-f|^{p}.
+        \end{array}
+    \end{displaymath}
+    Since $f_{n}\rightarrow f$ uniformly on $B$ and $\mu(B)<\infty$, 
+    $\int_{B}|f_n-f|^{p}\rightarrow 0$ for $n\rightarrow\infty$. 
+    So $\lim_{n\rightarrow\infty}|(f_{n}-f)g|\le 4M\epsilon$. 
+    Since $\epsilon$ is arbitrary, $f_{n}\rightarrow f$ weakly in $L^{p}$.
+
+    $(2)$ For $p=1$, $L^{1}(\mathbb{R},m)^{*}=L^{\infty}(\mathbb{R},m)$. 
+    Choose 
+    \begin{displaymath}
+        f_{n}(x)=(n^2x+n)\chi_{[-\frac{1}{n},0]}+(n-n^2x)
+        \chi_{[0,\frac{1}{n}]},    
+    \end{displaymath}
+    then $\sup_{n}\norm{f_n}_{1}=1<\infty$ and $f_{n}\rightarrow f=0$ 
+    a.e.. 
+    However, choose $g(x)\in L^{\infty}$ with $g(0)\neq 0$, 
+    $\int f_{n}g\rightarrow g(0)$, and $\int fg=0$, 
+    so $f_{n}\rightarrow f$ fails when $p=1$.
+
+    For $p=\infty$, consider $f\in L^{\infty}$ as the linear functional 
+    on $L^{1}$, $\forall g\in L^{1}$, it suffices to show 
+    $\int f_{n}g\rightarrow\int fg$, then:
+    \begin{displaymath}
+        \int |f_{n}-f||g|\le\norm{f_{n}-f}_{\infty}\norm{g}_{1}
+        \rightarrow 0.
+    \end{displaymath}
+    It completes the proof.
+\end{proof}
 \begin{homeworkProblem}
     Complete the proof of Theorem 6.18 for the cases $p=1$ 
     and $p=\infty$.
