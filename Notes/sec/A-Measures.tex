@@ -1170,19 +1170,23 @@ then extend it to $\M:=\M(\mathcal{A})$.
     By Theorem \ref{Thm:ApproxMeasurableSet}, $\exists U$ s.t. $E\subset U$
     and $\mu(U)\leq\mu(E)+2^{-1}\epsilon$. Furthermore, by the
     inequality just stated, we know that $\mu(U),\mu(E)<\infty$, and hence 
-    $\mu(U/E)=\mu(U)-\mu(E)\leq 2^{-1}\epsilon$. We know that $\exists \{U_i\}_1^{\infty}$
+    $\mu(U/E)=\mu(U)-\mu(E)\leq 2^{-1}\epsilon$. We know that $\exists 
+    \{U_i\}_1^{\infty}$
     s.t. $U=\cup_1^{\infty}U_i$. We now prove that actually:
     \begin{displaymath}
-        \exists N\in\mathbb{N}\textit{s.t.}\mu(U)=\mu(\cup_1^{\infty}U_i)
+        \exists N\in\mathbb{N}\textit{ s.t. }\mu(U)=\mu(\cup_1^{\infty}U_i)
         <\mu(\cup_1^{N}U_i)+2^{-1}\epsilon.
     \end{displaymath}
     Since $\{U_i\}_1^{\infty}$ is disjoint, $\sum_1^{\infty}\mu(U_i)=\mu(U)
     \leq\mu(E)+2^{-1}\epsilon$. Therefore, the series $\{\sum_1^{n}\mu(U_i)\}$
     must converge, and hence, by the definition of convergent series $\exists
     N\in\mathbb{N}$ s.t. $\sum_{N+1}^{\infty}\mu(U_i)<2^{-1}\epsilon$. We define
-    $\bar{U}=\cup_1^{N}U_i$, hence $\mu(\bar{U}/E)\leq\mu(U/E)<2^{-1}\epsilon$. 
-    And $\mu(E/\bar{U})\leq\mu(U/\bar{U})=\sum_{N+1}^{\infty}\mu(U_i)\leq2^{-1}\epsilon$.
-    Thus $\mu(E\triangle\bar{U})=\mu(E/\bar{U})+\mu(\bar{U}/E)\leq2^{-1}\epsilon+2^{-1}\epsilon=\epsilon$.
+    $\bar{U}=\cup_1^{N}U_i$, hence $\mu(\bar{U}\setminus E)
+    \leq\mu(U\setminus E)<2^{-1}\epsilon$. 
+    And $\mu(E\setminus\bar{U})\leq\mu(U\setminus\bar{U})=
+    \sum_{N+1}^{\infty}\mu(U_i)\leq2^{-1}\epsilon$.
+    Thus $\mu(E\triangle\bar{U})=\mu(E\setminus\bar{U})+
+    \mu(\bar{U}\setminus E)\leq2^{-1}\epsilon+2^{-1}\epsilon=\epsilon$.
 \end{proof}
 \begin{defn}
     If $F(x)=x$, $\mu_{F}$ is called the \textit{Lebesgue measure }on 
@@ -1210,12 +1214,18 @@ then extend it to $\M:=\M(\mathcal{A})$.
     Prove Proposition \ref{Prop:PropertiesOfCantorSet}.
 \end{exc}
 \begin{proof}
-    (a)Note that $C\subset[0,1]$, and $C^c$ is open, so $C$ is closed.
-    Since $C$ is closed and bounded in $\mathbb{R}$, $C$ is compact.
+    (a)Note that $\mathcal{C}\subset[0,1]$, 
+    and $\mathcal{C}^c$ is open, 
+    so $\mathcal{C}$ is closed.
+    Since $\mathcal{C}$ is closed 
+    and bounded in $\mathbb{R}$, 
+    $\mathcal{C}$ is compact.
     
     Assume that there exists an isolated point $x$ in the Cantor set 
-    $C$. Since the Cantor set is compact, there exists a sequence ${x_n}$ 
-    converging to $x$, where each $x_n\in C$. However, as $x$ is an 
+    $\mathcal{C}$. 
+    Since the Cantor set is compact, there exists a sequence ${x_n}$ 
+    converging to $x$, where each 
+    $x_n\in \mathcal{C}$. However, as $x$ is an 
     isolated point, there exists a positive number $\epsilon$ such that, 
     except for finitely many elements, the sequence ${x_n}$ does not belong
     to the interval $(x-\epsilon, x+\epsilon)$. This contradicts the nature 
@@ -1223,27 +1233,41 @@ then extend it to $\M:=\M(\mathcal{A})$.
     isolated points. Therefore, our assumption is false, and the Cantor set 
     has no isolated points. 
     
-    Let $x,y\in C$ and $x<y$, assume that $\forall z\in(x,y)$, $z\in C$.
-    Note that $(x,y)\subset C$. Also, note that $y-x>0$, by monotonicity,
-    $m(C)\geq y-x>0$, but $m(C)=0$, so $C$ is totally disconnected.
+    Let $x,y\in \mathcal{C}$ and $x<y$, assume that $\forall z\in(x,y)$, 
+    $z\in \mathcal{C}$.
+    Note that $(x,y)\subset \mathcal{C}$. 
+    Also, note that $y-x>0$, by monotonicity,
+    $m(\mathcal{C})\geq y-x>0$, but $m(\mathcal{C})=0$, 
+    so $\mathcal{C}$ is totally disconnected.
 
-    Let $x\in C$ and $\epsilon>0$. Since the Cantor set has no isolated points,
-    $\exists y\in C$ such that $y\in(x-\epsilon,x+\epsilon)$. Since $C$ is 
-    totally disconnected, $exists z\in(x,y)\subset(x-\epsilon,x+\epsilon)$
-    such that $z\notin C$. Note that $(x,y)\subset(x-\epsilon,x+\epsilon)$ 
-    and $(x,y)\not\subset C$. Thus, $(x-\epsilon,x+\epsilon)$  cannot be a 
-    subset of $C$. so $C$ has no interior point and $C$ is nowhere dense. 
+    Let $x\in \mathcal{C}$ 
+    and $\epsilon>0$. Since the Cantor set has no isolated points,
+    $\exists y\in \mathcal{C}$ 
+    such that $y\in(x-\epsilon,x+\epsilon)$. Since 
+    $\mathcal{C}$ is 
+    totally disconnected, $\exists z\in(x,y)\subset(x-\epsilon,x+\epsilon)$
+    such that $z\notin \mathcal{C}$. 
+    Note that $(x,y)\subset(x-\epsilon,x+\epsilon)$ 
+    and $(x,y)\not\subset \mathcal{C}$. 
+    Thus, $(x-\epsilon,x+\epsilon)$  cannot be a 
+    subset of $\mathcal{C}$. 
+    So $\mathcal{C}$ has no interior point and 
+    $\mathcal{C}$ is nowhere dense. 
     
-    As for (b), $C$ is obtained from $[0,1]$ by removing one interval of 
+    As for (b), $\mathcal{C}$ is obtained from $[0,1]$ 
+    by removing one interval of 
     length $3^{-1}$, two intervals of length $9^{-1}$, and so forth. Thus
     \begin{displaymath}
-        m(C)=1-\sum_0^{\infty}\frac{2^j}{3^{j+1}}=1-\frac{1}{3}\frac{1}{1-\frac{2}{3}}=0.
+        m(\mathcal{C})=1-\sum_0^{\infty}\frac{2^j}{3^{j+1}}
+        =1-\frac{1}{3}\frac{1}{1-\frac{2}{3}}=0.
     \end{displaymath}
-    Lastly, suppose $x\in C$, so that $x=\sum_0^{\infty}a_j3^{-j}$ where
+    Lastly, suppose $x\in \mathcal{C}$, 
+    so that $x=\sum_0^{\infty}a_j3^{-j}$ where
     $a_j=0$ or $2$ for all $j$. Let $f(x)=\sum_1^{\infty}b_j2^{-j}$ where
     $b_j=\frac{a_j}{2}$. The series defining $f(x)$ is the base-2 expansion
     of a number in $[0,1]$, and any number in $[0,1]$ can be obtained in this 
-    way. Hence $f$ maps $C$ onto $[0,1]$, and (c) as follows.
+    way. Hence $f$ maps $\mathcal{C}$ 
+    onto $[0,1]$, and (c) as follows.
 \end{proof}
 \begin{rem}
     Cantor set is a noticeable example 
