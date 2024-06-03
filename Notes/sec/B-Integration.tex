@@ -1,4 +1,90 @@
+\begin{defn}
+    The \textit{Dirichlet function }on $[0,1]$ is 
+    \begin{equation}
+        \label{Equ:Diri_Func}
+        D(x)=\left\{
+            \begin{array}{rl}
+                1&x\in \mathbb{Q},\\
+                0&x\notin\mathbb{Q}.
+            \end{array}
+        \right.
+    \end{equation}
+\end{defn}
+\begin{exc}
+    Show \eqref{Equ:Diri_Func} isn't Riemann integrable on $[0,1]$.
+\end{exc}
+\begin{rem}
+    $D(x)=0$ a.e. on $[0,1]$, so we expact $\int_{0}^{1}D(x)\dif x=0$, 
+    but $D(x)$ isn't Riemann integrable. 
+    In this chapter, we introduce \textit{Lebesgue integral} to 
+    handle this problem.
+\end{rem}
 \section{Measurable Functions}
+\begin{defn}
+    \label{Def:Preimage}
+    Given a function $f:X\rightarrow Y$, $E\subset Y$, 
+    \begin{displaymath}
+        f^{-1}(E):=\{x\in X:f(x)\in E\}
+    \end{displaymath}
+    is the \textit{preimage} of $E$ related to $f$.
+\end{defn}
+\begin{prop}
+    \label{Prop:PreimageProp}
+    \begin{enumerate}
+        \item $f^{-1}(\cup_{\lambda}E_{\lambda})
+        =\cup_{\lambda}f^{-1}(E_{\lambda})$. 
+        \item $f^{-1}(\cap_{\lambda}E_{\lambda})
+        =\cap_{\lambda}f^{-1}(E_{\lambda})$.
+        \item $f^{-1}(E^c)=(f^{-1}(E))^{c}$.
+        \item If $\mathcal{N}$ is a $\sigma$-algebra on $Y$, 
+        then $\{f^{-1}(E):E\in\mathcal{N}\}$ is a 
+        $\sigma$-algebra on $X$.
+    \end{enumerate}
+\end{prop}
+\begin{exc}
+    Prove Proposition \ref{Prop:PreimageProp}.
+\end{exc}
+\begin{defn}
+    \label{Def:MeasurableFunc}
+    If $(X,\M)$, $(Y,\mathcal{N})$ are measurable spaces, 
+    $f:X\rightarrow Y$ is called \textit{$(\M,\mathcal{N})$-measurable} 
+    if $\forall E\in\mathcal{N}$, $f^{-1}(E)\in\M$.
+\end{defn}
+\begin{prop}
+    \label{Prop:DescribeMeasFunc}
+    If $\mathcal{N}=\M(\mathcal{E})$, then $f:X\rightarrow Y$ is 
+    measurable iff $\forall E\in\mathcal{E}$, $f^{-1}(E)\in\M$.
+\end{prop}
+\begin{proof}
+    $"\Rightarrow"$: Follows directly by Definition 
+    \ref{Def:MeasurableFunc}.
+    
+    $"\Leftarrow"$: By Proposition \ref{Prop:PreimageProp}, 
+    $\mathcal{A}:=\{E\subset Y:f^{-1}(E)\in\M\}$ is a $\sigma$-algebra, 
+    and by the condition, this $\sigma$-algebra contains $\mathcal{E}$, 
+    so $\mathcal{A}\supset\mathcal{M}(\mathcal{E})=\mathcal{N}$, 
+    i.e. $f$ is a measurable function.  
+\end{proof}
+\begin{coro}
+    \label{Cor:ContinuousMeas}
+    If $(X,\tau_1)$, $(Y,\tau_2)$ are topological spaces and 
+    $f:X\rightarrow Y$ is continuous, then 
+    $f$ is $(\mathcal{B}_{X},\mathcal{B}_{Y})$-measurable.
+\end{coro}
+\begin{exc}
+    Prove Corollary \ref{Cor:ContinuousMeas}.
+\end{exc}
+\begin{defn}
+    \label{Defn:Mmeasurable}
+    Given $(X,\M)$ be a measurable space, $f:X\rightarrow\mathbb{R}$ 
+    (or $\mathbb{C}$) 
+    is called \textit{$\M-$measurable} if $f$ is 
+    $(\M,\mathcal{B}_{\mathbb{R}})$ (or $(\M,\mathcal{B}_{\mathbb{C}})$) 
+    measurable.
+\end{defn}
+\begin{defn}
+    
+\end{defn}
 \section{Integration}
 \section{Convergence}
 \section{Tonelli-Fubini Theorem}
