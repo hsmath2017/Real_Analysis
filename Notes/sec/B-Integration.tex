@@ -83,8 +83,198 @@
     measurable.
 \end{defn}
 \begin{defn}
-    
+    $f:\mathbb{R}\rightarrow\mathbb{C}$ is \textit{Lebesgue Measurable} 
+    if it is $(\mathcal{L},\mathcal{B}_{\mathbb{C}})$-measurable, 
+    $f$ is Borel measurable if it is 
+    $(\mathcal{B}_{\mathbb{R}},\mathcal{B}_{\mathbb{C}})$-measurable.
 \end{defn}
+\begin{exc}
+    \label{Exc:ComposeOfMeasurable}
+    Assume $f,g:\mathbb{R}\rightarrow\mathbb{R}$, 
+    If $f$ is Borel measurable and $g$ is Lebesgue measurable, 
+    then $f\circ g$ is Lebesgue measurable.
+\end{exc}
+\begin{defn}
+    \label{Defn:CantorFunc}
+    If $\mathcal{C}$ is the \textit{Cantor set} on $[0,1]$
+    (see Definition \ref{Defn:CantorSet}), 
+    the \textit{Cantor function} $c:[0,1]\rightarrow[0,1]$ 
+    is:
+    \begin{equation}
+        \label{Equ:CantorFunc}
+        c(x)=\left\{
+            \begin{array}{rl}
+                \sm{n}{\infty}\frac{a_n}{2^{n}},&
+                x=\sm{n}{\infty}\frac{2a_n}{3^n}\in\mathcal{C}
+                ;\\
+                \sup_{y\le x,y\in\mathcal{C}}c(y),&x\in[0,1]\setminus
+                \mathcal{C}.\\
+            \end{array}
+        \right.
+    \end{equation}
+    \begin{figure}[H]
+        \centering
+        \includegraphics
+        [width=\linewidth,height=0.2\textheight]{png/CantorFunc.png}
+        \caption{Cantor function, download from Wikipedia.}
+    \end{figure}
+\end{defn}
+\begin{exc}
+    Let $f:[0,1]\rightarrow[0,1]$ be the Cantor function, 
+    and let $g(x)=f(x)+x$.
+    \begin{enumerate}
+        \item $g$ is a bijection from $[0,1]$ to $[0,2]$, 
+        and $h=g^{-1}$ is continuous from $[0,2]$ to $[0,1]$.
+        \item If $C$ is a Cantor set, $m(g(C))=1$.
+        \item $g(C)$ contains a Lebesgue nonmeasurable set $A$. 
+        Let $B=g^{-1}(A)$, $B$ is Lebesgue measurable but not Borel.
+        \item There exist a Lebesgue measurable function $F$ and a 
+        continuous function $G$ on $\mathbb{R}$ such that 
+        $F\circ G$ is not Lebesgue measurable.
+    \end{enumerate}
+\end{exc}
+\begin{prop}
+    \label{Prop:ComplexMeasurableFunc}
+    $f:X\rightarrow\mathbb{C}$ is $\M$-measurable iff $\text{Re}f$, 
+    $\text{Im}f$ are $\M$-measurable. 
+\end{prop}
+\begin{proof}
+    Choose $\pi_{1}(z):=\text{Re}z$, $\pi_{2}(z):=\text{Im}z$, 
+    then $\pi_{1},\pi_{2}$ are both measurable. If $f$ is 
+    $\M$-measurable, 
+    then $\text{Re}f=\pi_{1}\circ f$, $\text{Im}f=\pi_{2}\circ f$ 
+    are both $\M$-measurable.
+
+    If $\text{Im}f$, $\text{Re}f$ are both measurable, i.e. 
+    $\pi_1\circ f$, $\pi_{2}\circ f$ are measurable, then for 
+    any Borel set $\mathcal{B}\subset\mathbb{R}$, 
+    $f^{-1}(\pi_{\alpha}^{-1}(\mathcal{B}))\in\M$ for 
+    $\alpha=1,2$. $f$ is measurable 
+    follows from $\mathcal{B}_{\mathbb{C}}
+    =\mathcal{B}_{\mathbb{R}}\otimes
+    \mathcal{B}_{\mathbb{R}}$ and 
+    Proposition \ref{Prop:DescribeMeasFunc}.
+\end{proof}
+\begin{prop}
+    \label{Prop:MeasFuncLinear}
+    If $f,g:X\rightarrow\mathbb{C}$ are 
+    $\M$-measurable, so are $f+g$, $fg$. 
+\end{prop}
+\begin{proof}
+    Define $F:X\rightarrow \mathbb{C}\times\mathbb{C}$, 
+    $F(x):=(f(x),g(x))$, 
+    $\phi,\psi:\mathbb{C}\times\mathbb{C}\rightarrow\mathbb{C}$ 
+    are 
+    \begin{displaymath}
+        \phi(z,w):=z+w,\quad \psi(z,w):=zw,
+    \end{displaymath}
+    then $F$ is 
+    $(\M,\mathcal{B}_{\mathbb{C}\times\mathbb{C}})$-measurable, 
+    $\phi,\psi$ are 
+    $(\mathcal{B}_{\mathbb{C}\times\mathbb{C}},
+    \mathcal{B}_{\mathbb{C}})$-measurable. So are 
+    $f+g=\phi\circ F$, $fg=\psi\circ F$.
+\end{proof}
+\begin{rem}
+    Proposition \ref{Prop:MeasFuncLinear} shows that 
+    all the $\M$-measurable functions form an algebra.
+\end{rem}
+\begin{ntn}
+    The \textit{generalized real line} 
+    is denoted by:
+    \begin{displaymath}
+        \bar{\mathbb{R}}:=[-\infty,\infty]
+        =\mathbb{R}\cup\{-\infty,\infty\}.
+    \end{displaymath}
+\end{ntn}
+\begin{prop}
+    \label{Prop:LimitProperties}
+    $\forall j\in\mathbb{N}$, 
+    $f_{j}:X\rightarrow\bar{\mathbb{R}}$ are 
+    measurable functions, then 
+    $g_{1}(x):=\limsup_{j\rightarrow\infty}f_{j}(x)$, 
+    $g_{2}(x):=\liminf_{j\rightarrow\infty}f_{j}(x)$ 
+    are measurable.
+\end{prop}
+\begin{exc}
+    Prove Proposition \ref{Prop:LimitProperties}.
+\end{exc}
+\begin{defn}
+    Given $f:X\rightarrow\bar{\mathbb{R}}$, 
+    the \textit{positive part }of $f$ is:
+    \begin{displaymath}
+        f^{+}(x):=\max(f(x),0),
+    \end{displaymath}
+    and the \textit{negative part }of $f$ 
+    is:
+    \begin{displaymath}
+        f^{-}(x):=\max(-f(x),0).
+    \end{displaymath}
+\end{defn}
+\begin{rem}
+    If $f$ is measurable, so are $f^{+}$ and 
+    $f^{-}$.
+\end{rem}
+\begin{defn}
+    Given $f:X\rightarrow\mathbb{C}$, the 
+    \textit{polar decomposition }of $f$ is 
+    $f:=(\sgn f)|f|$ where 
+    \begin{displaymath}
+        \sgn(z)=\left\{
+            \begin{array}{rl}
+                \frac{z}{|z|},z\neq 0;
+                0,z=0.
+            \end{array}
+        \right.
+    \end{displaymath}
+\end{defn}
+\begin{rem}
+    If $f$ is measurable, so are $\sgn f$ and $|f|$.
+\end{rem}
+\begin{defn}
+    \label{Defn:CharFunc}
+    For $E\subset X$, the \textit{characteristic function} of $X$ 
+    is given by $\chi_{E}(x)$ with:
+    \begin{displaymath}
+        \chi_{E}(x):=\left\{
+            \begin{array}{rl}
+                1,x\in E;\\
+                0,x\notin E.\\
+            \end{array}
+        \right.
+    \end{displaymath}
+\end{defn}
+\begin{defn}
+    \label{Defn:SimpleFunc}
+    A \textit{simple function }on $X$ is given by 
+    $f:X\rightarrow\mathbb{C}$ with 
+    $f(x)=\sm{j}{n}z_{j}\chi_{E_{j}}$, where $E_j\in\M$, 
+    $z_j\in\mathbb{C}$, satisfies $\forall j\neq k$ $z_{j}\neq z_{k}$, 
+    $E_j\cap E_k=\emptyset$.
+\end{defn}
+\begin{thm}
+    \label{Thm:ApproxMeasFuncBySimpleFunc}
+    If $f:X\rightarrow[0,\infty]$ is measurable, 
+    then there exists simple functions $\{\phi_{n}\}$ such that 
+    $0\le\phi_{1}\le\ldots\le\phi_{n}\le\ldots\le f$, 
+    $\phi_{n}\rightarrow f$ pointwise, and 
+    $\phi_{n}\rightarrow f$ uniformly in any set 
+    where $f$ is bounded.
+\end{thm}
+\begin{exc}
+    For $0\le k\le 2^{2n}-1$, mark 
+    \begin{displaymath}
+    E_{n}^{k}:=f^{-1}((k2^{-n},(k+1)2^{-n}]),\quad 
+    F_{n}:=f^{-1}((2^{n},\infty]),
+    \end{displaymath}
+    then define 
+    \begin{displaymath}
+        \phi_{n}:=\sum_{k=0}^{2^{2n}-1}k2^{-n}\chi_{E_{n}^{k}}
+        +2^{n}\chi_{F_{n}},
+    \end{displaymath}
+    show $\{\phi_{n}\}$ satisfies the condition of 
+    Theorem \ref{Thm:ApproxMeasFuncBySimpleFunc}.
+\end{exc}
 \section{Integration}
 \section{Convergence}
 \section{Tonelli-Fubini Theorem}
