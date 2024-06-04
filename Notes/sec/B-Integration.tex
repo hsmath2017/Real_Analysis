@@ -13,6 +13,20 @@
 \begin{exc}
     Show \eqref{Equ:Diri_Func} isn't Riemann integrable on $[0,1]$.
 \end{exc}
+\begin{proof}
+    If $\Delta$ is a partition on $[0,1]$,
+    \begin{displaymath}
+        \Delta:0<x_1<x_2<\ldots<x_n=1,
+    \end{displaymath}
+    Set $\xi=(\xi_n)$, where $\xi_k\in[x_{k-1},x_k]$ is rational number,
+    then $S(\Delta,\xi)=\sum_{k=1}^{n}D(\xi_k)\Delta x_K=1$.
+    However, if set $\eta=(\eta_n)$, where $\eta_k\in[x_{k-1},x_k]$
+    is irrational number, 
+    then $S(\Delta,\eta)=\sum_{k=1}^{n}D(\eta_k)\Delta x_K=0$, 
+    which means $\lim_{||\Delta||\rightarrow 0}S(\Delta,\xi)=1$,
+    but $\lim_{||\Delta||\rightarrow 0}S(\Delta,\eta)=0$. 
+    $D(x)$ is not Riemann integrable on $[0,1]$.
+\end{proof}
 \begin{rem}
     $D(x)=0$ a.e. on $[0,1]$, so we expact $\int_{0}^{1}D(x)\dif x=0$, 
     but $D(x)$ isn't Riemann integrable. 
@@ -44,6 +58,29 @@
 \begin{exc}
     Prove Proposition \ref{Prop:PreimageProp}.
 \end{exc}
+\begin{proof}
+    For the first rule, $\forall x\in f^{-1}(\cup_{\lambda}E_{\lambda})$,
+    $f(x)\in\cup_{\lambda}E_{\lambda}$, so $\exists \lambda_x$, s.t.
+    $f(x)\in E_{\lambda_x}$, which means $x\in f^{-1}(E_{\lambda_x})$,
+    so $x\in \cup_{\lambda}f^{-1}(E_{\lambda})$. On the other hand,
+    $\forall y\in\cup_{\lambda}f^{-1}(E_{\lambda})$, 
+    $\exists \lambda_y$, s.t. $y\in f^{-1}(E_{\lambda_y})$,
+    so $y\in f^{-1}(\cup_{\lambda}E_{\lambda})$. 
+    Thus, it's easy to conclude that  
+    $f^{-1}(\cup_{\lambda}E_{\lambda})
+    =\cup_{\lambda}f^{-1}(E_{\lambda})$.
+
+    The second rule can be proved in the same way as the first one.
+
+    As for the third one, $\forall x\in f^{-1}(E^c)$, so $f(x)\notin E$,
+    which means $x\in(f^{-1}(E))^{c}$. On the other hand,
+    $\forall y\in(f^{-1}(E))^{c}$, so $y\notin f^{-1}(E)$,
+    which means $f(y)\in E^c$, so $y\in f^{-1}(E^c)$.
+    Thus, it's easy to conclude that $f^{-1}(E^c)=(f^{-1}(E))^{c}$.
+
+    The fourth rule can be easily proved by the first three rules
+    and the Definition \ref{Defn:SigmaAlg}.
+\end{proof}
 \begin{defn}
     \label{Def:MeasurableFunc}
     If $(X,\M)$, $(Y,\mathcal{N})$ are measurable spaces, 
@@ -74,6 +111,12 @@
 \begin{exc}
     Prove Corollary \ref{Cor:ContinuousMeas}.
 \end{exc}
+\begin{proof}
+    $f:X\rightarrow Y$ is continuous $\Leftrightarrow$ 
+    $\forall U\in\tau_2$, $f^{-1}(U)\in\tau_1$.
+    By Definition \ref{Def:MeasurableFunc}, we know
+    $f$ is $(\mathcal{B}_{X},\mathcal{B}_{Y})$-measurable.
+\end{proof}
 \begin{defn}
     \label{Defn:Mmeasurable}
     Given $(X,\M)$ be a measurable space, $f:X\rightarrow\mathbb{R}$ 
@@ -94,6 +137,12 @@
     If $f$ is Borel measurable and $g$ is Lebesgue measurable, 
     then $f\circ g$ is Lebesgue measurable.
 \end{exc}
+\begin{proof}
+    $\forall E\in\mathcal{B}_{\mathbb{R}}$,by $f$ is Borel measurable,
+    so $f^{-1}(E)\in\mathcal{B}_{\mathbb{R}}$, and by 
+    $g$ is Lebesgue measurable, $(f\circ g)^{-1}(E)=
+    g^{-1}(f^{-1}(E))\in\mathcal{L}$, then $f\circ g$ is Lebesgue measurable.
+\end{proof}
 \begin{defn}
     \label{Defn:CantorFunc}
     If $\mathcal{C}$ is the \textit{Cantor set} on $[0,1]$
@@ -133,6 +182,80 @@
         $F\circ G$ is not Lebesgue measurable.
     \end{enumerate}
 \end{exc}
+\begin{proof}
+    (1)$f(x)$ is monotone increasing, and naturally $p(x)=x$
+    is a strictly increasing function, and hence $g(x)=f(x)+x$
+    x is also strictly increasing and therefore injective. 
+    Next, to show surjectivity, note that $g$ is a continuous function, 
+    and $g(0)=0$, $g(1)=2$; hence, by the intermediate value theorem, 
+    $g$ is surjective. We now have all the necessary components to 
+    conclude that $g$ is a bijection, and since $g$ is a
+    continuous bijective function, and $[0,1]$ is compact, 
+    $g^{-1}$ is continuous from $[0,2]$ to $[0,1]$.
+
+    (2)Firstly, by $g$'s surjectivity, and $C$ being measurable, 
+    we see that:
+    \begin{displaymath}
+        \begin{array}{rl}
+            g([0,1]\setminus C)\cup g(C)=g([0,1]\cap C^c)\cup g(C)=[0,2]\\
+            \Rightarrow m(g(C))+m(g([0,1]\setminus C))=2.
+        \end{array}
+    \end{displaymath}
+    Next, since $C$ is a closed set $\Rightarrow$ $[0,1]\setminus C$
+    is open set. Therefore, since all open subsets of $[0,1]$ may
+    be written as a countable union of disjoint open sets, 
+    let us write $[0,1]\setminus C=\cup_{1}^{\infty}O_j$, $O_j=(a_j,b_j)$.
+    Now, since $f$ is by construction constant on $[0,1]\setminus C$,
+    and $m(C)=0\Rightarrow m([0,1]\setminus C)=1\Rightarrow
+    m(\cup_{1}^{\infty}O_j)=1$.
+    \begin{displaymath}
+        \begin{array}{rl}
+            m(g([0,1]\setminus C))&=m(g(\cup_{1}^{\infty}O_j))=\sum_{1}^{infty}m(g(O_j))\\
+            &=\sum_{1}^{infty}(m(f(b_j)-f(a_j))+m(b_j-a_j))\\
+            &=\sum_{1}^{infty}m(O_j)\\
+            &=m(\cup_{1}^{\infty}O_j)\\
+            &=1
+        \end{array}
+    \end{displaymath}  
+    And hence $m(g(C))=1$.
+    
+    (3)To show Lebesgue measurability, naturally $B\subset C$,
+    and since $C$ is measurable with measure $m(C)=0$, it implies
+    $m(B)\leq m(C)=0$, and hence Lebesgue measurable since null 
+    sets are measurable. For the sake of contradiction, suppose
+    $B=g^{-1}(A)$ is Borel measurable. In part (1), we showed that
+    $g^{-1}$ is continuous and bijective; therefore 
+    $g(B)=g(g^{-1}(A))=A$. However, by the continuity of $g$,
+    if $g^{-1}(A)$ was Borel, so too would $g(g^{-1}(A))=A$,
+    hence a contradiction since $A$ is not Lebesgue
+    measurable; therefore, $B$ cannot be Borel measurable.
+
+    (4)Let $F=\chi_{B}$;
+    \begin{equation}
+        F(x)=\left\{
+            \begin{array}{rl}
+                1, &x\in B, \\
+                0, &x\notin B,
+            \end{array}
+        \right.
+    \end{equation}
+    And also set $G=g^{-1}$. Naturally $G$ is Lebesgue measurable 
+    since it is continuous, we now wish to prove that so too is $F$. 
+    This can be seen by noticing $F^{-1}((a,\infty))=\emptyset$ or $B$
+    or $\mathbb{R}$, , but all these possibilities are Lebesgue measurable,
+    hence $F$ is Lebesgue measurable. We can now look at the following 
+    reasoning:
+    \begin{displaymath}
+        \begin{array}{rl}
+            (F\circ G)^{-1}([\frac{1}{2},\infty))&=G^{-1}\circ F^{-1}([\frac{1}{2},\infty))\\
+            &=\{x\in[0,2]|\chi_B(g^{-1}(x))\in[\frac{1}{2},\infty)\} \\
+            &=\{x\in[0,2]|g^{-1}(x)\in B\} \\
+            &=G^{-1}(B)=g(g^{-1}(B))=A,
+        \end{array}
+    \end{displaymath}
+    Now since $A$ is not Lebesgue measurable, 
+    $F\circ G$ also will not be Lebesgue measurable.
+\end{proof}
 \begin{prop}
     \label{Prop:ComplexMeasurableFunc}
     $f:X\rightarrow\mathbb{C}$ is $\M$-measurable iff $\text{Re}f$, 
@@ -199,6 +322,16 @@
 \begin{exc}
     Prove Proposition \ref{Prop:LimitProperties}.
 \end{exc}
+\begin{proof}
+    Set $m(x)=sup_{j}f_{j}(x)$, $n(x)=inf_{j}f_{j}(x)$.
+    By the truth that $f_{j}:X\rightarrow\bar{\mathbb{R}}$ are 
+    measurable functions, $m^{-1}((a,\infty])=
+    \cup_{1}^{\infty}f_{j}^{-1}((a,\infty])$,  $n^{-1}([\infty,a))=
+    \cup_{1}^{\infty}f_{j}^{-1}([\infty,a))$, so $m(x)$, $n(x)$
+    are measurable. More generally, if $h_k(x)=sup_{j>k}f_j(x)$
+    then $h_k$ is measurable for each $k$, so $g_1(x)=inf_{k}h_k(x)$
+    is measurable, and likewise for $g_2(x)$.
+\end{proof}
 \begin{defn}
     Given $f:X\rightarrow\bar{\mathbb{R}}$, 
     the \textit{positive part }of $f$ is:
@@ -275,6 +408,12 @@
     show $\{\phi_{n}\}$ satisfies the condition of 
     Theorem \ref{Thm:ApproxMeasFuncBySimpleFunc}.
 \end{exc}
+\begin{proof}
+    By the truth that $\chi_{E}(x)\geq 0$, it is easily checked
+    that $\phi_{n}\leq\phi_{n+1}$ for all $n$, and 
+    $0\leq f-\phi_{n}\leq 2^{-n}$ on the set where 
+    $f\leq 2^{-n}$. The result therefore follows.
+\end{proof}
 \section{Integration}
 \section{Convergence}
 \section{Tonelli-Fubini Theorem}
