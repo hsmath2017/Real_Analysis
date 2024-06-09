@@ -210,9 +210,10 @@
     m(\cup_{1}^{\infty}O_j)=1$.
     \begin{displaymath}
         \begin{array}{rl}
-            m(g([0,1]\setminus C))&=m(g(\cup_{1}^{\infty}O_j))=\sum_{1}^{infty}m(g(O_j))\\
-            &=\sum_{1}^{infty}(m(f(b_j)-f(a_j))+m(b_j-a_j))\\
-            &=\sum_{1}^{infty}m(O_j)\\
+            m(g([0,1]\setminus C))&=m(g(\cup_{1}^{\infty}O_j))
+            =\sum_{1}^{\infty}m(g(O_j))\\
+            &=\sum_{1}^{\infty}(m(f(b_j)-f(a_j))+m(b_j-a_j))\\
+            &=\sum_{1}^{\infty}m(O_j)\\
             &=m(\cup_{1}^{\infty}O_j)\\
             &=1
         \end{array}
@@ -323,13 +324,13 @@
     Prove Proposition \ref{Prop:LimitProperties}.
 \end{exc}
 \begin{proof}
-    Set $m(x)=sup_{j}f_{j}(x)$, $n(x)=inf_{j}f_{j}(x)$.
+    Set $m(x)=\sup_{j}f_{j}(x)$, $n(x)=\inf_{j}f_{j}(x)$.
     By the truth that $f_{j}:X\rightarrow\bar{\mathbb{R}}$ are 
     measurable functions, $m^{-1}((a,\infty])=
     \cup_{1}^{\infty}f_{j}^{-1}((a,\infty])$,  $n^{-1}([\infty,a))=
     \cup_{1}^{\infty}f_{j}^{-1}([\infty,a))$, so $m(x)$, $n(x)$
-    are measurable. More generally, if $h_k(x)=sup_{j>k}f_j(x)$
-    then $h_k$ is measurable for each $k$, so $g_1(x)=inf_{k}h_k(x)$
+    are measurable. More generally, if $h_k(x)=\sup_{j>k}f_j(x)$
+    then $h_k$ is measurable for each $k$, so $g_1(x)=\inf_{k}h_k(x)$
     is measurable, and likewise for $g_2(x)$.
 \end{proof}
 \begin{defn}
@@ -415,5 +416,223 @@
     $f\leq 2^{-n}$. The result therefore follows.
 \end{proof}
 \section{Integration}
+\begin{defn}
+    \label{Defn:IntegralOfSimpleFunc}
+    Given a measurable space $(X,\M,\mu)$, define 
+    \begin{displaymath}
+        \mathcal{L}^{+}:=\{\text{measurable functions }f:
+        X\rightarrow[0,\infty]\},
+    \end{displaymath}
+    if $\phi\in \mathcal{L}^{+}$ is a simple function with 
+    $\phi=\sm{i}{n}\phi_{i}\chi_{E_i}$, then 
+    the \textit{integration of $\phi$} is 
+    \begin{displaymath}
+        \int\phi\dif\mu:=\sm{i}{n}\phi_{i}\mu(E_i).
+    \end{displaymath}
+\end{defn}
+\begin{rem}
+    We mark $0\cdot\infty=0$.
+\end{rem}
+\begin{prop}
+    \label{Prop:PropertyOfSimpleInt}
+    For simple functions $\phi$, $\psi\in\mathcal{L}^{+}$. 
+    \begin{enumerate}
+        \item If $c\ge 0$, then $\int c\phi=c\int\phi$. 
+        \item $\int(\phi+\psi)=\int\phi+\int\psi$.
+        \item If $\phi\le\psi$, then $\int\phi\le\int\psi$. 
+        \item $A\mapsto \int_{A}\phi\dif\mu$ is a measure on $\M$.
+    \end{enumerate}
+\end{prop}
+\begin{exc}
+    Prove Proposition \ref{Prop:PropertyOfSimpleInt}.
+\end{exc}
+\begin{defn}
+    \label{Defn:IntegralForPositive}
+    For $f\in \mathcal{L}^{+}$, define 
+    \begin{displaymath}
+        \int f\dif\mu:=\sup\left\{\int\phi\dif\mu:0\le\phi\le f,
+        \;\phi\text{ is simple}\right\}.
+    \end{displaymath}
+\end{defn}
+\begin{rem}
+    Definition \ref{Defn:IntegralForPositive} is straightforward 
+    from Theorem \ref{Thm:ApproxMeasFuncBySimpleFunc}.
+\end{rem}
+\begin{defn}
+    \label{Defn:RealValuedFuncInt}
+    If $f:X\rightarrow\bar{\mathbb{R}}$, we say 
+    $f$ is \textit{integrable} iff $\int|f|\dif\mu<\infty$, 
+    then 
+    \begin{displaymath}
+        \int f\dif\mu:=\int f^{+}\dif\mu-\int f^{-}\dif\mu.
+    \end{displaymath}
+\end{defn}
+\begin{defn}
+    \label{Defn:ComplexValuedFuncInt}
+    If $f:X\rightarrow\mathbb{C}$, we say $f$ is \textit{integrable} 
+    iff $\int|f|\dif\mu<\infty$, then 
+    \begin{displaymath}
+        \int f\dif\mu=\int \text{Re}f\dif\mu+i\int\text{Im}f\dif\mu.
+    \end{displaymath}
+\end{defn}
+\begin{defn}
+    \label{Defn:L1space}
+    The space of $\mathbb{C}$-valued integrable functions 
+    is denoted by $L^{1}(X;\mu)$.
+\end{defn}
+\begin{exc}
+    Show that $L^{1}(X;\mu)$ is a vector space.
+\end{exc}
+\begin{ntn}
+    If the measure $\mu$ is clear, 
+    we write $\int\phi$ to 
+\end{ntn}
+\begin{thm}[Monotone Convergence Theorem]
+    \label{Thm:MCT}
+    If $\{f_{n}\}\subset\mathcal{L}^{+}$ such that 
+    $\forall j\in\mathbb{N}$, $f_j\le f_{j+1}$, and 
+    $f=\lim_{n\rightarrow\infty}f_{n}$, then 
+    $\int f=\lim_{n\rightarrow\infty}\int f_n$.
+\end{thm}
+\begin{proof}
+    We divide this proof into 3 steps. 
+
+    First, since $\forall x\in X$, $\{f_{n}(x)\}$ is an increasing 
+    sequence on $[0,\infty]$, $f(x):=\lim_{n\rightarrow\infty}f_{n}(x)$ 
+    exists in $[0,\infty]$ as well, and $\forall n\in\mathbb{N}$, 
+    $f_{n}(x)\le f(x)$.
+
+    Second, $\forall n\in\mathbb{N}$, $f_{n}\le f$ means 
+    \begin{displaymath}
+        \forall n\in\mathbb{N}, \int f_{n}\le\int f,
+    \end{displaymath}
+    choose $n\rightarrow\infty$, 
+    it shows $\lim_{n\rightarrow\infty}f_{n}\le\int f$.
+
+    Third, given $\alpha\in(0,1)$ and simple function $\phi$ 
+    such that $0\le\phi\le f$, let 
+    \begin{displaymath}
+        E_n:=\{x:f_{n}(x)\ge\alpha\phi(x)\},
+    \end{displaymath}
+    then $E_{n}$ is increasing, and $\cp{n}{\infty}E_n=X$, thus:
+    \begin{displaymath}
+        \forall\alpha\in(0,1),\;
+        \int f_n\ge\int_{E_n}f_{n}\ge\alpha\int_{E_n}\phi.
+    \end{displaymath}
+    Set $n\rightarrow\infty$, it yields $\forall\alpha\in(0,1)$, 
+    \begin{displaymath}
+        \lim_{n\rightarrow\infty}\int f_n\ge\alpha\int\phi.
+    \end{displaymath}
+    So $\lim_{n\rightarrow\infty}\int f_n\ge\int\phi$. 
+    Choose supermum, it means 
+    $\lim_{n\rightarrow\infty}f_n\ge\int f$. 
+    It completes the proof.
+\end{proof}
+\begin{exc}
+    In the proof of Theorem \ref{Thm:MCT}, 
+    can we replace $\alpha\phi$ by $\phi-\epsilon$? 
+    Why?
+\end{exc}
+\begin{thm}
+    \label{Thm:SeriesAndInt}
+    For $\{f_n\}\subset \mathcal{L}^{+}$, 
+    $f:=\sm{n}{\infty}f_n$, 
+    $\int f=\sm{n}{\infty}\int f_n$.
+\end{thm}
+\begin{exc}
+    Prove Theorem \ref{Thm:SeriesAndInt}.
+\end{exc}
+\begin{rem}
+    Theorem \ref{Thm:SeriesAndInt} shows that 
+    term-by-term integration property holds 
+    for positive functions.
+\end{rem}
+\begin{prop}
+    \label{Prop:PositiveIntZero}
+    If $f\in \mathcal{L}^{+}$, then 
+    $\int f=0\Leftrightarrow f=0$ a.e..
+\end{prop}
+\begin{proof}
+    We divide this proof into three steps. 
+
+    First, if $f$ is a simple function, i.e. 
+    $f=\sm{i}{n}a_{i}\chi_{E_i}$, then 
+    \begin{displaymath}
+        \int f=0\Leftrightarrow
+        \sm{i}{n}a_{i}\mu(E_i)=0.
+    \end{displaymath}
+    Since $a_{i}\ge 0$, if $a_{i_{0}}>0$, 
+    it means 
+    \begin{displaymath}
+        \sm{i}{n}a_{i}\mu(E_i)
+        \ge a_{i_0}\mu(E_{i_0})=0,
+    \end{displaymath}
+    i.e. $\mu(E_{i_0})=0$, it means $f=0$ a.e..
+    If for a simple function $f$, $f=0$ a.e., it's clear that 
+    $\int f=0$.
+
+    Second, for $f\in \mathcal{L}^{+}$, if $f=0$ a.e., 
+    $\forall$ simple function $0\le\phi\le f$, 
+    $\phi=0$ a.e., so $\int\phi=0$, which means $\int f=0$.
+
+    Finally, if $\int f=0$, let $E_{n}:=\{x:f(x)>\frac{1}{n}\}$, 
+    then $\cp{n}{\infty}E_{n}=\{x:f(x)\neq 0\}$. 
+    Assume $f=0$ a.e. isn't true, it means $\exists E_{n}$ 
+    such that $\mu(E_n)>0$. 
+    But 
+    \begin{displaymath}
+        \int f\ge\int_{E_n}f\ge\frac{1}{n}\int_{E_n}1
+        =\frac{1}{n}\mu(E_n)>0,
+    \end{displaymath}
+    contradict! So $f=0$ a.e..
+\end{proof}
+\begin{coro}
+    For $\{f_{n}\}\subset\mathcal{L}^{+}$, 
+    $f\in\mathcal{L}^{+}$, 
+    assume for a.e. $x\in X$, $\{f_{n}(x)\}$ is increasing and 
+    $\lim_{n\rightarrow\infty}f_{n}(x)=f(x)$, 
+    then 
+    \begin{displaymath}
+        \int f=\lim_{n\rightarrow\infty}\int f_n.
+    \end{displaymath}
+\end{coro}
+\begin{thm}[Fatou's Lemma]
+    \label{Thm:Fatou}
+    For $\{f_{n}\}\subset\mathcal{L}^{+}$, 
+    \begin{displaymath}
+        \int\liminf_{n\rightarrow\infty}f_n\le\liminf_{n\rightarrow\infty}
+        \int f_n.
+    \end{displaymath}
+\end{thm}
+\begin{proof}
+    $\forall k\ge 1$, $j\ge k$, $\inf_{n\ge k}f_n\le f_{j}$, 
+    thus 
+    \begin{displaymath}
+        \forall j\ge k,\;
+        \int\inf_{n\ge k}f_n\le\int f_{j}.
+    \end{displaymath} 
+    So 
+    \begin{displaymath}
+        \int\inf_{n\ge k}f_n\le\inf_{j\ge k}\int f_{j}.
+    \end{displaymath}
+    Then, since $g_{k}:=\inf_{n\ge k}f_{n}$ is increasing, 
+    by Theorem \ref{Thm:MCT}, 
+    \begin{displaymath}
+        \begin{array}{rl}
+        \int\liminf_{n\rightarrow\infty}f_{n}
+        &=\int\lim_{k\rightarrow\infty}\inf_{n\ge k}f_{n}\\
+        &=\lim_{k\rightarrow\infty}\int\inf_{n\ge k}f_{n}\\
+        &\le\lim_{k\rightarrow\infty}\inf_{n\ge k}\int f_{n}\\
+        &=\liminf_{n\rightarrow\infty}\int f_{n}.
+        \end{array}
+    \end{displaymath}
+\end{proof}
+\begin{exc}
+    Give a sequence $\{f_{n}\}\subset\mathcal{L}^{+}$, 
+    such that 
+    \begin{displaymath}
+        \int\liminf_{n\rightarrow\infty}f_{n}<\liminf_{n\rightarrow\infty}f_{n}.
+    \end{displaymath}
+\end{exc}
 \section{Convergence}
 \section{Tonelli-Fubini Theorem}
