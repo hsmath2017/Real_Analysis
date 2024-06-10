@@ -475,13 +475,9 @@
         \int f\dif\mu=\int \text{Re}f\dif\mu+i\int\text{Im}f\dif\mu.
     \end{displaymath}
 \end{defn}
-\begin{defn}
-    \label{Defn:L1space}
-    The space of $\mathbb{C}$-valued integrable functions 
-    is denoted by $L^{1}(X;\mu)$.
-\end{defn}
 \begin{exc}
-    Show that $L^{1}(X;\mu)$ is a vector space.
+    Show that all the integrable 
+    functions on $X$ forms a vector space.
 \end{exc}
 \begin{ntn}
     If the measure $\mu$ is clear, 
@@ -631,8 +627,174 @@
     Give a sequence $\{f_{n}\}\subset\mathcal{L}^{+}$, 
     such that 
     \begin{displaymath}
-        \int\liminf_{n\rightarrow\infty}f_{n}<\liminf_{n\rightarrow\infty}f_{n}.
+        \int\liminf_{n\rightarrow\infty}f_{n}<
+        \liminf_{n\rightarrow\infty}\int f_{n}.
     \end{displaymath}
+\end{exc}
+\begin{prop}
+    \label{Prop:PropOfL1}
+    \begin{enumerate}
+        \item $f$ is integrable on $X$ 
+        means $\{x:f(x)\neq 0\}$ is $\sigma$-finite. 
+        \item If $f,g$ are integrable, then TFAE:
+        \begin{enumerate}
+            \item $\forall E\in\M$, $\int_{E}f=\int_{E}g$.
+            \item $\int|f-g|=0$.
+            \item $f=g$ a.e..
+        \end{enumerate}
+    \end{enumerate}
+\end{prop}
+\begin{proof}
+    (1). If $f\in\mathcal{L}^{+}$, 
+    $\forall n\in\mathbb{N}^{+}$, since $f$ is integrable, 
+    $\mu(\{x:f(x)>\frac{1}{n}\})<\infty$. So $\{f>0\}$ is $\sigma$-finite. 
+    If $f\in L^{1}$, then 
+    \begin{displaymath}
+        \{x:f(x)\neq 0\}=\{\text{Re}f\neq 0\}\cup\{\text{Im}f\neq 0\}
+    \end{displaymath}
+    is $\sigma$-finite. It completes the proof. 
+
+    (2). $(b)\Leftrightarrow (c)$: Follows from Proposition 
+    \ref{Prop:PositiveIntZero}.
+
+    $(b)\Rightarrow (a)$: Since $\int|f-g|=0$, 
+    \begin{displaymath}
+        \begin{array}{rl}
+        \left|\int_{E}f-\int_{E}g\right|
+        &=\left|\int\chi_{E}(f-g)\right|\\
+        &\le\int\left|\chi_{E}(f-g)\right|\\
+        &\le\int|f-g|=0.\\
+        \end{array}
+    \end{displaymath}
+    So $\int_{E}f=\int_{E}g$. 
+
+    $(a)\Rightarrow (c)$: If $\mu(\{f\neq g\})\neq 0$, 
+    choose $u:=\text{Re}(f-g)$, $v:=\text{Im}(f-g)$, 
+    one of $u^{\pm},v^{\pm}$ is nonzero on some $E$ such that $\mu(E)>0$. 
+    WLOG, say $E=\{u^{+}>0\}$, then 
+    \begin{displaymath}
+        \text{Re}(\int_{E}f-\int_{E}g)=\int_{E}u^{+}>0,
+    \end{displaymath}
+    contradict!
+\end{proof}
+\begin{rem}
+    In Proposition \ref{Prop:PropOfL1}, it's clear that if $f=g$ a.e., 
+    then $f$ is equivalent to $g$ by integral.
+\end{rem}
+\begin{defn}
+    \label{Defn:L1space}
+    $L^{1}(X,\mu)$ is the set of equivalent classes of 
+    a.e. defined integrable functions 
+    on $X$, where $f\sim g$ iff $f=g$ a.e..
+\end{defn}
+\begin{thm}[Dominated Convergence Theorem]
+    Assume there exists a sequence $\{f_{n}\}$ such that 
+    \begin{itemize}
+        \item $f_{n}\rightarrow f$ a.e.,
+        \item There exists $g\in L^{1}(X,\mu)$ such that 
+        $|f_n|\le g$ a.e.,
+    \end{itemize}
+    then $f\in L^{1}(X,\mu)$ and 
+    $\int f=\lim_{n\rightarrow\infty}\int f_{n}$.
+\end{thm}
+\begin{proof}
+    WLOG, we assume $f,f_{n}:X\rightarrow \mathbb{R}$, 
+    then $g+f_n\ge 0$ a.e. and $g-f_n\ge 0$ a.e.. 
+    By Fatou's Lemma:
+    \begin{displaymath}
+        \left\{
+            \begin{array}{rl}
+                \int (g+f)&\le\liminf_{n\rightarrow\infty}\int(g+f_n),\\
+                \int (g-f)&\le\liminf_{n\rightarrow\infty}\int(g-f_{n}),
+            \end{array}
+        \right.
+    \end{displaymath}
+    so $\limsup_{n\rightarrow\infty}\int f_{n}\le\int f
+    \le\liminf_{n\rightarrow\infty}\int f_{n}$, which means 
+    $\int f=\lim_{n\rightarrow\infty}\int f_n$.
+\end{proof}
+\begin{coro}
+    \label{Cor:AbsoluteConvergence}
+    If $\{f_{j}\}\subset L^{1}(X,\mu)$ and 
+    $\sm{i}{\infty}\int|f_i|<\infty$, then 
+    $\sm{i}{\infty}f_{i}$ converges a.e. to some $f\in L^{1}(X,\mu)$ 
+    and $\int f=\sm{i}{\infty}\int f_{i}$.
+\end{coro}
+\begin{exc}
+    Show that if $\sm{i}{\infty}|a_{i}|<\infty$ then 
+    $\sm{i}{\infty}a_{i}$ converges 
+    by Corollary \ref{Cor:AbsoluteConvergence}.
+\end{exc}
+\begin{exc}
+    Show that simple functions are 
+    dense in $L^{1}(X,\mu)$.
+\end{exc}
+\begin{thm}
+    \label{Thm:ChangeOrder}
+    $f:X\times[a,b]\rightarrow\mathbb{C}$, and 
+    $\forall t_{0}\in[a,b]$, $h(x):=f(x,t_0)\in L^{1}(X,\mu)$, 
+    let $F(t):=\int f(x,t)\dif\mu(x)$,
+    \begin{enumerate}
+        \item Suppose $\exists g\in L^{1}(X,\mu)$ such that 
+        $\forall x,t$, $|f(x,t)|\le g(x)$, if 
+        $\forall x\in X$, $\lim_{t\rightarrow t_{0}}f(x,t)=f(x,t_0)$, 
+        then $\lim_{t\rightarrow t_{0}}F(t)=F(t_0)$.
+        \item Suppose $\pdfFrac{f}{t}$ exists, and 
+        $\exists g\in L^{1}(X,\mu)$ such that 
+        $\left|\pdfFrac{f}{t}(x,t)\right|\le g(x)$, then 
+        $F$ is differentiable and 
+        $F'(t)=\int\pdfFrac{f}{t}(x,t)\dif\mu(x)$.
+    \end{enumerate}
+\end{thm}
+\begin{proof}
+    $(1)$ Take a sequence $\{t_{n}\}\subset[a,b]\setminus\{t_0\}$ 
+    with $t_{n}\rightarrow t_0$, and set $f_{n}(x):=f(x,t_{n})$, 
+    then $\lim_{n\rightarrow\infty}f_{n}(x)=f(x,t_{0})$. 
+    Since $\forall n$, $|f_{n}|\le g$, by DCT:
+    \begin{displaymath}
+        \begin{array}{rl}
+        F(t_0)
+        &=\int f(x,t_{0})=\int\lim_{n\rightarrow\infty}f_{n}(x)\\
+        &=\lim_{n\rightarrow\infty}\int f_{n}(x)
+        =\lim_{n\rightarrow\infty}F(t_{n}).\\
+        \end{array}
+    \end{displaymath}
+
+    $(2)$ Mark 
+    \begin{displaymath}
+        h_{n}(x):=\frac{f(x,t_n)-f(x,t_0)}{t_n-t_0},
+    \end{displaymath}
+    then 
+    \begin{displaymath}
+        \pdfFrac{f}{t}(x,t_0)=\lim_{n\rightarrow\infty}h_{n}(x).
+    \end{displaymath}
+    By Lagrangian Mean Value Theorem, 
+    \begin{displaymath}
+        |h_{n}(x)|\le\sup_{t\in[a,b]}
+        \left|\pdfFrac{f}{t}(x,t)\right|\le g(x),
+    \end{displaymath}
+    then by DCT: 
+    \begin{displaymath}
+        \begin{array}{rl}
+        F'(t_0)&=\lim_{n\rightarrow\infty}\frac{F(t_n)-F(t_0)}{t_n-t_0}
+        =\lim_{n\rightarrow\infty}\int h_n(x)\\
+        &=\int\lim_{n\rightarrow\infty}h_{n}(x)
+        =\int\pdfFrac{f}{t}(x,t_0)\dif\mu(x).
+        \end{array}
+    \end{displaymath}
+\end{proof}
+\begin{rem}
+    Theorem \ref{Thm:ChangeOrder} 
+    explains when the order of integration and limits can be exchanged.
+\end{rem}
+\begin{thm}
+    \label{Thm:RiemannIntegrable}
+    Given a bounded function $f:[a,b]\rightarrow\mathbb{R}$, 
+    $E:=\{x:\text{ }f\text{ is discontinuous at }x\}$,
+    then $f$ is Riemann integrable iff $m(E)=0$. 
+\end{thm}
+\begin{exc}
+    Prove Theorem \ref{Thm:RiemannIntegrable}.
 \end{exc}
 \section{Convergence}
 \section{Tonelli-Fubini Theorem}
