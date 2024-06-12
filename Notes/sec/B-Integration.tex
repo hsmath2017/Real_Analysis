@@ -687,7 +687,7 @@
     \begin{displaymath}
         f_n(x)=
         \left\{\begin{array}{rl}
-            &\frac{1}{n} \quad \textit{for} \quad x\in(0,\frac{1}{n}),\\
+            &n \quad \textit{for} \quad x\in(0,\frac{1}{n}),\\
             &0 \quad \textit{otherwise}\\
         \end{array}
         \right.
@@ -738,7 +738,7 @@
     one of $u^{\pm},v^{\pm}$ is nonzero on some $E$ such that $\mu(E)>0$. 
     WLOG, say $E=\{u^{+}>0\}$, then 
     \begin{displaymath}
-        \text{Re}(\int_{E}f-\int_{E}g)=\int_{E}u^{+}>0,
+        \text{Re}\left(\int_{E}f-\int_{E}g\right)=\int_{E}u^{+}>0,
     \end{displaymath}
     contradict!
 \end{proof}
@@ -907,4 +907,184 @@
     then $f$ is Riemann integrable iff $m(E)=0$.  
 \end{proof}
 \section{Convergence}
+\begin{rem}
+    In this section, we will introduce multiple modes of convergence, 
+    and discuss their relationships.
+\end{rem}
+\begin{defn}
+    \label{Defn:ConvergeInMeasure}
+    For a sequence $\{f_{n}\}$ with $f_{n}:X\rightarrow\mathbb{C}$, 
+    if $\forall\epsilon>0$, 
+    \begin{displaymath}
+        \lim_{n\rightarrow\infty}\mu(\{|f_n-f|>\epsilon\})=0,
+    \end{displaymath}
+    then $\{f_n\}$ \textit{converges to $f$ in measure.}
+\end{defn}
+\begin{defn}
+    \label{Defn:CauchyInMeasure}
+    If a sequence $\{f_{n}\}$ satisfies: $\forall\epsilon,\delta>0$, 
+    $\exists N$, $\forall m,n\ge N$, 
+    \begin{displaymath}
+        \mu(|f_{m}-f_{n}|>\delta)<\epsilon,
+    \end{displaymath}
+    then $\{f_{n}\}$ is called a \textit{Cauchy sequence in measure}.
+\end{defn}
+\begin{exc}
+    Show that $\{f_{n}\}$ be a Cauchy sequence in measure 
+    is equivalent to the fact that 
+    there exists $f:X\rightarrow\mathbb{C}$ such that 
+    $f_{n}\rightarrow f$ in measure.
+\end{exc}
+\begin{defn}
+    \label{Defn:ConvergenceInL1}
+    For a sequence $\{f_n\}$, if 
+    \begin{displaymath}
+        \lim_{n\rightarrow\infty}\int|f_n-f|=0,
+    \end{displaymath}
+    we call $f_{n}$ \textit{converges to $f$ in $L^{1}$.}
+\end{defn}
+\begin{defn}
+    \label{Defn:ConvergeAlmostEverywhere}
+    For a sequence $\{f_n\}$, if for a.e. $x\in X$, 
+    \begin{displaymath}
+        \lim_{n\rightarrow\infty}f_{n}(x)=f(x),
+    \end{displaymath}
+    we call $f_{n}$ \textit{converges to $f$ a.e..}
+\end{defn}
+\begin{defn}
+    \label{Defn:AlmostConvergesUniformly}
+    For a sequence $\{f_n\}$, if there exists $\Sc\subset X$ 
+    such that 
+    $f_{n}\rightarrow f$ uniformly on $\Sc$, 
+    and $\mu(X\setminus\Sc)=0$, 
+    we call $f_{n}$ \textit{converges to $f$ almost uniformly}.
+\end{defn}
+\begin{exc}
+    Find some examples $\{f_{n}\}$ such that: 
+    \begin{itemize}
+        \item $f_{n}$ converges to $f$ 
+        almost uniformly but $f_{n}$ doesn't converge 
+        to $f$ in $L^{1}$. 
+        \item $f_{n}$ converges to $f$ in measure but 
+        $f_{n}$ doesn't converge to $f$ in $L^{1}$.
+        \item $f_{n}$ converges to $f$ in $L^{1}$ but 
+        $f_{n}$ doesn't converge to $f$ a.e..
+        \item $f_{n}$ converges to $f$ a.e. but 
+        $f_{n}$ doesn't converge to $f$ in $L^{1}$.
+    \end{itemize} 
+\end{exc}
+\begin{exc}
+    Try to explain the convergence mode of random variable 
+    sequence $\{X_{n}\}$ by the concepts above.
+\end{exc}
+\begin{rem}
+    All convergence modes are not equivalent; 
+    however, under certain conditions, 
+    one mode of convergence may imply the other.
+\end{rem}
+\begin{prop}
+    \label{Prop:L1convergeImplyConvergeinmeas}
+    If $f_{n}\rightarrow f$ in $L^{1}$, then $f_{n}\rightarrow f$ 
+    in measure.
+\end{prop}
+\begin{proof}
+    $\forall\epsilon>0$, it's clear that:
+    \begin{displaymath}
+        \epsilon^{-1}\int|f_n-f|\ge\epsilon^{-1}
+        \int_{|f_n-f|\ge\epsilon}|f_{n}-f|
+        \ge\mu(\{|f_n-f|\ge\epsilon\}).
+    \end{displaymath}
+    Since $\int|f_{n}-f|\rightarrow 0$, 
+    $\mu(\{|f_n-f|\ge\epsilon\})=0$, 
+    which completes the proof.
+\end{proof}
+\begin{thm}[Riesz]
+    \label{Thm:Riesz}
+    If $f_{n}$ converges to $f$ in measure, then 
+    there exists a subsequence $f_{n_j}$ such that $f_{n_j}$ 
+    converges to $f$ a.e..
+\end{thm}
+\begin{proof}
+    $f_{n}$ converges to $f$ in measure means $f_{n}$ is a Cauchy 
+    sequence in measure, so 
+    we can choose a subsequence $\{g_{j}\}$ 
+    of $\{f_{n}\}$ such that: if we mark 
+    \begin{displaymath}
+        E_{j}:=\{x:|g_{j+1}(x)-g_{j}(x)|\ge 2^{-j}\},
+    \end{displaymath}
+    then $\mu(E_j)<2^{-j}$. 
+    Choose $F_{k}:=\cup_{j\ge k}E_{j}$, if 
+    $x\notin F_{k}$, it means 
+    $\forall i\ge j\ge k$, 
+    \begin{displaymath}
+        |g_{j}(x)-g_{i}(x)|\le
+        \sum_{l=j}^{i-1}|g_{l+1}(x)-g_{l}(x)|
+        \le\sum_{l=j}^{i-1}2^{-l}\le2^{-j+1},
+    \end{displaymath}
+    i.e. $\forall x\in F_{k}^{c}$, 
+    $\{g_{i}(x)\}$ is a Cauchy sequence. 
+    Then let $F:=\limsup_{j\rightarrow\infty}E_{j}
+    =\cap_{k\ge 1}F_{k}$, 
+    since $\mu(E_j)<2^{-j}$, 
+    $\mu(F)=0$. Define 
+    \begin{displaymath}
+        f(x)=\left\{
+            \begin{array}{rl}
+                \lim_{j\rightarrow\infty}g_{j}(x),&x\notin F,\\
+                0,&x\in F,
+            \end{array}
+        \right.
+    \end{displaymath}
+    then $g_{j}\rightarrow f$ a.e..
+\end{proof}
+\begin{rem}
+    Riesz's Theorem shows the relationship between 
+    convergence in measure and convergence a.e..
+\end{rem}
+\begin{thm}[Egoroff]
+    \label{Thm:Egoroff}
+    If $\mu(X)<\infty$, and $f_{n}:X\rightarrow\mathbb{C}$ are measurable 
+    functions, $f_{n}\rightarrow f$ a.e., then 
+    $\forall\epsilon>0$, $\exists E\subset X$ with $\mu(E)<\epsilon$, 
+    $f_{n}\rightarrow f$ uniformly on $E^{c}$.
+\end{thm}
+\begin{proof}
+    WLOG, assume $f_{n}\rightarrow f$ on $X$. Define 
+    \begin{displaymath}
+        E_{n}(k):=\cup_{m=n}^{\infty}\{x:|f_{m}(x)-f(x)|\ge\frac{1}{k}\},
+    \end{displaymath}
+    then $\forall k$, $E_{n}(k)$ is decreasing and 
+    $\cap_{n=1}^{\infty}E_{n}(k)=\emptyset$, since $\mu(X)<\infty$, 
+    $\lim_{n\rightarrow\infty}\mu(E_{n}(k))=0$. 
+    It means that 
+    \begin{displaymath}
+        \forall\epsilon>0,k\in\mathbb{N},\;\exists n_{k}\; 
+        s.t.\;\mu(E_{n_{k}}(k))<2^{-k}\epsilon.
+    \end{displaymath}
+    Let $E:=\cup_{k=1}^{\infty}E_{n_k}(k)$, then $\mu(E)<\epsilon$ 
+    and 
+    \begin{displaymath}
+        \forall x\in E^{c},\;k\in\mathbb{N}, 
+        \exists n_{k}\;s.t.\;\forall n>n_{k},
+        |f_{n}-f|<\frac{1}{k}.
+    \end{displaymath}
+    So $f_{n}\rightarrow f$ uniformly on $E^{c}$.
+\end{proof}
+\begin{rem}
+    $x\in E_{n}(k)$ marks $f_{n}(x)$ converges slowly.
+\end{rem}
+\begin{exc}
+    Show that in Theorem \ref{Thm:Egoroff}, the hypothesis 
+    $\mu(X)<\infty$ can be replaced by ``$|f_{n}|\le g$ for all 
+    $n$, where $g\in L^{1}(\mu)$''.
+\end{exc}
+\begin{exc}
+    Show that if $f_{n}$ converges to $f$ a.e., and $\mu(X)<\infty$, 
+    then $f_{n}$ converges to $f$ in measure.
+\end{exc}
+\begin{exc}
+    If $\mu$ is counting measure 
+    (see Example \ref{Exm:CountingAndDirac}), show that 
+    $f_{n}\rightarrow f$ in measure iff $f_{n}\rightarrow f$ uniformly.
+\end{exc}
 \section{Tonelli-Fubini Theorem}
