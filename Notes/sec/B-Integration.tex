@@ -446,6 +446,31 @@
 \begin{exc}
     Prove Proposition \ref{Prop:PropertyOfSimpleInt}.
 \end{exc}
+\begin{proof}
+    (a) id trivial. For (b), let $\sum_{1}^{n}a_j\chi_{E_j}$ and 
+    $\sum_{1}^{m}b_k\chi_{F_k}$ be the standard representation of 
+    $\phi$ and $\psi$. Then $E_j=\cup_{k=1}^{m}(E_j\cap F_k)$ and
+    $F_k=\cup_{j=1}^{n}(E_j\cap F_k)$ since $\cup_{1}^{n}E_j=
+    \cup_{1}^{m}F_k=X$, and these unions are disjoint. Hence the
+    finite additivity of $\mu$ implies that
+    \begin{displaymath}
+        \int\phi+\int\psi=\sum_{j,k}(a_j+b_k)\mu(E_j\cap F_k),
+    \end{displaymath}
+    and the same reasoning show that the sum on the right equals
+    $\int(\phi+\psi)$. Moreover, if $\phi\leq\psi$, then $a_j\leq b_k$
+    whenever $E_j\cap F_k\neq\emptyset$, so
+    \begin{displaymath}
+        \int\phi=\sum_{j,k}a_j\mu(E_j\cap F_k)\leq\sum_{j,k}b_k\mu(E_j\cap F_k)
+        =\int\psi,
+    \end{displaymath}
+    which proves (c). Finally, if $\{A_k\}$ is a disjoint sequence in $\mathcal{M}$
+    and $A=\cup_{1}^{\infty}A_k$,
+    \begin{displaymath}
+        \int_A\phi=\sum_ja_j\mu(A\cap E_j)=\sum_{j,k}a_j\mu(A_k\cap E_j)
+        =\sum_k\int_{A_k}\phi,
+    \end{displaymath}
+    which establishes (d).
+\end{proof}
 \begin{defn}
     \label{Defn:IntegralForPositive}
     For $f\in \mathcal{L}^{+}$, define 
@@ -479,6 +504,18 @@
     Show that all the integrable 
     functions on $X$ forms a vector space.
 \end{exc}
+\begin{proof}
+    We only need to prove that all the integrable 
+    functions on $X$ satisfy their closure under addition
+    and their closure under scalar multiplication. 
+    $\forall \lambda\in\mathbb{C}$ and if $f$ 
+    is \textit{integrable}, then 
+    $\int|\lambda f|d\mu=|\lambda|\int|f|d\mu<\infty$,
+    so $\lambda f$ is \textit{integrable}.
+    If $f$ and $g$ is \textit{integrable},
+    $\int|f+g|d\mu\leq\int|f|d\mu+\int|g|d\mu<\infty$,
+    so $f+g$ is \textit{integrable}.
+\end{proof}
 \begin{ntn}
     If the measure $\mu$ is clear, 
     we write $\int\phi$ to 
@@ -529,6 +566,10 @@
     can we replace $\alpha\phi$ by $\phi-\epsilon$? 
     Why?
 \end{exc}
+\begin{proof}
+    No! It may make $\phi-\epsilon\leq0$ in some measurable
+    sets $E_j$.
+\end{proof}
 \begin{thm}
     \label{Thm:SeriesAndInt}
     For $\{f_n\}\subset \mathcal{L}^{+}$, 
@@ -538,6 +579,16 @@
 \begin{exc}
     Prove Theorem \ref{Thm:SeriesAndInt}.
 \end{exc}
+\begin{proof}
+    Let $\phi_n=\sum_{1}^{n}f_n$, since 
+    $\{f_n\}\subset\mathcal{L}^{+}$, 
+    $\{\phi\}\subset\mathcal{L}^{+}$, such that 
+    $\forall j\in\mathbb{N}$, $\phi_j\leq\phi_{j+1}$, and
+    $f=\lim_{n\rightarrow\infty}\phi_n$,
+    then by Theorem \ref{Thm:MCT} $\int f=\lim_{n\rightarrow\infty}\int\phi_n
+    =\lim_{n\rightarrow\infty}\int\sum_{1}^{n}f_n
+    =\sum_{1}^{\infty}\int f_n$.
+\end{proof}
 \begin{rem}
     Theorem \ref{Thm:SeriesAndInt} shows that 
     term-by-term integration property holds 
@@ -631,6 +682,20 @@
         \liminf_{n\rightarrow\infty}\int f_{n}.
     \end{displaymath}
 \end{exc}
+\begin{proof}
+    We can consider function
+    \begin{displaymath}
+        f_n(x)=
+        \left\{\begin{array}{rl}
+            &\frac{1}{n} \quad \textit{for} \quad x\in(0,\frac{1}{n}),\\
+            &0 \quad \textit{otherwise}\\
+        \end{array}
+        \right.
+    \end{displaymath}
+    These sequences converge pointwise (respectively uniformly) 
+    to the zero function (with integral equal to zero), 
+    yet each sequence has an integral of one.
+\end{proof}
 \begin{prop}
     \label{Prop:PropOfL1}
     \begin{enumerate}
@@ -725,10 +790,22 @@
     $\sm{i}{\infty}a_{i}$ converges 
     by Corollary \ref{Cor:AbsoluteConvergence}.
 \end{exc}
+\begin{proof}
+    Suppose that $\{f_j\}\subset L^{1}(X,\mu)$ such that $\int|f_j|=|a_j|$
+    and $\sm{i}{\infty}|f_i|=\sm{i}{\infty}|a_{i}|<\infty$, so function
+    $g=\sm{i}{\infty}|f_i|\in L^{1}(X,\mu)$. In particular, by Corollary
+    \ref{Cor:AbsoluteConvergence}, the series $\sm{i}{\infty}f_j$ converges,
+    so $\sm{i}{\infty}a_{i}$ converges.
+\end{proof}
 \begin{exc}
     Show that simple functions are 
     dense in $L^{1}(X,\mu)$.
 \end{exc}
+\begin{proof}
+    By Theorem \ref{Thm:ApproxMeasFuncBySimpleFunc}, we can choose
+    $\{\phi_n\}$, the $\int|\phi_n-f|<\epsilon$ for $n$ sufficiently
+    large by the dominated convergence theorem, since $|\phi_n-f|\leq2|f|$.
+\end{proof}
 \begin{thm}
     \label{Thm:ChangeOrder}
     $f:X\times[a,b]\rightarrow\mathbb{C}$, and 
@@ -796,5 +873,38 @@
 \begin{exc}
     Prove Theorem \ref{Thm:RiemannIntegrable}.
 \end{exc}
+\begin{proof}
+    Set $H(x)=\lim_{\delta\rightarrow0}\sup_{|y-x|<\delta}f(y)$ and
+    $h(x)=\lim_{\delta\rightarrow0}\inf_{|y-x|<\delta}f(y)$.
+    If $H(x)=h(x)$, $H(x)=h(x)=\lim_{y\rightarrow x}f(y)$ exists.
+    Since $h(x)\leq f(x)\leq H(x)$ is true, we have 
+    $\lim_{y\rightarrow x}f(y)=f(x)$. Thus, $f$ is continuous at $x$.
+    Conversely, if $f$ is continuous at $x$, 
+    $\lim_{y\rightarrow x}f(y)$ exists, so $H(x)=h(x)=\lim_{y\rightarrow x}f(y)$.
+    
+    Let $\{P_n\}$ be a sequence of partitions of $[a, b]$, $\forall x\in\mathbb{R}$,
+    let $\delta>0$ 0 be arbitrary real number such that 
+    $[x-\delta,x+\delta]\subset(t_{k-1},t_k]$, where $(t_{k-1},t_k]$
+    is a partition of $P_n$. Then we can always choose a partition
+    \begin{displaymath}
+        P_s=\{a=s_0<s_1<\ldots<s_{J_s}=b\},
+    \end{displaymath}
+    such that $x\in(s_{k-1},s_k]$ and
+    \begin{displaymath}
+        (s_{k-1},s_k]\subset[x-\delta,x+\delta]\subset(t_{k-1},t_k],
+    \end{displaymath}
+    where $s>n$. Thus $M_k^s=G_{P_s}\leq\sup_{|y-x|<\delta}f(y)\leq
+    G_{P_n}=M_k^n$, and $m_k^n=g_{P_n}\leq\inf_{|y-x|<\delta}f(y)\leq
+    g_{P_s}=M_k^s$, since $s\rightarrow\infty$ and $\delta\rightarrow0$ 
+    if $n\rightarrow\infty$,  $H(x)=\lim_{\delta\rightarrow0}
+    \sup_{|y-x|<\delta}f(y)=G(x)$ and $h(x)=\lim_{\delta\rightarrow0}
+    \inf_{|y-x|<\delta}f(y)=g(x)$, since $\{t_k\}$ is countable, 
+    it is Lebesgue measure 0. So $G=H$ and $h=g$ a.e.
+
+    Additionally, Note that $f$ is Riemann integrable iff $G = g$ 
+    iff $H = h$ a.e. iff $f$ is continuous a.e. Thus, 
+    $E:=\{x:\text{ }f\text{ is discontinuous at }x\}$,
+    then $f$ is Riemann integrable iff $m(E)=0$.  
+\end{proof}
 \section{Convergence}
 \section{Tonelli-Fubini Theorem}
