@@ -935,6 +935,20 @@
     there exists $f:X\rightarrow\mathbb{C}$ such that 
     $f_{n}\rightarrow f$ in measure.
 \end{exc}
+\begin{proof}
+    We can choose a subsequence $\{g_j\}=\{f_{n_j}\}$ of $\{f_n\}$
+    such that if $E_j=\{x:|g_j-g_{j+1}|\geq2^{-j}\}$, then $\mu(E_j)
+    \leq2^{-j}$. If $F_k=\cup_{j=k}^{\infty}E_j$, then $\mu(F_k)
+    \leq\sum_{k}^{\infty}2^{-j}=2^{1-k}$, and if $x\notin F_k$, for
+    $i\geq j\geq k$ we have $|g_j-g_i|\leq\sum_{l=j}^{i-1}|g_{l+1}-g_l|
+    \leq\sum_{l=j}^{i-1}2^{-1}\leq2^{1-j}$. Thus $\{g_j\}$ is pointwise
+    Cauchy on $F_k^c$. Let $F=\cap_{1}^{\infty}F_k=\lim\sup E_j$.
+    Then $\mu(F)=0$, and if we set $f(x)=\lim g_j$ for $x\notin F$ 
+    and $f(x)=0$ for $x\in F$, then $f$ is measurable and $g_j\rightarrow f$.
+    Then $f_n\rightarrow f$ in measure, because $\{x:|f-g|\geq\epsilon\}
+    \subset\{x:|f-f_n|\geq\frac{1}{2}\epsilon\}\cup
+    \{x:|f_n-g|\geq\frac{1}{2}\epsilon\}$.
+\end{proof}
 \begin{defn}
     \label{Defn:ConvergenceInL1}
     For a sequence $\{f_n\}$, if 
@@ -973,10 +987,100 @@
         $f_{n}$ doesn't converge to $f$ in $L^{1}$.
     \end{itemize} 
 \end{exc}
+\begin{proof}
+    (1)A classic example is the sequence of functions 
+    $\{f_n(x)\}$ defined on the interval $[0, 1]$, 
+    where $f_n(x) = n^2 \cdot x(1-x)^n$. This sequence 
+    converges uniformly to 0, as for any $\varepsilon > 0$, we 
+    can choose $N$ such that for $n > N$, $|f_n(x) - 0| = 
+    |n^2 \cdot x(1-x)^n| < \varepsilon$ for all $x \in [0, 1]$.
+    However, this sequence of functions does not converge in 
+    $L^1$ to 0. We can compute:
+
+    $$
+    \begin{aligned}
+    \int_{0}^{1} |f_n(x) - 0| \, dx & = \int_{0}^{1} n^2 \cdot x(1-x)^n \, dx \\
+    & = \frac{n^2}{(n+1)(n+2)}
+    \end{aligned}
+    $$
+
+    Therefore, $\lim_{n \to \infty} \int_{0}^{1} |f_n(x) - 0| \, 
+    dx = \lim_{n^2 \to \infty} \frac{n}{(n+1)(n+2)} = 1 \neq 0$. 
+    Hence, even though the sequence of functions converges uniformly 
+    to 0, it does not converge in $L^1$ to 0.
+
+    (2)A classic example is the sequence of functions $\{f_n(x)\}$ 
+    defined on the unit interval $[0, 1]$, where $f_n(x) = n \cdot 
+    \chi_{[0, \frac{1}{n}]}$. Here, $\chi_A$ denotes the indicator 
+    function, which equals 1 if an element belongs to the set $A$, 
+    and 0 otherwise.In this example, we observe that $f_n(x)$ converges 
+    in measure to 0. This is because for any $\varepsilon > 0$, when 
+    $n > \frac{1}{\varepsilon}$, $f_n(x)$ is almost everywhere 0. 
+    That is, outside a set of measure 1, $f_n(x)$ is 0.
+    However, we can compute the $L^1$ norm:
+
+    $$
+    \int_{0}^{1} |f_n(x) - 0| \, dx = \int_{0}^{1} n \cdot 
+    \chi_{[0, \frac{1}{n}]} \, dx = 1
+    $$
+
+    Therefore, even though the sequence of functions converges in 
+    measure to 0, it does not converge in $L^1$ to 0.
+
+    (3)A classic example is the sequence of functions defined on the 
+    interval $[0,1]$, given by $f_n(x) = x^n$. This function sequence 
+    converges in the $L^1$ norm, as $\int_0^1 |x^n| dx = \frac{1}{n+1}$, 
+    so $\lim_{n \to \infty} \int_0^1 |x^n| dx = 0$. However, this function 
+    sequence does not converge almost everywhere on the interval $[0,1)$,
+    as it does not converge at $x=1$.
+
+    Thus, this example illustrates that a function sequence can converge in the $L^1$ norm 
+    but not converge at certain points, and therefore, it is not almost everywhere convergent.
+    
+    (4)A classic example is the sequence of functions given by
+    $f_n(x) = \frac{1}{n} \cdot \sin\left(\frac{x}{n}\right)$.
+    This sequence of functions converges almost everywhere to zero, 
+    as for any fixed $x$, as $n$ tends to infinity, $f_n(x)$ tends to zero.
+    However, the sequence of functions does not converge in the $L^1$ 
+    norm over the entire real line to zero.
+    However,
+
+    $$
+    \begin{aligned}
+    \|f_n\|_1 &= \int |n \cdot \sin\left(\frac{x}{n}\right)| \, dx \\
+    &= \int | \sin(u) | \, du \quad (\text{let} u = \frac{x}{n}) \\
+    &= 2,
+    \end{aligned}
+    $$
+
+    Here, the integration is over the interval $[- \pi n, \pi n]$. 
+    Therefore, the $L^1$ norm of $f_n(x)$ does not tend to zero as $n$ 
+    tends to infinity.
+\end{proof}
 \begin{exc}
     Try to explain the convergence mode of random variable 
     sequence $\{X_{n}\}$ by the concepts above.
 \end{exc}
+\begin{proof}
+    Random variable convergence in measure: Let $\{X_n\}$ and 
+    $X$ be a sequence of random variables defined on the 
+    probability space $(\Omega, \mathcal{F}, P)$. If for any 
+    $\varepsilon > 0$, $\lim_{n \to \infty} P(\{|X_n - X| \geq 
+    \varepsilon\}) = 0$, then the sequence of random variables 
+    $\{X_n\}$ is said to converge in measure to $X$.
+
+    Convergence almost everywhere: Let $\{X_n\}$ and $X$ be a 
+    sequence of random variables defined on the probability space 
+    $(\Omega, \mathcal{F}, P)$. If there exists an event $A$ with 
+    probability 1, such that on the event $A$, $X_n$ converges to 
+    $X$, then the sequence of random variables $\{X_n\}$ converges 
+    almost everywhere to $X$.
+
+    $L^1$ convergence: Let $\{X_n\}$ and $X$ be a sequence of random 
+    variables defined on the probability space $(\Omega, \mathcal{F}, P)$.
+    If $\lim_{n \to \infty} E[|X_n - X|] = 0$, then the sequence of 
+    random variables $\{X_n\}$ converges in $L^1$ to $X$.
+\end{proof}
 \begin{rem}
     All convergence modes are not equivalent; 
     however, under certain conditions, 
@@ -1078,13 +1182,80 @@
     $\mu(X)<\infty$ can be replaced by ``$|f_{n}|\le g$ for all 
     $n$, where $g\in L^{1}(\mu)$''.
 \end{exc}
+\begin{proof}
+    Set $G_{m}:=\{x:g(x)\ge\frac{1}{m}\}$, 
+    $g\in L^{1}(\mu)$ means $\forall m\in\mathbb{N}$, $\mu(G_{m})<\infty$. 
+    First, choose $Z:=\{x:g(x)=0\}$, it means 
+    $\forall x\in Z$, $n\in\mathbb{N}$, $|f_n(x)|=0$, i.e. $f_{n}\rightarrow g$ uniformly on $Z$.
+    Then, $\forall\epsilon>0$, by Egoroff's Theorem, $\exists F_{m}\subset G_{m}$ with $\mu(F_m)<\frac{\epsilon}{2^m}$ such that $f_n\rightarrow f$ 
+    uniformly on $G_m\setminus F_m$.
+    
+    Choose $F:=\cp{m}{\infty}F_m$, it's clear that 
+    $\mu(F)<\epsilon$. Then we show that $\exists N_{0}$ such that $\forall n\ge N_0$, $|f_n-f|<\epsilon$ on $X\setminus F$. 
+
+    First, choose $M$ such that $\frac{1}{M}<\frac{\epsilon}{2}$, then for $n\ge M$, on $G_{n}^{c}$:
+    \begin{displaymath}
+        |f_n-f|\le|f_n|+|f|<\epsilon.
+    \end{displaymath}
+    By the discussions above, on $G_{M}\setminus F$, 
+    $f_{n}\rightarrow f$ uniformly, i.e. $\exists N$ such that 
+    $\forall x\in G_{M}\setminus F$, 
+    $|f_{N}-f|<\epsilon$. 
+    Choose $N_{0}=\max\{M,N\}$, 
+    $\forall n>N_{0}$, $|f_n-f|<\epsilon$ on $X\setminus E$. 
+
+    So, $f_{n}\rightarrow f$ uniformly on $X\setminus F$ with $\mu(F)<\epsilon$, 
+    which completes the proof.
+\end{proof}
 \begin{exc}
     Show that if $f_{n}$ converges to $f$ a.e., and $\mu(X)<\infty$, 
     then $f_{n}$ converges to $f$ in measure.
 \end{exc}
+\begin{proof}
+    If $\{f_n\}$ converges to a function $f$ a.e., 
+    that is, if there exists a null set $N$ such that for any 
+    $x \in X\setminus N$, $\lim_{n \to \infty} f_n(x) = f(x)$, 
+    then we aim to prove that $\{f_n\}$ converges in measure to $f$. 
+    This means that for any given $\epsilon > 0$, 
+    there exists $N \in \mathcal{M}$ such that $\mu(N) < \epsilon$, 
+    and for sufficiently large $n$, when $x \in X\backslash N$, 
+    $|f_n(x) - f(x)| < \epsilon$.
+
+    First, consider the sets $E_m = \{x \in X : |f_n(x) - f(x)| > 
+    \epsilon \text{ for some } n > m\}$. Since $\{f_n\}$ converges 
+    almost everywhere to $f$, for each $m$, there exists a null set 
+    $N_m$ such that for $x \in X\setminus N_m$, $|f_n(x) - f(x)| < 
+    \epsilon$ for all $n > m$. Let $N = \bigcup_{m=1}^\infty N_m$, 
+    then $N$ is a null set.
+
+    Next, note that $E_m$ is decreasing, i.e., $E_1 \supset E_2 
+    \supset E_3 \supset \dots$. Therefore, by the continuity of measure, 
+    we know that $\lim_{m \to \infty} \mu(E_m) = \mu(\bigcap_{m=1}^\infty
+    E_m)$.
+
+    Since $\mu(N_m) < \epsilon/2^m$, we have $\mu(N) \leq 
+    \sum_{m=1}^\infty \mu(N_m) < \epsilon$. On the other hand, 
+    because $E_m$ is decreasing, $\mu(\bigcap_{m=1}^\infty E_m) = 
+    \lim_{m \to \infty} \mu(E_m) = 0$.
+
+    Thus, we have obtained a null set $N$ such that for sufficiently 
+    large $n$, when $x \in X\setminus N$, $|f_n(x) - f(x)| < \epsilon$. 
+    This proves that convergence almost everywhere implies convergence 
+    in measure.
+\end{proof}
 \begin{exc}
     If $\mu$ is counting measure 
     (see Example \ref{Exm:CountingAndDirac}), show that 
     $f_{n}\rightarrow f$ in measure iff $f_{n}\rightarrow f$ uniformly.
 \end{exc}
+\begin{proof}
+    Since $\forall\Sc\in\mathcal{P}(X)$, 
+    $\mu_{N}(\Sc)\in\mathbb{N}$, 
+    in counting measure, $f_n\rightarrow f$ in measure equivalent to :
+    \begin{displaymath}
+        \forall \epsilon>0,\;\exists M,\;\forall m>M,\;n\in\mathbb{N},\;
+        |f_{m}(n)-f(n)|<\epsilon.
+    \end{displaymath}
+    It's just the definition of $f_{n}\rightarrow f$ uniformly.
+\end{proof}
 \section{Tonelli-Fubini Theorem}
