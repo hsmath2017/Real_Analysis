@@ -1088,3 +1088,143 @@
     $f_{n}\rightarrow f$ in measure iff $f_{n}\rightarrow f$ uniformly.
 \end{exc}
 \section{Tonelli-Fubini Theorem}
+\begin{rem}
+    In this section, we will discuss the relationship between 
+    double integral and iterated integral.
+\end{rem}
+\begin{defn}
+    \label{Defn:Rectangle}
+    Given two measurable space $(X,\M,\mu)$, $(Y,\mathcal{N},\nu)$ 
+    and a sigma-algebra $(X\times Y,\M\otimes\mathcal{N})$, we say 
+    a set in $X\times Y$ is a \textit{rectangle} if it is of 
+    the form $A\times B$, where $A\in\M$, $B\in\mathcal{N}$.
+\end{defn}
+\begin{prop}
+    \label{Prop:RectangleFormsAnAlg}
+    Mark 
+    \begin{displaymath}
+    \mathcal{A}:=\{\text{finite disjoint unions of rectangles}\},
+    \end{displaymath} 
+    then $\mathcal{A}$ is an algebra and 
+    $\M(\mathcal{A})=\M\times\mathcal{N}$.
+\end{prop}
+\begin{exc}
+    Prove Proposition \ref{Prop:RectangleFormsAnAlg}.
+\end{exc}
+\begin{defn}
+    \label{Defn:PremeasureOnA}
+    For $A\in\M$, $B\in\mathcal{N}$, define 
+    $\pi(A\times B):=\mu(A)\nu(B)$.
+\end{defn}
+\begin{prop}
+    \label{Prop:PiIsAPremeas}
+    $\pi$ is a premeasure on $\mathcal{A}$.
+\end{prop}
+\begin{proof}
+    Suppose $A\times B=\cup_{j}(A_j\times B_{j})$, and 
+    $\{A_{j}\times B_{j}\}$ are disjoint sets, then 
+    \begin{displaymath}
+        \begin{array}{rl}
+        &\chi_{A}(x)\chi_{B}(y)=\chi_{A\times B}(x,y)\\
+        =&\sm{j}{\infty}\chi_{A_j\times B_j}(x,y)
+        =\sm{j}{\infty}\chi_{A_j}(x)\chi_{B_j}(y).\\
+        \end{array}
+    \end{displaymath}
+    Integrate in $X$, it shows:
+    \begin{displaymath}
+        \begin{array}{rl}
+            &\mu(A)\chi_{B}(y)\\
+            =&\int\chi_{A}(x)\chi_{B}(y)\dif\mu(x)
+            =\int\sm{j}{\infty}\chi_{A_j\times B_j}(x,y)\dif\mu(x)\\
+            =&\sm{j}{\infty}\int\chi_{A_j}(x)\chi_{B_j}(y)\dif\mu(x)
+            =\sm{j}{\infty}\mu(A_j)\chi_{B_j}(y).
+        \end{array}
+    \end{displaymath}
+    The third equation derives from MCT. 
+    Then integrate in $Y$, it shows:
+    \begin{displaymath}
+        \begin{array}{rl}
+            &\pi(A\times B)=\mu(A)\nu(B)\\
+            =&\sm{j}{\infty}\mu(A_j)\nu(B_j)
+            =\sm{j}{\infty}\pi(A_j\times B_j).
+        \end{array}
+    \end{displaymath}
+    So $\pi$ is a premeasure on $\mathcal{A}$.
+\end{proof}
+\begin{defn}
+    \label{Defn:ProductMeas}
+    $\pi$ gives an outer measure on $X\times Y$ which restricts 
+    to a measure on $\M\otimes \mathcal{N}$ that agrees with 
+    $\pi$ on $\mathcal{A}$, we call this measure $\mu\times\nu$.
+\end{defn}
+\begin{defn}
+    Given two measurable spaces $(X,\M,\mu)$, $(Y,\mathcal{N},\nu)$ 
+    and $E\subset X\times Y$, we call 
+    $E_x:=\{y\in Y:(x,y)\in E\}$ the \textit{x-section} of $E$, 
+    $E^{y}:=\{x\in X:(x,y)\in E\}$ the \textit{y-section} of $E$.  
+\end{defn}
+\begin{ntn}
+    For a function $f$ on $X\times Y$, we call 
+    \begin{displaymath}
+        f_{x}(y)=f^{y}(x)=f(x,y).
+    \end{displaymath}
+\end{ntn}
+\begin{prop}
+    \label{Prop:SectionMeasurable}
+    \begin{enumerate}
+        \item If $E\in\M\times\mathcal{N}$, then $\forall x\in X$, 
+        $E_{x}\in\mathcal{N}$; $\forall y\in Y$, $E_{y}\in\M$.
+        \item If $f$ is $\M\otimes\mathcal{N}$-measurable, 
+        then $f_x$ is $\mathcal{N}$-measurable respect to $y$, 
+        $f^{y}$ is $\mathcal{M}$-measurable respect to $x$.
+    \end{enumerate}
+\end{prop}
+\begin{proof}
+    (1). Recall $\M\otimes\mathcal{N}$ is the smallest 
+    $\sigma$-algebra containing all the rectangles. 
+    Consider 
+    \begin{displaymath}
+        \mathcal{R}:=\{E\subset X\times Y: E_{x}\in\mathcal{N},
+        E_{y}\in\mathcal{M},\forall(x,y)\in X\times Y\},
+    \end{displaymath}
+    it suffices to show $\mathcal{R}$ is a $\sigma$-algebra. 
+
+    Now, if $\{E_{j}\}\subset\mathcal{R}$, $\forall x\in X$, 
+    \begin{displaymath}
+        \left.
+        \begin{array}{rl}
+        \left(\cp{i}{\infty}E_{i}\right)_{x}&=\cp{i}{\infty}(E_i)_{x}\\
+        \left(\cp{i}{\infty}E_{i}\right)_{y}&=\cp{i}{\infty}(E_i)_{y}\\
+        \end{array}
+        \right\}\Rightarrow \cp{i}{\infty}E_{i}\in\mathcal{R}.
+    \end{displaymath}
+    Then 
+    \begin{displaymath}
+        (E^{c})_{x}=(E_{x})^{c}\Rightarrow E^{c}\in\mathcal{R}.
+    \end{displaymath}
+
+    $(2)$ $f:X\times Y\rightarrow\mathbb{C}$, 
+    $\forall B\subset\mathbb{C}$, 
+    \begin{displaymath}
+        (f_{x})^{-1}(B)=(f^{-1}(B))_{x}.
+    \end{displaymath}
+    Thus $f$ is $\M\otimes\mathcal{N}$-measurable, 
+    then $f_{x}$ is $\mathcal{N}$-measurable.
+\end{proof}
+\begin{defn}
+    $\mathcal{C}\subset 2^{X}$ is a \textit{monotone class }if 
+    \begin{itemize}
+        \item $\{E_{j}\}\subset\mathcal{C}$, $E_{1}\subset E_{2}\subset
+        \ldots\Rightarrow\cp{j}{\infty}E_{j}\in\mathcal{C}$.
+        \item $\{E_{j}\}\subset\mathcal{C}$, $E_{1}\supset E_{2}\supset
+        \ldots\Rightarrow\cap_{j}^{\infty}E_{j}\in\mathcal{C}$.
+    \end{itemize}
+\end{defn}
+\begin{lem}
+    \label{Lem:MonotoneClassLemma}
+    If $\mathcal{A}$ is an algebra, then the monotone class 
+    generated by $\mathcal{A}$ is $\M(\mathcal{A})$.
+\end{lem}
+\begin{proof}
+    \textit{Please complete this proof!}
+\end{proof}
