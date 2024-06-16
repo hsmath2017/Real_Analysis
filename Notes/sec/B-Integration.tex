@@ -1228,3 +1228,56 @@
 \begin{proof}
     \textit{Please complete this proof!}
 \end{proof}
+\begin{thm}
+    \label{Thm:MultipleIntForSimple}
+    Assume $(X,\M,\mu)$, $(Y,\mathcal{N},\nu)$ are both $\sigma$-finite, 
+    $E\in\M\otimes\mathcal{N}$, then $x\mapsto\nu(E_x)$, 
+    $y\mapsto\mu(E_y)$ are both measurable and 
+    \begin{displaymath}
+        \mu\times\nu(E)=\int\nu(E_x)\dif\mu(x)=\int\mu(E^{y})\dif\nu(y).
+    \end{displaymath}
+\end{thm}
+\begin{proof}
+    First, assume $\mu(X)<\infty$ and 
+    $\nu(Y)<\infty$. Let 
+    \begin{displaymath}
+        \mathcal{C}:=\{E\in\M\otimes\mathcal{N}:
+        \text{Theorem \ref{Thm:MultipleIntForSimple} holds for }E\},
+    \end{displaymath}
+    then $\mathcal{C}$ includes all the rectangles, also finite disjoint 
+    unions of them. It suffices to show $\mathcal{C}$ is a monotone 
+    class. 
+
+    Choose $\{E_{n}\}\subset\mathcal{C}$ with $E_{n}$ increasing 
+    such that $E:=\cp{n}{\infty}E_{n}$, $f_{n}(y):=\mu((E_{n})^{y})$, 
+    $f(y):=\mu(E^{y})$, then $f_{n}(y)$ is increasing and converges 
+    to $f(y)$ a.e.. Then by MCT:
+    \begin{displaymath}
+        \begin{array}{rl}
+        &\int\mu(E^{y})\dif\nu(y)\\
+        =&\lim_{n\rightarrow\infty}
+        \mu((E_{n})^{y})\dif\nu(y)\\
+        =&\lim_{n\rightarrow\infty}\mu\times\nu(E_{n})\\
+        =&\mu\times\nu(E).
+        \end{array}
+    \end{displaymath}
+    So the result holds for $E$. 
+    
+    Choose $\{E_{n}\}\subset\mathcal{C}$ with $E_{n}$ decreasing 
+    such that $E:=\cap_{n}^{\infty}E_{n}$, choose the 
+    function $g(y):=\mu((E_{1})^{y})$, it's clear that 
+    $f\in\mathcal{L}^{1}(\nu)$ and $f_{n}\le g$. Then by DCT, 
+    $\int\mu(E^{y})\dif\nu(y)=\mu\times\nu(E)$.
+
+    Second, if $\mu$ and $\nu$ are $\sigma$-finite but not finite, 
+    choose $X\times Y=\cp{i}{\infty}X_{i}\times Y_{i}$ 
+    with $\{X_{i}\}$, $\{Y_{i}\}$ both increasing and 
+    $\mu(X_{i}),\nu(Y_{i})<\infty$, then for $E\in\M\otimes\mathcal{N}$, 
+    we apply the first part to $E\cap (X_{j}\times Y_{j})$, 
+    i.e. 
+    \begin{displaymath}
+        \mu\times\nu(E\cap(X_{j}\times Y_{j}))
+        =\int\chi_{X_{j}}\nu(E_{x}\times Y_{j})\dif\mu(x).
+    \end{displaymath}
+    Then by MCT, $\mu\times\nu(E)=\int\nu(E_{x})\dif\mu(x)$.
+\end{proof}
