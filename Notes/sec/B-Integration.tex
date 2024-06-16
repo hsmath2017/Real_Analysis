@@ -1452,3 +1452,48 @@
     \end{displaymath}
     Then by MCT, $\mu\times\nu(E)=\int\nu(E_{x})\dif\mu(x)$.
 \end{proof}
+\begin{thm}[Tonelli-Fubini]
+    \label{Thm:Fubini}
+    Assume $(X,\M,\mu)$, $(Y,\mathcal{N},\nu)$ be 
+    $\sigma$-finite spaces. 
+    \begin{enumerate}
+        \item (Tonelli) If $f\in L^{+}(X\times Y)$, then for 
+        $g(x):=\int f_{x}\dif\nu$, $h(y):=\int f^{y}\dif\mu$, 
+        we have $g\in L^{+}(X)$, $h\in L^{+}(Y)$ and 
+        \begin{displaymath}
+            \begin{array}{rl}
+            \int f\dif(\mu\times\nu)&=
+            \int\left(\int f(x,y)\dif\nu(y)\right)\dif\mu(x)\\
+            &=\int\left(\int f(x,y)\dif\mu(x)\right)\dif\nu(y).
+            \end{array}
+        \end{displaymath}
+        \item (Fubini) If $f\in L^{1}(X,Y)$, $f_{x},f^{y}\in L^{1}$ 
+        a.e., then the result of Tonelli Theorem holds.
+    \end{enumerate}
+\end{thm}
+\begin{proof}
+    For Tonelli's Theorem, by Theorem \ref{Thm:MultipleIntForSimple}, 
+    the result holds for simple functions. 
+    Then $\forall f\in L^{+}(X,Y)$, since there exists a sequence of 
+    increasing simple functions $\{\phi_{n}\}$ such that 
+    $\phi_{n}\rightarrow f$ uniformly, by MCT, it yields the 
+    Tonelli's Theorem. 
+
+    For Fubini's Theorem, if $f\in L^{1}(X\times Y)$, then 
+    there exists positive functions $g,h\in L^{1}(X\times Y)$ and 
+    $f=g-h$, and $g,h$ both satisfies the condition of 
+    Tonelli's Theorem. So $f=g-h$ satisfies the result of 
+    Tonelli's Theorem, which derives Fubini's Theorem.
+\end{proof}
+\begin{rem}
+    Please compare the conditions of Tonelli's Theorem 
+    and Fubini's Theorem. 
+\end{rem}
+\begin{exc}
+    Let $X=Y=\mathbb{N}$, $\M=\mathcal{N}=\mathcal{P}(\mathbb{N})$, 
+    $\mu=\nu=$counting measure. Define $f(m,n)=1$ if $m=n$, 
+    $f(m,n)=-1$ if $m=n+1$, and $f(m,n)=0$ otherwise. Show that 
+    $\int |f|\dif(\mu\times\nu)=\infty$, and 
+    $\iint f\dif\mu\dif\nu$ and $\iint f\dif\nu\dif\mu$ exist and 
+    are not equal.
+\end{exc}
