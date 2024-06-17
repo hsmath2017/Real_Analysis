@@ -1,5 +1,129 @@
 \section{Definition}
+\begin{rem}
+    In Definition \ref{Defn:L1space}, we mark the 
+    $L^{1}$ norm. Now, for $p\neq 1$, how to give the 
+    corresponding $L^{p}$ norm?
+\end{rem}
+\begin{defn}
+    Given a measurable space $(X,\M,\mu)$, and a 
+    measurable function $f$ on $X$, and $1\le p<\infty$. 
+    Define 
+    \begin{equation}
+        \label{Equ:LpNorm}
+        \norm{f}_{p}:=\left[\int|f|^{p}\right]^{\frac{1}{p}}, 
+    \end{equation}
+    then $\norm{\cdot}_{p}$ is called the 
+    \textit{$L^{p}$-norm} of $f$.
+\end{defn}
+\begin{exc}
+    Show that if $0<p<1$, then \eqref{Equ:LpNorm} fails to be  
+    a norm.
+\end{exc}
+\begin{defn}[$L^{p}$-space]
+    \label{Defn:LpSpace}
+    Given a measurable space $(X,\M,\mu)$, the $L^{p}$ space 
+    is:
+    \begin{displaymath}
+        L^{p}(X,\M,\mu):=\{f:X\rightarrow\mathbb{C}
+        \text{ measurable, }\norm{f}_{p}<\infty\}.
+    \end{displaymath}
+\end{defn}
+\begin{rem}
+    It suffices to show that $\norm{\cdot}_{p}$ 
+    is a norm.
+\end{rem}
+\begin{lem}
+    \label{Lem:LogInequality}
+    If $a,b\ge 0$, $\lambda\in(0,1)$, then 
+    \begin{displaymath}
+        a^{\lambda}b^{1-\lambda}\le\lambda a+(1-\lambda)b.
+    \end{displaymath}
+\end{lem}
+\begin{exc}
+    Prove Lemma \ref{Lem:LogInequality}.
+\end{exc}
+\begin{thm}[Holder's Inequality]
+    \label{Thm:Holder}
+    If $1<p<\infty$, $\frac{1}{p}+\frac{1}{q}=1$, 
+    $f,g$ be measurable functions on $X$, then 
+    \begin{equation}
+        \label{Equ:HolderInequality}
+        \norm{fg}_{1}\le\norm{f}_{p}\norm{g}_{q}.
+    \end{equation}
+    ``$=$'' holds if and only if $\alpha|f|^{p}=\beta|g|^{q}$ 
+    for some $\alpha,\beta\in\mathbb{R}\setminus\{0\}$.
+\end{thm}
+\begin{rem}
+    By Holder's Inequality, if $f\in L^{p}$ and $g\in L^{q}$, 
+    then $fg\in L^{1}$.
+\end{rem}
+\begin{proof}
+    First, if $\norm{f}_{p}=0$ or $\norm{g}_{q}=0$, 
+    then $\text{LHS}=\text{RHS}=0$. If $\norm{f}_{p}=\infty$; 
+    $\norm{g}_{q}>0$ 
+    or $\norm{g}_{q}=\infty$; $\norm{f}_{p}>0$, then 
+    $\text{LHS}=\text{RHS}=\infty$.
+
+    Then, we consider the case $0<\norm{f}_{p}<\infty$, 
+    $0<\norm{g}_{q}<\infty$. First, we assume 
+    $\norm{f}_{p}=\norm{g}_{q}=1$. On Lemma 
+    \ref{Lem:LogInequality}, take 
+    $a=|f|^{p}$, $b=|g|^{q}$, $\lambda=\frac{1}{p}$, then 
+    $1-\lambda=\frac{1}{q}$. It means 
+    \begin{displaymath}
+        \begin{array}{rl}
+            a^{\lambda}b^{1-\lambda}\le\lambda a+(1-\lambda)b&
+            \Rightarrow |fg|\le\frac{1}{p}|f|^{p}+\frac{1}{q}|f|^{q}\\
+            &\Rightarrow\int|fg|\le\frac{1}{p}+\frac{1}{q}=1\\
+            &\Rightarrow\norm{fg}_{1}\le 1.
+        \end{array}
+    \end{displaymath}
+    ``$=$'' holds means $|f|^{p}=|g|^{q}$ a.e.. 
+    If the assumption doesn't hold, choose 
+    $\tilde{f}:=\frac{f}{\norm{f}_{p}}$, 
+    $\tilde{g}:=\frac{g}{\norm{g}_{q}}$, 
+    then $\norm{\tilde{f}}_{p}=\norm{\tilde{g}}_{q}=1$, i.e. 
+    \begin{displaymath}
+        \left\|{\frac{fg}{\norm{f}_p\norm{g}_{q}}}_{1}\right\|
+        \le 1
+        \Rightarrow\norm{fg}_{1}\le\norm{f}_{p}\norm{g}_{q}.
+    \end{displaymath}
+    ``$=$'' holds mean $\alpha|f|^{p}=\beta|g|^{q}$.
+\end{proof}
+\begin{ntn}
+    $p'$ is called the \textit{conjugate exponent} of $p$ if 
+    $\frac{1}{p}+\frac{1}{p'}=1$. 
+\end{ntn}
+\begin{thm}[Minkowski's Inequality]
+    If $1\le p<\infty$, $f,g\in L^{p}$, then 
+    $\norm{f+g}_{p}\le\norm{f}_{p}+\norm{g}_{p}$.
+\end{thm}
+\begin{proof}
+    If $p=1$, since $|f+g|\le|f|+|g|$, it shows that 
+    \begin{displaymath}
+        \int|f+g|\le\int|f|+\int|g|,
+    \end{displaymath}
+    so $\norm{f+g}_{1}\le\norm{f}_{1}+\norm{g}_{1}$.
+
+    If $f+g=0$ a.e., then LHS$=0$, RHS$\ge 0$, so the inequality 
+    holds. 
+
+    For other cases, $|f+g|^{p}\le(|f|+|g|)|f+g|^{p-1}$, then 
+    \begin{displaymath}
+        \begin{array}{rl}
+            \int|f+g|^{p}&\le \int|f||f+g|^{p-1}+|g||f+g|^{p-1}\\
+            &\le\norm{f}_{p}\norm{|f+g|^{p-1}}_{p'}
+            +\norm{g}_{p}\norm{|f+g|^{p-1}}_{p'}\\
+            &=(\norm{f}_{p}+\norm{g}_{p})
+            \left[\int|f+g|^{(p-1)\frac{p}{p-1}}\right]
+            ^{\frac{p-1}{p}}\\
+            &=(\norm{f}_{p}+\norm{g}_{p})
+            \left(\int|f+g|^{p}\right)^{1-\frac{1}{p}}.
+        \end{array}
+    \end{displaymath}
+    So $\norm{f+g}_{p}\le\norm{f}_{p}+\norm{g}_{p}$.
+\end{proof}
 \section{Basic Properties}
 \section{$L^{2}$ Space}
 \section{Some Useful Ineqalities}
-\section{(*)From $L^{p}$ To Sobolev Space}
+\section{(*)From $L^{p}$ to Sobolev Space}
