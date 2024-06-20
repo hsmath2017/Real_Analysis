@@ -27,7 +27,13 @@
         L^{p}(X,\M,\mu):=\{f:X\rightarrow\mathbb{C}
         \text{ measurable, }\norm{f}_{p}<\infty\}.
     \end{displaymath}
+    $f=g$ in $L^{p}(X,\M,\mu)$ iff 
+    $\norm{f-g}_{p}=0$.
 \end{defn}
+\begin{ntn}
+    If $(X,\mathcal{M},\mu)$ is understood, 
+    then $L^{p}(X,\mathcal{M},\mu)$ can be abbreviated as $L^{p}$. 
+\end{ntn}
 \begin{rem}
     It suffices to show that $\norm{\cdot}_{p}$ 
     is a norm.
@@ -123,7 +129,255 @@
     \end{displaymath}
     So $\norm{f+g}_{p}\le\norm{f}_{p}+\norm{g}_{p}$.
 \end{proof}
+\begin{defn}[Normed vector space]
+    \label{Defn:NVS}
+    \textit{Normed vector space} is a vector space 
+    over the real or complex numbers on which norm is defined.
+\end{defn}
+\begin{exc}
+    \label{Exc:LpisNVS}
+    Show that for $1\le p<\infty$, $L^{p}$ is a normed vector space, 
+    and $L^{p}$ is an inner space iff $p=2$.
+\end{exc}
+\begin{defn}
+    For $p=\infty$, define 
+    \begin{displaymath}
+        \norm{f}_{\infty}:=\inf\{a\ge 0:|f(x)|\le a\text{ a.e.}\},
+    \end{displaymath}
+    $\norm{f}_{\infty}$ is called the \textit{essential supremum} of 
+    $|f|$, marked as $\text{esssup}_{x\in X}|f(x)|$. 
+    the $L^{\infty}(X,\M,\mu)$ space is 
+    \begin{displaymath}
+        L^{\infty}(X,\M,\mu):=\{f:X\rightarrow\mathbb{C},
+        \text{ measurable, }\norm{f}_{\infty}<\infty\},    
+    \end{displaymath}
+    and we se $f=g$ in $L^{\infty}$ iff $f=g$ a.e..
+\end{defn}
+\begin{rem}
+    $(1,\infty)$ is a pair of conjugate exponents.
+\end{rem}
+\begin{exc}
+    Show that $\norm{\cdot}_{\infty}$ is a norm on $L^{\infty}$.
+\end{exc}
+\begin{exc}
+    If $f,g$ are measurable functions, then 
+    $\norm{fg}_{1}\le\norm{f}_{1}\norm{g}_{\infty}$. 
+    When will the ``$=$'' satisfies?
+\end{exc}
 \section{Basic Properties}
+\begin{lem}
+    \label{Lem:NVScomplete}
+    A normed vector space $V$ is complete iff every absolutely 
+    convergent series in $V$ converges. 
+\end{lem}
+\begin{exc}
+    Prove Lemma \ref{Lem:NVScomplete}.
+\end{exc}
+\begin{thm}
+    For $1\le p<\infty$, $L^{p}$ is a complete normed vector space, 
+    i.e., a Banach space.
+\end{thm}
+\begin{proof}
+    By Exercise \ref{Exc:LpisNVS} and 
+    Lemma \ref{Lem:NVScomplete}, it suffices to show 
+    every absolutely convergent series in $L^{p}$ 
+    is convergent in $L^{p}$. 
+
+    Suppose $\{f_{k}\}\subset L^{p}$ and 
+    $\sm{k}{\infty}\norm{f_{k}}_{p}=B<\infty$, let 
+    $G_{n}=\sm{k}{n}|f_{k}|$, $G=\sm{k}{\infty}|f_{k}|$, then 
+    by Minkowski's inequality, 
+    $\forall n\in\mathbb{N}$, 
+    $\norm{G_{n}}_{p}\le\sm{k}{n}\norm{f_{k}}_{p}<B$. 
+    Since $\{G_{n}\}$ is increasing, by MCT, 
+    \begin{displaymath}
+        \int G^{p}=\lim_{n\rightarrow\infty}\int G_{n}^{p}
+        \le B^{p}.
+    \end{displaymath}
+    So $G\in L^{p}$, which yields $G(x)<\infty$ a.e., and 
+    $\{f_{n}\}$ is absolutely convergent a.e.. 
+    It means $\sm{k}{\infty}f_{k}(x)$ converges a.e. to $F(x)$. 
+    Since $|F|\le G$ and $G\in L^{p}$, $F\in L^{p}$ as well. 
+
+    Now we should show that $\sm{k}{\infty}f_{k}$ 
+    converges to $F$ in $L^{p}$. 
+    By triangular inequality:
+    \begin{displaymath}
+        |F-\sm{k}{n}f_{k}|^{p}
+        \le(|F|+\sm{k}{\infty}|f_{k}|)^{p}
+        \le(2G)^{p}\in L^{1}.
+    \end{displaymath}
+    Then by DCT:
+    \begin{displaymath}
+        \lim_{n\rightarrow\infty}\norm{F-\sm{k}{n}f_{k}}_{p}^{p}
+        =\int\lim_{n\rightarrow\infty}|F-\sm{k}{n}f_{k}|^{p}
+        =0.
+    \end{displaymath}
+    So $\{f_{k}\}$ converges to $F$ in $L^{p}$.
+\end{proof}
+\begin{exc}
+    Show that $L^{\infty}$ is complete.
+\end{exc}
+\begin{defn}[Separable]
+    A topological space is called 
+    \textit{separable} if it contains a 
+    dense and countable subset.
+\end{defn}
+\begin{thm}
+    If $1\le p<\infty$, then $L^{p}$ is separable.
+\end{thm}
+\begin{exc}
+    Show that $L^{\infty}$ isn't separable.
+\end{exc}
+\begin{prop}
+    \label{Prop:InterpolationIneq1}
+    If $0<p<q<r\le\infty$, then $L^{q}\subset L^{p}+L^{r}$, i.e. 
+    $\forall f\in L^{q}$, $\exists g\in L^{p}$, $h\in L^{r}$ 
+    such that $f=g+h$.
+\end{prop}
+\begin{proof}
+    Take $E:=\{x:|f(x)|>1\}$, set $g=f\chi_{E}$, $h=f(1-\chi_{E})$. 
+    Since $p<q$, 
+    \begin{displaymath}
+        |g|^{p}=|f|^{p}\chi_{E}\le |f|^{q}\chi_{E}\in L^{1},
+    \end{displaymath}
+    so $g\in L^{p}$. 
+
+    If $r<\infty$, $|h|^r=|f|^{r}(1-\chi_{E})\le|f|^{q}(1-\chi_{E})
+    \in L^{1}$, so $h\in L^{r}$. 
+    If $r=\infty$, since $\text{supp}h\subset X\setminus E$, 
+    then $|h|\le 1$, i.e. $h\in L^{\infty}$.
+\end{proof}
+\begin{prop}
+    \label{Prop:InterpolationIneq2}
+    If $0<p<q<r\le\infty$, then $L^{p}\cap L^{r}\subset L^{q}$, 
+    and 
+    \begin{displaymath}
+        \norm{f}_{q}\le\norm{f}_{p}^{\lambda}\norm{f}_{r}^{1-\lambda},
+        \quad
+        \lambda=\frac{\frac{1}{q}-\frac{1}{r}}{\frac{1}{p}-\frac{1}{r}}.
+    \end{displaymath}
+\end{prop}
+\begin{proof}
+    Since 
+    \begin{displaymath}
+        \frac{1}{\frac{p}{\lambda q}}
+        +\frac{1}{\frac{r}{(1-\lambda)q}}=1,
+    \end{displaymath}
+    by Holder's inequality, 
+    \begin{displaymath}
+        \begin{array}{rl}
+            \int |f|^{q}&=\int|f|^{\lambda q}|f|^{(1-\lambda)q}\\
+            &\le\norm{|f|^{\lambda q}}_{\frac{p}{\lambda q}}
+            \norm{|f|^{(1-\lambda)q}}_{\frac{r}{(1-\lambda)q}}\\
+            &=\left(\int|f|^{p}\right)^{\frac{\lambda q}{p}}
+            \left(\int|f|^{r}\right)^{\frac{(1-\lambda)q}{r}}.
+        \end{array}
+    \end{displaymath}
+    So $\norm{f}_{q}\le\norm{f}_{p}^{\lambda}\norm{f}_{r}^{1-\lambda}$.
+\end{proof}
+\begin{prop}
+    \label{Prop:LpContainLq}
+    If $\mu(X)<\infty$, $0<p<q\le\infty$, then 
+    $L^{p}(\mu)\supset L^{q}(\mu)$ and 
+    $\norm{f}_{p}\le\norm{f}_{q}\mu(X)^{\frac{1}{p}-\frac{1}{q}}$.
+\end{prop}
+\begin{proof}
+    If $q=\infty$, then 
+    \begin{displaymath}
+        \norm{f}_{p}^{p}=\int|f|^{p}\le\norm{f}_{\infty}^{p}\int 1
+        =\norm{f}_{\infty}^{p}\mu(X).
+    \end{displaymath}
+    If $q<\infty$, the conjugate exponent of $\frac{q}{p}$ is 
+    $\left(\frac{q}{p}\right)'=\frac{q}{q-p}$, then by Holder's 
+    inequality, 
+    \begin{displaymath}
+        \begin{array}{rl}
+            norm{f}_{p}^{p}&=\int|f|^{p}\\
+            &\le\norm{|f|^{p}}_{\frac{q}{p}}\norm{1}_{\frac{q}{q-p}}\\
+            &=\left(\int|f|^{q}\right)^{\frac{p}{q}}
+            \left(\mu(X)\right)^{1-\frac{p}{q}}.\\
+        \end{array}
+    \end{displaymath}
+    So 
+    \begin{displaymath}
+        \norm{f}_{p}\le\norm{f}_{q}
+        \left(\mu(X)\right)^{\frac{1}{p}-\frac{1}{q}}.
+    \end{displaymath}
+\end{proof}
+\begin{exc}
+    Suppose $0<p_0<\infty$, find example of functions $f$ 
+    on $(0,\infty)$ with Lebesgue measure, such that $f\in L^{p}$ 
+    iff $p=p_{0}$.
+\end{exc}
 \section{$L^{2}$ Space}
-\section{Some Useful Ineqalities}
-\section{(*)From $L^{p}$ to Sobolev Space}
+\begin{defn}
+    \label{Defn:InnerProdOnL2}
+    If $f,g\in L^{2}$, then the \textit{inner product} of $f$ and $g$ 
+    is 
+    \begin{equation}
+        \label{Equ:InnerProdL2}
+        \left<f,g\right>:=\int_{X}f\bar{g}\dif\mu.
+    \end{equation}
+\end{defn}
+\begin{exc}
+    Show that \eqref{Equ:InnerProdL2} is an inner product.
+\end{exc}
+\begin{thm}
+    $L^{2}$ space equipped with inner product \eqref{Equ:InnerProdL2} 
+    is a Hilbert space. 
+\end{thm}
+\begin{defn}
+    \label{Defn:OrthonormalSet}
+    Given $\{e_{i}\}_{1}^{\infty}\subset L^{2}(X)$, if 
+    \begin{displaymath}
+        \innerProd{e_i,e_{j}}=\delta_{ij},
+    \end{displaymath}
+    then $\{e_{i}\}$ is called an \textit{orthonormal system}.
+\end{defn}
+\begin{exm}
+    The \textit{Legendre polynomials} form an orthonormal 
+    system of $L^{2}([-1,1])$.
+\end{exm}
+\begin{defn}[Fourier extension]
+    If $\{e_{i}\}_{1}^{\infty}$ is an orthonormal 
+    system of $L^{2}(X)$, then for $f\in L^{2}(X)$, the 
+    \textit{Fourier extension} of $f$ is 
+    \begin{displaymath}
+        f\sim\sm{i}{\infty}\innerProd{f,e_i}e_i
+    \end{displaymath}
+\end{defn}
+\begin{thm}[Bessel's Inequality]
+    Mark $a_{i}:=\innerProd{f,e_i}$, then 
+    \begin{displaymath}
+        \sm{i}{\infty}|a_{i}|^{2}\le\norm{f}_{2}^{2}.
+    \end{displaymath}
+\end{thm}
+\begin{proof}
+    \textit{please complete this proof.}
+\end{proof}
+\begin{rem}
+    So, the $L^{2}$ approximation of $f\in L^{2}(X)$ is 
+    \begin{displaymath}
+        f\sim\sm{i}{\infty}\innerProd{f,e_i}e_i.
+    \end{displaymath}
+\end{rem}
+\begin{defn}
+    If an orthonormal system $\{e_{i}\}$ satisfies 
+    $\forall f\in L^{2}(X)$, 
+    \begin{displaymath}
+        f=\sm{i}{\infty}\innerProd{f,e_i}e_{i},
+    \end{displaymath}    
+    then $\{e_{i}\}$ is a \textit{complete orthonormal system}.
+\end{defn}
+\begin{thm}[Parseval's Equality]
+    \label{Thm:Parseval}
+    If $\{e_{i}\}$ is a complete orthonormal system, 
+    then 
+    \begin{displaymath}
+        \norm{f}_{2}^{2}=\sm{i}{\infty}|\innerProd{f,e_{i}}|^{2}.
+    \end{displaymath}
+\end{thm}
+\begin{proof}
+    \textit{please complete this proof.}
+\end{proof}
