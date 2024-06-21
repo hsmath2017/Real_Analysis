@@ -882,7 +882,8 @@
     Conversely, if $f$ is continuous at $x$, 
     $\lim_{y\rightarrow x}f(y)$ exists, so $H(x)=h(x)=\lim_{y\rightarrow x}f(y)$.
     
-    Let $\{P_n\}$ be a sequence of partitions of $[a, b]$, $\forall x\in\mathbb{R}$,
+    Let $\{P_n\}$ be a sequence of partitions 
+    of $[a, b]$, $\forall x\in\mathbb{R}$,
     let $\delta>0$ 0 be arbitrary real number such that 
     $[x-\delta,x+\delta]\subset(t_{k-1},t_k]$, where $(t_{k-1},t_k]$
     is a partition of $P_n$. Then we can always choose a partition
@@ -944,7 +945,8 @@
     \leq\sum_{l=j}^{i-1}2^{-1}\leq2^{1-j}$. Thus $\{g_j\}$ is pointwise
     Cauchy on $F_k^c$. Let $F=\cap_{1}^{\infty}F_k=\lim\sup E_j$.
     Then $\mu(F)=0$, and if we set $f(x)=\lim g_j$ for $x\notin F$ 
-    and $f(x)=0$ for $x\in F$, then $f$ is measurable and $g_j\rightarrow f$.
+    and $f(x)=0$ for $x\in F$, 
+    then $f$ is measurable and $g_j\rightarrow f$.
     Then $f_n\rightarrow f$ in measure, because $\{x:|f-g|\geq\epsilon\}
     \subset\{x:|f-f_n|\geq\frac{1}{2}\epsilon\}\cup
     \{x:|f_n-g|\geq\frac{1}{2}\epsilon\}$.
@@ -1034,8 +1036,10 @@
     sequence does not converge almost everywhere on the interval $[0,1)$,
     as it does not converge at $x=1$.
 
-    Thus, this example illustrates that a function sequence can converge in the $L^1$ norm 
-    but not converge at certain points, and therefore, it is not almost everywhere convergent.
+    Thus, this example illustrates that a function sequence can converge 
+    in the $L^1$ norm 
+    but not converge at certain points, and therefore, 
+    it is not almost everywhere convergent.
     
     (4)A classic example is the sequence of functions given by
     $f_n(x) = \frac{1}{n} \cdot \sin\left(\frac{x}{n}\right)$.
@@ -1048,7 +1052,7 @@
     $$
     \begin{aligned}
     \|f_n\|_1 &= \int |n \cdot \sin\left(\frac{x}{n}\right)| \, dx \\
-    &= \int | \sin(u) | \, du \quad (\text{let} u = \frac{x}{n}) \\
+    &= \int | \sin(u) | \, du \quad (\text{let } u = \frac{x}{n}) \\
     &= 2,
     \end{aligned}
     $$

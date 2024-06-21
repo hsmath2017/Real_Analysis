@@ -295,18 +295,18 @@
     Let's prove each of these properties:
 
     1. Non-negativity: 
-    - $\|f\|_{\infty} = \inf\{M : |f(x)| \leq M 
+    $\|f\|_{\infty} = \inf\{M : |f(x)| \leq M 
     \text{ a.e.}\}$. It's clear that $\|f\|_{\infty} \geq 0$.
-    - If $\|f\|_{\infty} = 0$, then $|f(x)| \leq 0$ a.e., 
+    If $\|f\|_{\infty} = 0$, then $|f(x)| \leq 0$ a.e., 
     which implies $f(x) = 0$ a.e.
 
     2. Homogeneity: 
-    - $\|\alpha f\|_{\infty} = \inf\{M : |\alpha f(x)| 
+    $\|\alpha f\|_{\infty} = \inf\{M : |\alpha f(x)| 
     \leq M \text{ a.e.}\} = |\alpha|\inf\{M : |f(x)| 
     \leq M \text{ a.e.}\} = |\alpha|\|f\|_{\infty}$.
 
     3. Triangle inequality:
-    - $\|f+g\|_{\infty} = \inf\{M : |f(x) + g(x)| 
+    $\|f+g\|_{\infty} = \inf\{M : |f(x) + g(x)| 
     \leq M \text{ a.e.}\} \leq \inf\{M : |f(x)| + |g(x)| 
     \leq M \text{ a.e.}\} \leq \inf\{M_1, M_2 : |f(x)| 
     \leq M_1 \text{ a.e.}, |g(x)| \leq M_2 \text{ a.e.}\} = 
@@ -708,52 +708,31 @@ Let's verify each of these properties:
     \end{displaymath}
 \end{defn}
 \begin{thm}[Bessel's Inequality]
-    Mark $a_{i}:=\innerProd{f,e_i}$, then 
+    If $\{e_{i}\}$ is an orthonormal system, 
+    mark $a_{i}:=\innerProd{f,e_i}$, then 
     \begin{displaymath}
         \sm{i}{\infty}|a_{i}|^{2}\le\norm{f}_{2}^{2}.
     \end{displaymath}
 \end{thm}
 \begin{proof}
-    In the $L^2$ space, Bessel's inequality states: for any 
-    complete orthonormal system $\{e_i\}$ in a Hilbert space, 
-    and for any $f$ in that Hilbert space:
-
-$$
-\sum_{i=1}^{\infty} |a_{i}|^{2} \leq \|f\|_{2}^{2}
-$$
-
-where $a_{i}:=\left<f,e_i\right>$ represents the inner 
-product of $f$ with $e_i$.
-
-We will use the completeness of the orthonormal system to 
-prove this inequality. By completeness, any $f$ can be 
-expressed as:
-
-$$
-f = \sum_{i=1}^{\infty} \left<f,e_i\right>e_i
-$$
-
-Now consider the $L^2$ norm of $f$:
-
-$$
-\|f\|_{2}^{2} = \left<f, f\right> = \left<\sum_{i=1}^{\infty} 
-\left<f,e_i\right>e_i, \sum_{j=1}^{\infty} \left<f,e_j\right>e_j\right>
-$$
-
-Expanding this using linearity and properties of inner products, we get:
-
-$$
-\|f\|_{2}^{2} = \sum_{i=1}^{\infty} \sum_{j=1}^{\infty} 
-\left<f,e_i\right>\overline{\left<f,e_j\right>}\left<e_i,e_j\right>
-$$
-
-Since $\{e_i\}$ is orthonormal, when $i\neq j$, 
-$\left<e_i,e_j\right>=0$. Therefore, the above expression 
-simplifies to:
-
-$$
-\|f\|_{2}^{2} = \sum_{i=1}^{\infty} |\left<f,e_i\right>|^2
-$$
+Set $g:=f-\sm{i}{\infty}a_{i}e_{i}$, 
+then 
+\begin{displaymath}
+    \begin{array}{rl}
+        &\norm{g}_{2}^{2}=\innerProd{g,g}\\
+        =&\innerProd{f-\sm{i}{\infty}a_{i}e_{i},f-\sm{i}{\infty}
+        a_{i}e_{i}}\\
+        =&\norm{f}_{2}^{2}-\sm{i}{\infty}a_{i}\innerProd{e_{i},f}
+        -\sm{i}{\infty}\bar{a_i}\innerProd{f,e_{i}}
+        +\sm{i}{\infty}|a_{i}|^{2}\\
+        =&\norm{f}_{2}^{2}-\sm{i}{\infty}|a_i|^{2}\ge0.
+    \end{array}    
+\end{displaymath}
+It means 
+\begin{displaymath}
+    \sm{i}{\infty}|a_i|^{2}\le\norm{f}_{2}^{2},
+\end{displaymath}
+which completes the proof.
 \end{proof}
 \begin{rem}
     So, the $L^{2}$ approximation of $f\in L^{2}(X)$ is 
