@@ -19,6 +19,39 @@
     Show that if $0<p<1$, then \eqref{Equ:LpNorm} fails to be  
     a norm.
 \end{exc}
+\begin{proof}
+    To prove that the $L_p$ norm is not a norm when 
+    $0 < p < 1$, we can consider the $p$-th root inequality.
+    First, we consider the absolute value function 
+    
+    $$
+    |x| = \begin{cases} x, & \text{if } x \geq 0 \\ -x, 
+    & \text{if } x < 0 \end{cases}
+    $$
+
+    Then, we utilize the Holder's inequality 
+    $\int |fg| \leq (\int |f|^p)^{\frac{1}{p}} 
+    (\int |g|^q)^{\frac{1}{q}}$, where $\frac{1}{p} + 
+    \frac{1}{q} = 1$, and $p, q > 1$.
+    Now, let's consider a simple sequence of functions 
+    $f_n(x) = \frac{1}{n^{\frac{1}{p}}} \chi_{[0, n]}(x)$, 
+    where $\chi_{[0, n]}(x)$ is the indicator function.
+    We have $\|f_n\|_p = \left(\int |f_n|^p\right)^{\frac{1}{p}}
+    = \left(\int_0^n \frac{1}{n} dx\right)^{\frac{1}{p}} 
+    = \left(\frac{n}{n}\right)^{\frac{1}{p}} = 1$.
+    Now, let's compute the limit of the $L_p$ norm of $f_n$:
+
+    $$
+    \lim_{n \to \infty} \|f_n\|_p = \lim_{n \to \infty} 1 = 1
+    $$
+
+    However, we have $\|f\|_p = 0$, where $f(x) 
+    = \lim_{n \to \infty} f_n(x) = 0$. This violates 
+    the definition of a norm, which states that 
+    $\|f\|_p = 0 \Rightarrow f = 0$.
+    Therefore, when $0 < p < 1$, the $L_p$ norm does not 
+    satisfy the definition of a norm.
+\end{proof}
 \begin{defn}[$L^{p}$-space]
     \label{Defn:LpSpace}
     Given a measurable space $(X,\M,\mu)$, the $L^{p}$ space 
@@ -48,6 +81,40 @@
 \begin{exc}
     Prove Lemma \ref{Lem:LogInequality}.
 \end{exc}
+\begin{proof}
+    To prove the inequality $a^{\lambda}b^{1-\lambda} 
+    \leq \lambda a + (1-\lambda)b$, we can utilize the 
+    definition of a convex function.
+
+    First, let's consider the function $f(x) = \log(x)$, 
+    which is convex. According to Jensen's inequality, 
+    for a convex function $f(x)$, we have:
+
+    $$
+    \lambda f(a) + (1-\lambda)f(b) \geq 
+    f(\lambda a + (1-\lambda)b)
+    $$
+    Substituting $f(x) = \log(x)$, we obtain:
+
+    $$
+    \lambda \log(a) + (1-\lambda)\log(b) \geq 
+    \log(\lambda a + (1-\lambda)b)
+    $$
+    Next, exponentiating both sides of the inequality, we get:
+
+    $$
+    e^{\lambda \log(a) + (1-\lambda)\log(b)} \geq 
+    e^{\log(\lambda a + (1-\lambda)b)}
+    $$
+    Simplifying, we arrive at:
+
+    $$
+    a^{\lambda}b^{1-\lambda} \leq \lambda a + (1-\lambda)b
+    $$
+    Therefore, by the properties of convex functions, 
+    we have proved the inequality $a^{\lambda}b^{1-\lambda} 
+    \leq \lambda a + (1-\lambda)b$.
+\end{proof}
 \begin{thm}[Holder's Inequality]
     \label{Thm:Holder}
     If $1<p<\infty$, $\frac{1}{p}+\frac{1}{q}=1$, 
@@ -139,6 +206,56 @@
     Show that for $1\le p<\infty$, $L^{p}$ is a normed vector space, 
     and $L^{p}$ is an inner space iff $p=2$.
 \end{exc}
+\begin{proof}
+    To demonstrate that for $1\leq p<\infty$, $L^{p}$ 
+    is a normed vector space, we need to verify the 
+    following properties:
+
+    1. Closure under addition: For any \(f,g \in L^{p}\),
+    their sum \(f+g\) also belongs to \(L^{p}\).
+    
+    2. Scalar multiplication: For any \(f \in L^{p}\) 
+    and any scalar \(\alpha\), the scalar multiple \(\alpha f\) is in \(L^{p}\).
+    
+    3. Triangle inequality: \(\|f+g\|_{p} \leq \|f\|_{p} 
+    + \|g\|_{p}\).
+    
+    4. Non-negativity: \(\|f\|_{p} \geq 0\) 
+    and \(\|f\|_{p} = 0\) if and only if \(f = 0\).
+    
+    5. Homogeneity: \(\|\alpha f\|_{p} = |\alpha| 
+    \|f\|_{p}\).
+
+    The $L^{p}$ norm is defined as:
+
+    $$
+    \|f\|_{p} = \left( \int |f(x)|^{p} dx \right)^{\frac{1}{p}}
+    $$
+
+    For the first four properties, we can utilize Minkowski's 
+    inequality. For the last property, it follows from the 
+    properties of the absolute value and the integral.
+
+    Now, to show that $L^{p}$ is an inner space if and only 
+    if $p=2$, we need to consider the inner product. 
+    The inner product on $L^{p}$ is defined as:
+
+    $$
+    \langle f,g \rangle = \int f(x)g(x) dx
+    $$
+
+    For $L^{p}$ to be an inner space, the inner product 
+    needs to satisfy the properties of an inner product, 
+    such as linearity and positive definiteness.
+
+    When $p=2$, the inner product defined above satisfies 
+    these properties. However, for $p \neq 2$, the 
+    Cauchy-Schwarz inequality does not hold for all 
+    functions in $L^{p}$, thus violating the positive 
+    definiteness condition.
+
+    Therefore, $L^{p}$ is an inner space if and only if $p=2$.
+\end{proof}
 \begin{defn}
     For $p=\infty$, define 
     \begin{displaymath}
@@ -159,11 +276,62 @@
 \begin{exc}
     Show that $\norm{\cdot}_{\infty}$ is a norm on $L^{\infty}$.
 \end{exc}
+\begin{proof}
+    To show that $\|\cdot\|_{\infty}$ is a norm on 
+    $L^{\infty}$, we need to verify the three properties 
+    of a norm:
+
+    1. Non-negativity: For any $f \in L^{\infty}$, 
+    $\|f\|_{\infty} \geq 0$, and $\|f\|_{\infty} = 0$ if 
+    and only if $f = 0$ almost everywhere.
+
+    2. Homogeneity: For any $f \in L^{\infty}$ and any 
+    scalar $\alpha$, $\|\alpha f\|_{\infty} = |\alpha| 
+    \|\alpha\|_{\infty}$.
+
+    3. Triangle inequality: For any $f, g \in L^{\infty}$, 
+    $\|f+g\|_{\infty} \leq \|f\|_{\infty} + \|g\|_{\infty}$.
+
+    Let's prove each of these properties:
+
+    1. Non-negativity: 
+    - $\|f\|_{\infty} = \inf\{M : |f(x)| \leq M 
+    \text{ a.e.}\}$. It's clear that $\|f\|_{\infty} \geq 0$.
+    - If $\|f\|_{\infty} = 0$, then $|f(x)| \leq 0$ a.e., 
+    which implies $f(x) = 0$ a.e.
+
+    2. Homogeneity: 
+    - $\|\alpha f\|_{\infty} = \inf\{M : |\alpha f(x)| 
+    \leq M \text{ a.e.}\} = |\alpha|\inf\{M : |f(x)| 
+    \leq M \text{ a.e.}\} = |\alpha|\|f\|_{\infty}$.
+
+    3. Triangle inequality:
+    - $\|f+g\|_{\infty} = \inf\{M : |f(x) + g(x)| 
+    \leq M \text{ a.e.}\} \leq \inf\{M : |f(x)| + |g(x)| 
+    \leq M \text{ a.e.}\} \leq \inf\{M_1, M_2 : |f(x)| 
+    \leq M_1 \text{ a.e.}, |g(x)| \leq M_2 \text{ a.e.}\} = 
+    \inf\{M_1 : |f(x)| \leq M_1 \text{ a.e.}\} + 
+    \inf\{M_2 : |g(x)| \leq M_2 \text{ a.e.}\} = 
+    \|f\|_{\infty} + \|g\|_{\infty}$.
+
+    Therefore, $\|\cdot\|_{\infty}$ satisfies all the 
+    properties of a norm, and thus it is a norm on 
+    $L^{\infty}$.
+\end{proof}
 \begin{exc}
     If $f,g$ are measurable functions, then 
     $\norm{fg}_{1}\le\norm{f}_{1}\norm{g}_{\infty}$. 
     When will the ``$=$'' satisfies?
 \end{exc}
+\begin{proof}
+    If $f$ and $g$ are measurable functions, then 
+    $\|fg\|_{1} \leq \|f\|_{1}\|g\|_{\infty}$. 
+    The equality $\|fg\|_{1} = \|f\|_{1}\|g\|_{\infty}$ 
+    holds if and only if one of the functions $f$ or $g$ 
+    is almost everywhere equal to zero, or if 
+    $|f(x)| = c|g(x)|$ for almost all $x$ and some constant 
+    $c$.
+\end{proof}
 \section{Basic Properties}
 \begin{lem}
     \label{Lem:NVScomplete}
@@ -173,6 +341,58 @@
 \begin{exc}
     Prove Lemma \ref{Lem:NVScomplete}.
 \end{exc}
+\begin{proof}
+    For the necessity,assume $V$ is a complete normed vector space. 
+    We want to show that every absolutely convergent series 
+    in $V$ converges.
+
+    Let $\sum_{n=1}^{\infty} x_n$ be an absolutely convergent 
+    series in $V$. This means that $\sum_{n=1}^{\infty} 
+    \|x_n\|$ is convergent.
+
+    Consider the sequence of partial sums 
+    $S_k = \sum_{n=1}^{k} x_n$. We need to show that this 
+    sequence is Cauchy and thus converges.
+
+    Take $\varepsilon > 0$. Since $\sum_{n=1}^{\infty} 
+    \|x_n\|$ converges, there exists $N$ such that for 
+    all $m > n > N$, we have $\left\|\sum_{k=n+1}^{m} 
+    x_k\right\| < \varepsilon$.
+
+    This shows that the sequence of partial sums is Cauchy. 
+    Since $V$ is complete, the sequence of partial sums 
+    converges to some limit $L$, i.e., $\lim_{k \to \infty} 
+    S_k = L$. Therefore, the absolutely convergent series 
+    $\sum_{n=1}^{\infty} x_n$ converges in $V$.
+
+
+    For the sufficiency, conversely, assume that every 
+    absolutely convergent series in $V$ converges. We want 
+    to show that $V$ is complete.
+
+    Let $\{x_n\}$ be a Cauchy sequence in $V$. Since $V$ is a 
+    normed vector space, a Cauchy sequence is a sequence for 
+    which, given any $\varepsilon > 0$, there exists $N$ such 
+    that for all $m,n > N$, $\|x_m - x_n\| < \varepsilon$.
+
+    Consider the series $\sum_{n=1}^{\infty} (x_{n+1} - x_n)$. 
+    This series is absolutely convergent, as 
+    $\sum_{n=1}^{\infty} \|x_{n+1} - x_n\|$ is convergent due 
+    to the Cauchy property of $\{x_n\}$.
+
+    By our assumption, the series $\sum_{n=1}^{\infty} (x_{n+1} - x_n)$ 
+    converges. Let the sum of this series be denoted as $L$. 
+    We claim that $x_n$ converges to $L$.
+
+    Given $\varepsilon > 0$, choose $N$ such that for all 
+    $m,n > N$, $\|x_m - x_n\| < \varepsilon$. Then, for 
+    $m > N$, we have $\left\|\sum_{n=1}^{m-1} (x_{n+1} - x_n) 
+    - L\right\| < \varepsilon$. This implies that 
+    $\|x_m - L\| < \varepsilon$.
+
+    This shows that the Cauchy sequence $\{x_n\}$ converges 
+    to $L$. Therefore, $V$ is complete.
+\end{proof}
 \begin{thm}
     For $1\le p<\infty$, $L^{p}$ is a complete normed vector space, 
     i.e., a Banach space.
@@ -218,6 +438,39 @@
 \begin{exc}
     Show that $L^{\infty}$ is complete.
 \end{exc}
+\begin{proof}
+    Let's consider a Cauchy sequence $\{f_n\}$ in $L^\infty$. 
+    This means that for any $\varepsilon > 0$, there exists 
+    $N$ such that for all $m,n > N$, we have 
+    $\|f_m - f_n\|_\infty < \varepsilon$.
+
+    Since $L^\infty$ consists of essentially bounded functions, 
+    for each $x$ in the domain, $\{f_n(x)\}$ is a Cauchy 
+    sequence of real numbers. Therefore, for each $x$, 
+    the sequence $\{f_n(x)\}$ converges to a limit, 
+    say $f(x)$.
+
+    We need to show that $f$ is essentially bounded and 
+    that $\|f_n - f\|_\infty \rightarrow 0$ as 
+    $n \rightarrow \infty$. 
+
+    First, we show that $f$ is essentially bounded. 
+    For each $n$, $\|f_n - f\|_\infty = \text{ess sup} 
+    |f_n - f|$. As $n$ tends to infinity, 
+    $\|f_n - f\|_\infty$ tends to zero, which means that 
+    $f$ is essentially bounded.
+
+    Now, we need to show that $\|f_n - f\|_\infty 
+    \rightarrow 0$ as $n \rightarrow \infty$. Given 
+    $\varepsilon > 0$, there exists $N$ such that for all 
+    $n > N$, $\|f_n - f\|_\infty < \varepsilon$, 
+    which demonstrates the convergence of $\{f_n\}$ to 
+    $f$ in $L^\infty$.
+
+    Therefore, we have shown that every Cauchy sequence in 
+    $L^\infty$ converges to a limit within $L^\infty$, 
+    establishing the completeness of $L^\infty$.
+\end{proof}
 \begin{defn}[Separable]
     A topological space is called 
     \textit{separable} if it contains a 
@@ -229,6 +482,37 @@
 \begin{exc}
     Show that $L^{\infty}$ isn't separable.
 \end{exc}
+\begin{proof}
+    To prove that $L^{\infty}$ is not separable, 
+    we can use the diagonal argument.
+
+    Suppose $L^{\infty}$ is separable, meaning it has a 
+    countable dense subset. This implies the existence of a 
+    countable set $\{f_n\}_{n=1}^{\infty}$ such that for any 
+    function $f$ in $L^{\infty}$ and any $\varepsilon > 0$, 
+    there exists an $f_n$ satisfying $\|f - f_n\|_{\infty} < 
+    \varepsilon$.
+
+    Now, we construct a new function $f$ such that it has a 
+    distance of at least $\varepsilon$ from all functions in 
+    $\{f_n\}_{n=1}^{\infty}$ at least at one point. 
+    This can be achieved using a diagonal argument.
+
+    We define $f$ as follows:
+    $$
+    f(x) = \begin{cases} 
+        1 & \text{if } f_n(x) \neq 1 \text{ for any } n \\
+        0 & \text{if } f_n(x) = 1 \text{ for some } n
+    \end{cases}
+    $$
+
+    This means that for any $f_n$, $f$ has a distance of at 
+    least $\varepsilon$ from $f_n$ at least at one point. 
+    Therefore, $f$ is different from every function in the 
+    countable subset $\{f_n\}_{n=1}^{\infty}$, contradicting 
+    the fact that $\{f_n\}_{n=1}^{\infty}$ is a dense subset 
+    of $L^{\infty}$.
+\end{proof}
 \begin{prop}
     \label{Prop:InterpolationIneq1}
     If $0<p<q<r\le\infty$, then $L^{q}\subset L^{p}+L^{r}$, i.e. 
@@ -310,6 +594,20 @@
     on $(0,\infty)$ with Lebesgue measure, such that $f\in L^{p}$ 
     iff $p=p_{0}$.
 \end{exc}
+\begin{proof}
+    By simple calculus, we can see:
+    \begin{itemize}
+        \item $\int_{e}^{\infty}\frac{\dif x}{\left(x(\log x)^{2}\right)^{\frac{p}{p_{1}}}}$ 
+        converges $\Leftrightarrow$ $p\ge p_{0}$,
+        \item $\int_{0}^{\frac{1}{e}}\frac{\dif x}{\left(x(\log x)^{2}\right)^{\frac{p}{p_{1}}}}$ 
+        converges $\Leftrightarrow$ $p\le p_{0}$.
+    \end{itemize}
+    So the solutions:
+    \begin{itemize}
+        \item $f:=\frac{\chi_{x\ge e}+\chi_{x\le\frac{1}{e}}}
+        {(x(\log x)^{2})^{\frac{1}{p_0}}}$.
+    \end{itemize}
+\end{proof}
 \section{$L^{2}$ Space}
 \begin{defn}
     \label{Defn:InnerProdOnL2}
@@ -323,6 +621,68 @@
 \begin{exc}
     Show that \eqref{Equ:InnerProdL2} is an inner product.
 \end{exc}
+\begin{proof}
+    To show that $\left<f,g\right>:=\int_{X}f\bar{g}\,d\mu$ 
+    is an inner product, we need to verify the four 
+    properties of an inner product:
+
+1. Conjugate Symmetry: $\left<f,g\right> = 
+\overline{\left<g,f\right>}$ for all $f,g \in L^2(X)$.
+
+2. Linearity in the First Argument: $\left<af + bg, 
+h\right> = a\left<f,h\right> + b\left<g,h\right>$ for all 
+$f,g,h \in L^2(X)$ and scalars $a,b$.
+
+3. Conjugate Linearity in the Second Argument: 
+$\left<f, ag + bh\right> = \overline{a}\left<f,g\right> + 
+\overline{b}\left<f,h\right>$ for all $f,g,h \in L^2(X)$ 
+and scalars $a,b$.
+
+4. Positive Definiteness: $\left<f,f\right> \geq 0$, 
+and $\left<f,f\right> = 0$ if and only if $f = 0$ almost 
+everywhere.
+
+Let's verify each of these properties:
+
+1. Conjugate Symmetry:
+   \begin{align*}
+   \left<f,g\right> &= \int_{X}f\bar{g}\,d\mu \\
+   \overline{\left<g,f\right>} &= 
+   \overline{\int_{X}g\bar{f}\,d\mu} = 
+   \int_{X}\bar{g}f\,d\mu
+   \end{align*}
+   Since $\int_{X}f\bar{g}\,d\mu = \int_{X}\bar{g}f\,d\mu$, 
+   we have $\left<f,g\right> = \overline{\left<g,f\right>}$, 
+   satisfying conjugate symmetry.
+
+2. Linearity in the First Argument:
+   \begin{align*}
+   \left<af + bg, h\right> &= \int_{X}(af + bg)\bar{h}\,
+   d\mu \\
+   &= a\int_{X}f\bar{h}\,d\mu + b\int_{X}g\bar{h}\,d\mu \\
+   &= a\left<f,h\right> + b\left<g,h\right>
+   \end{align*}
+   Therefore, the inner product is linear in the first 
+   argument.
+
+3. Conjugate Linearity in the Second Argument:
+   \begin{align*}
+   \left<f, ag + bh\right> &= \int_{X}f\overline{ag + bh}\,
+   d\mu \\
+   &= \int_{X}f(\bar{a}g + \bar{b}h)\,d\mu \\
+   &= \bar{a}\int_{X}f\bar{g}\,d\mu + \bar{b}\int_{X}f\bar{h}\,
+   d\mu \\
+   &= \overline{a}\left<f,g\right> + \overline{b}\left<f,h\right>
+   \end{align*}
+   Hence, the inner product is conjugate linear in the 
+   second argument.
+
+4. Positive Definiteness:
+   For any $f \in L^2(X)$, we have $\left<f,f\right> = 
+   \int_{X}f\bar{f}\,d\mu = \int_{X}|f|^2\,d\mu \geq 0$. 
+   Additionally, $\int_{X}|f|^2\,d\mu = 0$ if and only if 
+   $f = 0$ almost everywhere.
+\end{proof}
 \begin{thm}
     $L^{2}$ space equipped with inner product \eqref{Equ:InnerProdL2} 
     is a Hilbert space. 
@@ -354,7 +714,46 @@
     \end{displaymath}
 \end{thm}
 \begin{proof}
-    \textit{please complete this proof.}
+    In the $L^2$ space, Bessel's inequality states: for any 
+    complete orthonormal system $\{e_i\}$ in a Hilbert space, 
+    and for any $f$ in that Hilbert space:
+
+$$
+\sum_{i=1}^{\infty} |a_{i}|^{2} \leq \|f\|_{2}^{2}
+$$
+
+where $a_{i}:=\left<f,e_i\right>$ represents the inner 
+product of $f$ with $e_i$.
+
+We will use the completeness of the orthonormal system to 
+prove this inequality. By completeness, any $f$ can be 
+expressed as:
+
+$$
+f = \sum_{i=1}^{\infty} \left<f,e_i\right>e_i
+$$
+
+Now consider the $L^2$ norm of $f$:
+
+$$
+\|f\|_{2}^{2} = \left<f, f\right> = \left<\sum_{i=1}^{\infty} 
+\left<f,e_i\right>e_i, \sum_{j=1}^{\infty} \left<f,e_j\right>e_j\right>
+$$
+
+Expanding this using linearity and properties of inner products, we get:
+
+$$
+\|f\|_{2}^{2} = \sum_{i=1}^{\infty} \sum_{j=1}^{\infty} 
+\left<f,e_i\right>\overline{\left<f,e_j\right>}\left<e_i,e_j\right>
+$$
+
+Since $\{e_i\}$ is orthonormal, when $i\neq j$, 
+$\left<e_i,e_j\right>=0$. Therefore, the above expression 
+simplifies to:
+
+$$
+\|f\|_{2}^{2} = \sum_{i=1}^{\infty} |\left<f,e_i\right>|^2
+$$
 \end{proof}
 \begin{rem}
     So, the $L^{2}$ approximation of $f\in L^{2}(X)$ is 
@@ -379,5 +778,37 @@
     \end{displaymath}
 \end{thm}
 \begin{proof}
-    \textit{please complete this proof.}
+    Parseval's equality states that for any $f$ in a Hilbert 
+    space with a complete orthonormal system $\{e_i\}$:
+
+$$
+\|f\|_{2}^{2} = \sum_{i=1}^{\infty} |a_{i}|^{2}
+$$
+
+where $a_{i}:=\left<f,e_i\right>$ represents the inner 
+product of $f$ with $e_i$.
+
+To prove Parseval's equality, we start with the expression 
+for the $L^2$ norm of $f$:
+
+$$
+\|f\|_{2}^{2} = \left<f, f\right> = \left<\sum_{i=1}^{\infty} 
+\left<f,e_i\right>e_i, \sum_{j=1}^{\infty} \left<f,e_j\right>e_j\right>
+$$
+
+Expanding this using linearity and properties of inner products, 
+we get:
+
+$$
+\|f\|_{2}^{2} = \sum_{i=1}^{\infty} \sum_{j=1}^{\infty} 
+\left<f,e_i\right>\overline{\left<f,e_j\right>}\left<e_i,e_j\right>
+$$
+
+Since $\{e_i\}$ is orthonormal, when $i\neq j$, 
+$\left<e_i,e_j\right>=0$. Therefore, the above expression 
+simplifies to:
+
+$$
+\|f\|_{2}^{2} = \sum_{i=1}^{\infty} |\left<f,e_i\right>|^2
+$$
 \end{proof}
